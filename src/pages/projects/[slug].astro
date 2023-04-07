@@ -1,0 +1,25 @@
+---
+import InfoProject from '../../components/InfoProject.astro'
+import { PROJECTS } from '../../consts'
+import Layout from '../../layouts/Layout.astro'
+
+export function getStaticPaths() {
+  return PROJECTS.filter((p) => !p.hidden).map((p) => ({
+    params: { slug: p.slug }
+  }))
+}
+
+const { slug } = Astro.params
+const idx = PROJECTS.findIndex((p) => p.slug === slug)
+const info = PROJECTS[idx]
+const number = String(idx + 1).padStart(2, '0')
+/** @type {{ base: string }} */
+---
+
+<Layout title={`Demo ${number}: ${info.title}`}>
+  <div class="h-screen w-full">
+    <iframe src={`/demo/${slug}/index.html`} class="h-full w-full"></iframe>
+  </div>
+
+  <InfoProject info={{ ...info, number }} />
+</Layout>

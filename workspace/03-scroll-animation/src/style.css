@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Urbanist:wght@400;600&display=swap');
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Urbanist', sans-serif;
+  background: black;
+  color: white;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.bg--scroller {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.bg--scroller img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-content {
+  position: relative;
+  z-index: 10;
+}
+
+.section {
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.section--hero {
+  background: transparent;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 4rem;
+  color: #00f0ff;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  margin: 0 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background-color: #00f0ff;
+  color: black;
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: #00f0ff;
+  border: 1px solid #00f0ff;
+}
+
+.section--featured h2,
+.section--services h2,
+.section--testimonials h2,
+.section--cta h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  width: 280px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.card img,
+.service img,
+.testimonial img,
+.cta-banner {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.card h4 {
+  margin: 1rem 0 0.25rem;
+}
+
+.card p {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  margin-bottom: 1rem;
+}
+
+.services-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.service {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 260px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.testimonial {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 12px;
+  backdrop-filter: blur(3px);
+}
+
+.testimonial img {
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1rem;
+}
+
+.testimonial blockquote {
+  font-style: italic;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.testimonial cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.section--cta {
+  background: #111;
+}
+
+.cta-banner {
+  max-width: 640px;
+  margin: 2rem auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+}
+
+.btn--pulse {
+  animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+.section--footer {
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  background: #000;
+  opacity: 0.7;
+}
+
+.section--footer nav a {
+  margin: 0 0.5rem;
+  color: #00f0ff;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+/* DREAM PARALLAX VISUAL */
+/* DREAM PARALLAX VISUAL */
+.section--dream {
+  background: linear-gradient(to bottom, #0d0d0d, #1f1f1f);
+  position: relative;
+  overflow: hidden;
+  min-height: 70dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 4rem 2rem;
+  gap: 3rem;
+}
+
+.dream-section__text {
+  max-width: 500px;
+  text-align: left;
+  flex: 1 1 400px;
+}
+
+.dream-section__text h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.dream-section__text p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.dream-section__benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dream-section__benefit {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dream-section__benefit-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.dream-section__benefit-content strong {
+  display: block;
+  font-weight: 600;
+}
+
+.dream-section__benefit-content p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.dream-section__visual {
+  flex: 1 1 400px;
+  max-width: 500px;
+  will-change: transform;
+}
+
+.dream-section__visual img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+/* REFACTORED CAR PRODUCT CARD */
+.card--product {
+  background: white;
+  color: #111;
+  border-radius: 16px;
+  width: 220px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  font-family: 'Urbanist', sans-serif;
+  transition: transform 0.3s ease;
+}
+
+.card--product:hover {
+  transform: translateY(-5px);
+}
+
+.card--product .image-wrapper {
+  position: relative;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+}
+
+.card--product .image-wrapper img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.card--product .icon-circle {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: white;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card--product .icon-circle img {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  object-fit: contain;
+  aspect-ratio: 1/1;
+}
+
+.card--product .info {
+  padding: 1rem;
+}
+
+.card--product .model {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.card--product .price {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}

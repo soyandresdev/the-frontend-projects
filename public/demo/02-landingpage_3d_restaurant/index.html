@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <base href="/demo/02-landingpage_3d_restaurant/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberNoodles</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body class="m-0 overflow-hidden bg-white text-white">
+    <!-- CANVAS -->
+    <div id="three-canvas" class="absolute top-0 left-0 z-0 h-full w-full"></div>
+    <!-- NAVBAR -->
+    <nav
+      class="fixed top-0 z-50 flex h-24 w-full items-center justify-between bg-black/80 px-6 shadow-md backdrop-blur-sm"
+    >
+      <div class="animate-pulseSlow relative z-10">
+        <div class="flex items-center justify-center">
+          <figure>
+            <img
+              src="./assets/logo.png"
+              alt="CyberNoodles Logo"
+              class="h-auto w-[280px] md:h-auto md:w-3xs"
+            />
+            <figcaption class="sr-only">CyberNoodles</figcaption>
+          </figure>
+        </div>
+      </div>
+      <ul class="hidden gap-8 text-lg font-medium md:flex">
+        <li><a href="#" class="menu-link">Inicio</a></li>
+        <li><a href="#" class="menu-link">Menú</a></li>
+        <li><a href="#" class="menu-link">Reservar</a></li>
+        <li><a href="#" class="menu-link">Contacto</a></li>
+      </ul>
+      <button id="menu-btn" class="flex items-center focus:outline-none md:hidden">
+        <svg
+          class="h-8 w-8 text-white"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="fixed top-16 left-0 z-40 flex hidden w-full flex-col items-center gap-6 bg-black/90 py-6 text-lg font-medium text-white shadow-lg transition-all duration-300 md:hidden"
+    >
+      <a href="#" class="hover:text-cyan-400">Inicio</a>
+      <a href="#" class="hover:text-cyan-400">Menú</a>
+      <a href="#" class="hover:text-cyan-400">Reservar</a>
+      <a href="#" class="hover:text-cyan-400">Contacto</a>
+    </div>
+
+    <!-- Three.js + módulos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- Código principal -->
+    <script src="./main.js"></script>
+  </body>
+</html>

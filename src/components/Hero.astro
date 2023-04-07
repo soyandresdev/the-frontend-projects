@@ -1,0 +1,101 @@
+---
+/*
+  Header.astro
+  ============
+  • Mantiene tu hero original.
+  • Añade un número gigante (total de proyectos visibles) flotando a la derecha.
+*/
+
+import { PROJECTS } from '../consts'
+
+/** total de proyectos que NO están marcados como hidden */
+const total = PROJECTS.filter((p) => !p.hidden).length
+const big = String(total).padStart(2, '0') //  2 → 02, 9 → 09, 14 → 14
+---
+
+<!-- HERO / HEADER --------------------------------------------------------->
+<header class="relative mx-auto flex max-w-4xl flex-col items-center gap-10 pt-20 text-center">
+  <!-- intro block -->
+  <article class="flex w-full flex-col items-center justify-center gap-10 md:flex-row">
+    <!-- text -->
+
+    <div class="order-2 flex max-w-lg flex-col gap-3 md:order-1">
+      <h2 class="text-2xl">
+        <span
+          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
+          >¡Ey!, Soy Andres Hernandez Lozano</span
+        ><span> 👋</span>
+      </h2>
+      <p class="leading-relaxed text-slate-200/90 [&>strong]:px-2 [&>strong]:py-0.5">
+        Apasionado por el desarrollo <strong class="bg-yellow-100 text-yellow-800">frontend</strong
+        >, creo interfaces limpias y accesibles. Compartiendo proyectos y tutoriales prácticos de
+        <strong class="bg-[rgb(243,115,33)] text-slate-800">HTML</strong>,
+        <strong class="bg-[rgb(22,118,188)] text-white">CSS</strong> y
+        <strong class="bg-[rgb(247,223,30)] text-slate-800">JavaScript</strong> para que aprendas de
+        forma rápida y divertida.
+      </p>
+      <div class="flex items-center justify-center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+          ><path
+            d="M12 12.75C13.6569 12.75 15 11.4069 15 9.75C15 8.09315 13.6569 6.75 12 6.75C10.3431 6.75 9 8.09315 9 9.75C9 11.4069 10.3431 12.75 12 12.75Z"
+            stroke="url(#paint0_linear_66_2414)"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path><path
+            d="M19.5 9.75C19.5 16.5 12 21.75 12 21.75C12 21.75 4.5 16.5 4.5 9.75C4.5 7.76088 5.29018 5.85322 6.6967 4.4467C8.10322 3.04018 10.0109 2.25 12 2.25C13.9891 2.25 15.8968 3.04018 17.3033 4.4467C18.7098 5.85322 19.5 7.76088 19.5 9.75Z"
+            stroke="url(#paint1_linear_66_2414)"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path><defs
+            ><linearGradient
+              id="paint0_linear_66_2414"
+              x1="12"
+              y1="6.75"
+              x2="12"
+              y2="12.75"
+              gradientUnits="userSpaceOnUse"
+              ><stop stop-color="#00F3FF"></stop><stop offset="1" stop-color="#87F113"
+              ></stop></linearGradient
+            ><linearGradient
+              id="paint1_linear_66_2414"
+              x1="12"
+              y1="2.25"
+              x2="12"
+              y2="21.75"
+              gradientUnits="userSpaceOnUse"
+              ><stop stop-color="#00F3FF"></stop><stop offset="1" stop-color="#87F113"
+              ></stop></linearGradient
+            ></defs
+          ></svg
+        ><p
+          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
+        >
+          Located in Melbourne, VIC.
+        </p>
+      </div>
+    </div>
+    <div>
+      <!-- contador decorativo -->
+      <p class="relative top-0 z-1 rotate-3">
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 text-[5rem] leading-none font-extrabold tracking-tighter text-white select-none sm:top-1/4 sm:-translate-y-1/2 sm:text-[6rem] md:text-[5rem]"
+          >Andres</span
+        >
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute -top-16 text-[2rem] leading-none font-extrabold tracking-tighter text-white select-none sm:top-0 sm:-left-6 sm:-translate-y-16 sm:text-[3rem] md:text-[2rem]"
+          >By</span
+        >
+      </p>
+      <!-- avatar -->
+      <img
+        src="/me.webp"
+        alt="Andres Hernandez Lozano"
+        width="200"
+        height="200"
+        class="order-1 aspect-square h-48 w-48 rotate-3 rounded-2xl object-cover ring-2 ring-white/20 transition-transform duration-500 md:order-2 md:shadow-xl md:hover:scale-125 dark:ring-[rgb(var(--clr-cyan)/.4)]"
+      />
+    </div>
+  </article>
+</header>

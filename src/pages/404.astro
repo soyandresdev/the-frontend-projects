@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="404: Página no encontrada">
+  <div
+    class="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-br from-[rgba(var(--clr-cyan)/0.2)] to-[rgba(var(--clr-lime)/0.2)] relative overflow-hidden"
+  >
+    <!-- Ruido/Noise Overlay -->
+    <div
+      class="absolute inset-0 pointer-events-none bg-[url('/nnnoise.svg')] opacity-20 mix-blend-overlay"
+    >
+    </div>
+
+    <!-- Contenido central -->
+    <h1
+      class="relative z-10 text-8xl sm:text-[10rem] font-extrabold bg-clip-text text-transparent
+                   bg-[linear-gradient(90deg,rgb(var(--clr-cyan)),rgb(var(--clr-lime)))]"
+    >
+      404
+    </h1>
+    <p
+      class="relative z-10 mt-4 text-xl sm:text-2xl text-white/90 text-center max-w-md"
+    >
+      Lo sentimos, la página que buscas no existe o ha sido movida.
+    </p>
+    <a
+      href="/"
+      class="relative z-10 mt-8 inline-block px-6 py-3 bg-[rgb(var(--clr-cyan))] hover:bg-[rgb(var(--clr-cyan))]/80
+                 text-black font-semibold rounded-lg transition"
+    >
+      ← Volver al inicio
+    </a>
+  </div>
+</Layout>

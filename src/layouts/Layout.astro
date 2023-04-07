@@ -1,0 +1,40 @@
+---
+import { Font } from 'astro:assets'
+import '../styles/global.css'
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- 🧠 Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+
+    <!-- 🚀 Preload imagen LCP -->
+    <link rel="preload" as="image" href="/me.webp" type="image/webp" />
+
+    <!-- ✂️ Estilos globales cargados de forma no bloqueante -->
+    <link rel="stylesheet" href="/styles/global.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="/styles/global.css" /></noscript>
+
+    <!-- 🧠 Meta -->
+    <meta name="generator" content={Astro.generator} />
+    <title>The Frontend Projects - by SoyAndresDev</title>
+    <meta
+      name="description"
+      content="Proyectos frontend reales con estilo, animación y amor. Aprende, inspírate o explora el portafolio de un dev que vive el código."
+    />
+
+    <!-- 🅰️ Tipografía -->
+    <Font cssVariable="--font-poppins" preload />
+  </head>
+  <body class="bg-[rgba(var(--bg-dark))]">
+    <slot />
+  </body>
+</html>

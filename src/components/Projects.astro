@@ -1,0 +1,114 @@
+---
+import Button from '../components/Button.astro'
+import Icon from '../components/Icon.astro'
+import { PROJECTS } from '../consts'
+
+interface Project {
+  slug: string
+  title: string
+  description: string
+  tags: string[]
+  links: {
+    homepage: string | null
+    repository: string | null
+    youtube: string | null
+  }
+  hidden?: boolean
+}
+
+// Filtramos proyectos visibles y los invertimos para mostrar el más reciente primero
+const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
+  .slice()
+  .reverse()
+---
+
+<div
+  class="mx-auto mb-20 grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-2 lg:mb-32 lg:grid-cols-3 lg:gap-12"
+>
+  {
+    cards.map((p, i) => {
+      const idx = cards.length - i
+      const num = String(idx).padStart(2, '0')
+
+      return (
+        <article class="group relative overflow-hidden rounded-3xl bg-white/10 backdrop-blur transition-transform duration-300 hover:-translate-y-1 hover:bg-white/50 md:shadow-lg md:hover:shadow-2xl">
+          {/* Número de proyecto con animación al hover */}
+          <span class="absolute top-3 left-3 z-10 rounded-lg bg-[linear-gradient(135deg,rgb(var(--clr-cyan)),rgb(var(--clr-lime)))] px-2 py-1 text-sm font-bold text-black opacity-70 transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-125 group-hover:opacity-100">
+            #{num}
+          </span>
+
+          {/* Imagen del demo (zoom al hover) */}
+          <a href={p.links.homepage || `/projects/${p.slug}`} class="block overflow-hidden">
+            <img
+              loading="lazy"
+              decoding="async"
+              src={`/demo/${p.slug}/screenshot.webp`}
+              alt={`Captura de ${p.title}`}
+              class="aspect-video w-full rounded-t-3xl object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
+            />
+          </a>
+
+          <div class="space-y-4 p-6">
+            {/* Título con gradiente al hover */}
+            <h2 class="text-xl font-bold tracking-tight sm:text-2xl">
+              <a
+                href={p.links.homepage || `/projects/${p.slug}`}
+                class="inline-block text-white transition-all duration-300 group-hover:bg-[linear-gradient(90deg,rgb(var(--clr-lime)),rgb(var(--clr-cyan)))] group-hover:bg-[length:100%_100%] group-hover:bg-clip-text group-hover:text-transparent"
+              >
+                {p.title}
+              </a>
+            </h2>
+
+            <p class="line-clamp-3 text-base text-slate-700 dark:text-slate-300 group-hover:dark:text-slate-800">
+              {p.description}
+            </p>
+
+            {/* Tags */}
+            <ul class="flex flex-wrap gap-2 text-xs">
+              {p.tags.map((tag) => (
+                <li class="rounded-full border border-white/20 bg-white/5 px-2 py-0.5 text-white/90">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+
+            {/* Iconos de tecnologías: opcional según tags */}
+            <div class="relative">
+              <div class="flex gap-[-12px] transition-all duration-500 ease-out group-hover:gap-2">
+                {p.tags.includes('HTML') && (
+                  <div class="flex h-10 w-10 translate-x-[0px] scale-90 items-center justify-center rounded-full bg-white text-slate-800 shadow-lg transition-all duration-300 group-hover:scale-100 hover:bg-white/10 hover:backdrop-blur">
+                    <Icon name="html5" class="h-5 w-5" />
+                  </div>
+                )}
+                {p.tags.includes('CSS') && (
+                  <div class="flex h-10 w-10 translate-x-[-25px] scale-90 items-center justify-center rounded-full bg-white text-slate-800 shadow-lg transition-all duration-300 group-hover:translate-x-[0px] group-hover:scale-100 hover:bg-white/10 hover:backdrop-blur">
+                    <Icon name="css" class="h-5 w-5" />
+                  </div>
+                )}
+                {p.tags.includes('JavaScript') && (
+                  <div class="flex h-10 w-10 translate-x-[-50px] scale-90 items-center justify-center rounded-full bg-white text-slate-800 shadow-lg transition-all duration-300 group-hover:translate-x-[0px] group-hover:scale-100 hover:bg-white/10 hover:backdrop-blur">
+                    <Icon name="javascript" class="h-5 w-5" />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Botones de Code, Demo y Video */}
+            <div class="grid grid-cols-3 gap-1">
+              <Button
+                href={`https://github.com/soyandresdev/the-frontend-projects/tree/main/workspace/${p.slug}`}
+                label="Code"
+              />
+              <Button
+                href={p.links.homepage || `/projects/${p.slug}`}
+                label="Demo"
+                variant="demo"
+              />
+              {p.links.youtube && <Button href={p.links.youtube} label="Video" variant="video" />}
+            </div>
+          </div>
+        </article>
+      )
+    })
+  }
+</div>
