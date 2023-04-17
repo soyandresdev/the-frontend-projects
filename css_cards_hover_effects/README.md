@@ -1,4 +1,4 @@
-# Tarjetas de HTML y CSS con efectos de hover
+# Tarjetas efectos de hover | HTML y CSS
 Este es un proyecto de frontend que utiliza HTML y CSS para crear tarjetas que se agrandan y muestran más información cuando se hace hover sobre ellas. El proyecto utiliza animaciones en los elementos de la imagen y el contenido para crear una experiencia de usuario dinámica e interactiva.
 
 ## Cómo funciona
