@@ -2,7 +2,8 @@
 This repository contains a collection of frontend projects built with HTML, CSS, and JavaScript. These projects span a variety of topics and difficulties, from simple examples to more advanced applications.
 
 ## Projects
--[CSS Cards Hover Effects](./css_cards_hover_effects/README.md): a basic project featuring cards with hover effects. We use HTML and CSS.
+-[CSS Cards Hover Effects](./01-css_cards_hover_effects/README.md): a basic project featuring cards with hover effects. We use HTML and CSS.
+-[Landing Page 3D Restaurant](./02-landingpage_3d_restaurant/README.md): a basic project featuring cards with hover effects. We use HTML and CSS.
 
 ## How to Use
 To run any of these projects, simply download the source code and open the index.html file in your web browser.

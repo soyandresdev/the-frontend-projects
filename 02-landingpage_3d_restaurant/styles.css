@@ -1,0 +1,42 @@
+body {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Pulso suave */
+@keyframes pulseSlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.85;
+  }
+}
+.animate-pulseSlow {
+  animation: pulseSlow 3s ease-in-out infinite;
+}
+
+/* Hover links */
+.menu-link {
+  position: relative;
+  transition: all 0.3s ease;
+  color: white;
+}
+.menu-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #9900ff;
+  transition: width 0.3s ease;
+}
+.menu-link:hover {
+  color: #9900ff;
+  transform: translateY(-2px);
+}
+.menu-link:hover::after {
+  width: 100%;
+}
