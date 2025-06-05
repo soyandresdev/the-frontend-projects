@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* Design tokens + animaciones */
+@theme {
+  /* superficies */
+  --bg-dark  : 17 35 54;   
+  --bg-light : 63 79 101; 
+
+  /* primarios */
+  --clr-cyan          : 0 243 255;   /* cyan eléctrico */
+  --clr-cyan-comp     : 255 12 0;    /* rojo de alto contraste */
+  --clr-lime          : 126 211 33;  /* verde lima */
+  --clr-lime-comp     : 118 33 211;  /* violeta */
+
+  /* geometría + mezcla */
+  --circle-size : 80%;
+  --blending    : hard-light;
+
+  /* animaciones mapeadas a utilidades */
+  --animate-circle-20   : moveInCircle 20s linear infinite;
+  --animate-circle-20R  : moveInCircle 20s linear reverse infinite;
+  --animate-circle-40   : moveInCircle 40s linear infinite;
+  --animate-vert-30     : moveVertical 30s ease infinite;
+  --animate-horz-40     : moveHorizontal 40s ease infinite;
+}
+
+/* Keyframes originales */
+@keyframes moveInCircle   { 
+  0%{
+    transform:rotate(0)
+  }
+  50%{
+    transform:rotate(180deg)
+  }
+  100%{
+    transform:rotate(360deg)
+  }
+}
+@keyframes moveVertical   { 0%,100%{transform:translateY(-50%)}50%{transform:translateY(50%)} }
+@keyframes moveHorizontal { 0%,100%{transform:translateX(-50%) translateY(-10%)}50%{transform:translateX(50%) translateY(10%)} }
+
+/* Sustituye el bloque @plugin por @layer */
+@layer utilities {
+  .goo-blur {
+    filter: url('#goo') blur(40px);
+  }
+
+  .noise-overlay {
+    background-image : url("/nnnoise.svg");         /* SVG tile */
+    background-repeat: repeat;
+    mix-blend-mode   : soft-light;
+    opacity          : .6;
+    pointer-events   : none;
+  }
+}

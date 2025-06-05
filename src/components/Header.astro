@@ -1,0 +1,36 @@
+---
+import { PROJECTS } from "../consts";
+const total = PROJECTS.filter((p) => !p.hidden).length; // 4
+---
+
+<nav
+  class="flex justify-center flex-col max-w-xl mx-auto items-center pt-12"
+>
+  <!-- ① Título principal con sombra de texto (drop-shadow) -->
+  <h1 class="flex flex-col items-center gap-1 animate-fade-in-up">
+    <span
+      class="text-7xl sm:text-9xl font-extrabold tracking-tight
+             text-transparent bg-clip-text
+             bg-[linear-gradient(90deg,rgb(var(--clr-cyan)),rgb(var(--clr-lime)))]
+             drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)]"
+    >
+      The
+    </span>
+    <span
+      class="text-[32px] sm:text-5xl font-semibold tracking-tighter
+             text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
+    >
+      Front-End&nbsp;Projects
+    </span>
+  </h1>
+
+  <!-- Badge reforzado: bg-black/30 en claro, bg-white/30 en oscuro -->
+  <span
+    class="relative z-10 inline-block mt-2 rounded-full px-4 py-1 text-sm font-semibold
+           bg-black/30 text-black
+           dark:bg-white/30 dark:text-white
+           drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]"
+  >
+    #{total} projects
+  </span>
+</nav>

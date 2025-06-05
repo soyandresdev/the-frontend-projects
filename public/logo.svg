@@ -1,0 +1,18 @@
+<svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Logo">
+<g clip-path="url(#clip0_66_2382)">
+<path id="Vector" d="M38.8314 0H50.9797L12.3569 75H0L38.8314 0Z" fill="url(#paint0_linear_66_2382)"/>
+<path id="Vector_2" d="M31.6173 74.5415C36.0842 74.5415 39.7054 70.7539 39.7054 66.0815C39.7054 61.4092 36.0842 57.6216 31.6173 57.6216C27.1504 57.6216 23.5293 61.4092 23.5293 66.0815C23.5293 70.7539 27.1504 74.5415 31.6173 74.5415Z" fill="#00FFFD"/>
+<path id="Vector_3" d="M55.9128 0L45.5879 20.3195V74.9444L56.5047 74.9991L56.2909 43.4598L63.2473 41.169L63.5123 75.0053H74.9972L74.4221 0H62.8859L63.1404 32.0694L56.2088 34.278L55.9128 0Z" fill="white"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_66_2382" x1="25.4899" y1="0" x2="25.4899" y2="75" gradientUnits="userSpaceOnUse">
+<stop stop-color="#00F3FF"/>
+<stop offset="1" stop-color="#87F113"/>
+</linearGradient>
+<clipPath id="clip0_66_2382">
+<rect width="75" height="75" fill="white"/>
+</clipPath>
+</defs>
+</svg>

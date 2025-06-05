@@ -1,23 +1,48 @@
-# HTML, CSS, and JavaScript Projects
-This repository contains a collection of frontend projects built with HTML, CSS, and JavaScript. These projects span a variety of topics and difficulties, from simple examples to more advanced applications.
+# Astro Starter Kit: Basics
 
-## Projects
--[CSS Cards Hover Effects](./01-css_cards_hover_effects/README.md): a basic project featuring cards with hover effects. We use HTML and CSS.
--[Landing Page 3D Restaurant](./02-landingpage_3d_restaurant/README.md): a basic project featuring cards with hover effects. We use HTML and CSS.
+```sh
+bun create astro@latest -- --template basics
+```
 
-## How to Use
-To run any of these projects, simply download the source code and open the index.html file in your web browser.
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
 
-## Contributing
-If you'd like to contribute to this repository, please follow these steps:
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-1.Fork this repository.
-2.Create a new branch with your contribution: git checkout -b my-contribution-branch
-3.Make the necessary changes and commit them: git commit -m "Added my contribution"
-4.Push your changes to your repository: git push origin my-contribution-branch
-Create a Pull Request in this repository.
-## License
-This repository is under the MIT License. Feel free to use the code from this repository for any purpose you desire.
+![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
 
-## Contact
-If you have any questions or comments about this repository, please contact me through my email soyandresdev@gmail.com or via my GitHub profile.
+## 🚀 Project Structure
+
+Inside of your Astro project, you'll see the following folders and files:
+
+```text
+/
+├── public/
+│   └── favicon.svg
+├── src/
+│   ├── layouts/
+│   │   └── Layout.astro
+│   └── pages/
+│       └── index.astro
+└── package.json
+```
+
+To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `bun install`             | Installs dependencies                            |
+| `bun dev`             | Starts local dev server at `localhost:4321`      |
+| `bun build`           | Build your production site to `./dist/`          |
+| `bun preview`         | Preview your build locally, before deploying     |
+| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `bun astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

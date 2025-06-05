@@ -1,0 +1,108 @@
+---
+import Button from "../components/Button.astro";
+import { PROJECTS } from "../consts";
+
+interface Project {
+  slug: string;
+  title: string;
+  description: string;
+  learnings: string[];
+  youtube?: string;
+  hidden?: boolean;
+}
+
+const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
+  .slice()
+  .reverse();
+---
+
+<div
+  class="grid gap-8 lg:gap-12 mb-20 lg:mb-32
+            grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto"
+>
+  <!-- Twitch placeholder idéntico al anterior… -->
+
+  {
+    cards.map((p, i) => {
+      const idx = cards.length - i;
+      const num = String(idx).padStart(2, "0");
+
+      return (
+        <article
+          class="group relative rounded-3xl overflow-hidden
+                      bg-white/10 backdrop-blur border border-white/20
+                      shadow-lg transition-transform duration-300
+                      hover:-translate-y-1 hover:shadow-2xl hover:bg-white/50"
+        >
+          {/* Badge número con escala al hover */}
+          <span
+            class="absolute top-3 left-3 z-10 px-2 py-1 text-sm font-bold
+                     text-black rounded-lg opacity-70
+                     bg-[linear-gradient(135deg,rgb(var(--clr-cyan)),rgb(var(--clr-lime)))]
+                     transition-transform duration-300
+                     group-hover:scale-125 group-hover:-translate-y-1 group-hover:opacity-100"
+          >
+            #{num}
+          </span>
+
+          {/* Imagen con zoom */}
+          <a href={`/${p.slug}`} class="block overflow-hidden">
+            <img
+              loading="lazy"
+              decoding="async"
+              src={`/projects/${num}.webp`}
+              alt={`Captura de ${p.title}`}
+              class="aspect-video w-full object-cover rounded-t-3xl
+                      transition-transform duration-500
+                      group-hover:scale-105 will-change-transform"
+            />
+          </a>
+
+          <div class="p-6 space-y-4">
+            {/* Título con bg-clip-text gradient al hover */}
+            <h2 class="text-xl sm:text-2xl font-bold tracking-tight">
+              <a
+                href={`/${p.slug}`}
+                class="inline-block transition-all duration-300
+                        text-white                 
+                        group-hover:text-transparent
+                        group-hover:bg-clip-text
+                        group-hover:bg-[linear-gradient(90deg,rgb(var(--clr-lime)),rgb(var(--clr-cyan)))]
+                        group-hover:bg-[length:100%_100%]"
+              >
+                {p.title}
+              </a>
+            </h2>
+
+            <p class="text-base text-slate-700 dark:text-slate-300 line-clamp-3 group-hover:dark:text-slate-800">
+              {p.description}
+            </p>
+
+            <ul class="flex flex-wrap gap-2 text-xs">
+              {p.learnings.map((tag) => (
+                <li class="bg-white/5 border border-white/20 rounded-full px-2 py-0.5">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+            <div>
+              <a href="https://skillicons.dev">
+                <img src="https://skillicons.dev/icons?i=html" />
+              </a>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <Button
+                href={`https://github.com/soyandresdev/frontend-projects/tree/main/${p.slug}`}
+                label="Code"
+              />
+              <Button href={`/${p.slug}`} label="Demo" variant="demo" />
+              {p.youtube && (
+                <Button href={p.youtube} label="Video" variant="video" />
+              )}
+            </div>
+          </div>
+        </article>
+      );
+    })
+  }
+</div>

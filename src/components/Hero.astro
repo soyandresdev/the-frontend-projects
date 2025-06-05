@@ -1,0 +1,80 @@
+---
+/*
+  Header.astro
+  ============
+  • Mantiene tu hero original.
+  • Añade un número gigante (total de proyectos visibles) flotando a la derecha.
+*/
+
+import { PROJECTS } from "../consts";
+
+/** total de proyectos que NO están marcados como hidden */
+const total = PROJECTS.filter((p) => !p.hidden).length;
+const big = String(total).padStart(2, "0"); //  2 → 02, 9 → 09, 14 → 14
+---
+
+<!-- HERO / HEADER --------------------------------------------------------->
+<header
+  class="relative pt-20 flex flex-col items-center text-center gap-10 max-w-4xl mx-auto"
+>
+  <!-- intro block -->
+  <article
+    class="flex flex-col md:flex-row items-center justify-center gap-10 w-full"
+  >
+    <!-- text -->
+    <div
+      class="order-2 md:order-1 max-w-lg leading-relaxed
+             text-slate-800/90 dark:text-slate-200/90
+             [&>p]:mb-4
+             [&>p>strong]:bg-[rgb(var(--clr-cyan))]
+             [&>p>strong]:text-slate-800/80 [&>p>strong]:font-mono
+             [&>p>strong]:px-1.5 [&>p>strong]:py-0.5 [&>p>strong]:rounded-sm"
+    >
+      <p>
+        ¡Hola! Soy <strong>SoyAndresDev</strong> y comparto conocimiento abierto
+        sobre <strong>desarrollo web</strong> para que cualquier persona pueda impulsar
+        su carrera y crear <strong>proyectos</strong> que mejoren el mundo.
+      </p>
+    </div>
+    <div>
+      <!-- contador decorativo -->
+      <p class="relative top-0 z-1 rotate-3">
+        <span
+          aria-hidden="true"
+          class="pointer-events-none select-none
+               absolute right-3 sm:right-8 top-1/4 -translate-y-1/2
+               font-extrabold tracking-tighter leading-none
+               text-[2rem] sm:text-[3rem] md:text-[5rem]
+               text-[rgb(var(--clr-cyan))]
+               dark:text-white"
+        >
+          Andres
+        </span>
+        <span
+          aria-hidden="true"
+          class="pointer-events-none select-none
+               absolute -left-20 top-0 -translate-y-16
+               font-extrabold tracking-tighter leading-none
+               text-[2rem] sm:text-[3rem] md:text-[2rem]
+               text-[rgb(var(--clr-cyan))]
+               dark:text-white"
+        >
+          By
+        </span>
+      </p>
+      <!-- avatar -->
+      <img
+        src="/me.webp"
+        alt="Andres Hernandez Lozano"
+        width="200"
+        height="200"
+        style="object-position:center"
+        class="order-1 md:order-2 w-48 h-48 object-cover aspect-square
+               rounded-2xl rotate-3 shadow-xl ring-2 ring-white/20
+               dark:ring-[rgb(var(--clr-cyan)/.4)]
+               will-change-transform
+               hover:scale-125 transition-transform duration-500"
+      />
+    </div>
+  </article>
+</header>
