@@ -15,49 +15,87 @@ const big = String(total).padStart(2, "0"); //  2 → 02, 9 → 09, 14 → 14
 
 <!-- HERO / HEADER --------------------------------------------------------->
 <header
-  class="relative pt-20 flex flex-col items-center text-center gap-10 max-w-4xl mx-auto"
+  class="relative mx-auto flex max-w-4xl flex-col items-center gap-10 pt-20 text-center"
 >
   <!-- intro block -->
   <article
-    class="flex flex-col md:flex-row items-center justify-center gap-10 w-full"
+    class="flex w-full flex-col items-center justify-center gap-10 md:flex-row"
   >
     <!-- text -->
-    <div
-      class="order-2 md:order-1 max-w-lg leading-relaxed
-             text-slate-800/90 dark:text-slate-200/90
-             [&>p]:mb-4
-             [&>p>strong]:bg-[rgb(var(--clr-cyan))]
-             [&>p>strong]:text-slate-800/80 [&>p>strong]:font-mono
-             [&>p>strong]:px-1.5 [&>p>strong]:py-0.5 [&>p>strong]:rounded-sm"
-    >
-      <p>
-        ¡Hola! Soy <strong>SoyAndresDev</strong> y comparto conocimiento abierto
-        sobre <strong>desarrollo web</strong> para que cualquier persona pueda impulsar
-        su carrera y crear <strong>proyectos</strong> que mejoren el mundo.
+
+    <div class="order-2 flex max-w-lg flex-col gap-3 md:order-1">
+      <h2 class="text-2xl">
+        <span
+          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
+          >¡Ey!, Soy Andres Hernandez Lozano</span
+        ><span> 👋</span>
+      </h2>
+      <p
+        class="leading-relaxed text-slate-800/90 dark:text-slate-200/90 [&>strong]:px-2 [&>strong]:py-0.5"
+      >
+        Apasionado por el desarrollo <strong
+          class="bg-yellow-100 text-yellow-800">frontend</strong
+        >, creo interfaces limpias y accesibles. Compartiendo proyectos y
+        tutoriales prácticos de
+        <strong class="bg-[rgb(243,115,33)]">HTML</strong>,
+        <strong class="bg-[rgb(22,118,188)]">CSS</strong> y
+        <strong class="bg-[rgb(247,223,30)] text-slate-800">JavaScript</strong> para
+        que aprendas de forma rápida y divertida.
       </p>
+      <div class="flex items-center justify-center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+          ><path
+            d="M12 12.75C13.6569 12.75 15 11.4069 15 9.75C15 8.09315 13.6569 6.75 12 6.75C10.3431 6.75 9 8.09315 9 9.75C9 11.4069 10.3431 12.75 12 12.75Z"
+            stroke="url(#paint0_linear_66_2414)"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path><path
+            d="M19.5 9.75C19.5 16.5 12 21.75 12 21.75C12 21.75 4.5 16.5 4.5 9.75C4.5 7.76088 5.29018 5.85322 6.6967 4.4467C8.10322 3.04018 10.0109 2.25 12 2.25C13.9891 2.25 15.8968 3.04018 17.3033 4.4467C18.7098 5.85322 19.5 7.76088 19.5 9.75Z"
+            stroke="url(#paint1_linear_66_2414)"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path><defs
+            ><linearGradient
+              id="paint0_linear_66_2414"
+              x1="12"
+              y1="6.75"
+              x2="12"
+              y2="12.75"
+              gradientUnits="userSpaceOnUse"
+              ><stop stop-color="#00F3FF"></stop><stop
+                offset="1"
+                stop-color="#87F113"></stop></linearGradient
+            ><linearGradient
+              id="paint1_linear_66_2414"
+              x1="12"
+              y1="2.25"
+              x2="12"
+              y2="21.75"
+              gradientUnits="userSpaceOnUse"
+              ><stop stop-color="#00F3FF"></stop><stop
+                offset="1"
+                stop-color="#87F113"></stop></linearGradient
+            ></defs
+          ></svg
+        ><p
+          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
+        >
+          Located in Melbourne, VIC.
+        </p>
+      </div>
     </div>
     <div>
       <!-- contador decorativo -->
       <p class="relative top-0 z-1 rotate-3">
         <span
           aria-hidden="true"
-          class="pointer-events-none select-none
-               absolute right-3 sm:right-8 top-1/4 -translate-y-1/2
-               font-extrabold tracking-tighter leading-none
-               text-[2rem] sm:text-[3rem] md:text-[5rem]
-               text-[rgb(var(--clr-cyan))]
-               dark:text-white"
+          class="pointer-events-none absolute top-1/4 right-3 -translate-y-1/2 text-[2rem] leading-none font-extrabold tracking-tighter text-[rgb(var(--clr-cyan))] select-none sm:text-[3rem] md:text-[5rem] dark:text-white"
         >
           Andres
         </span>
         <span
           aria-hidden="true"
-          class="pointer-events-none select-none
-               absolute -left-20 top-0 -translate-y-16
-               font-extrabold tracking-tighter leading-none
-               text-[2rem] sm:text-[3rem] md:text-[2rem]
-               text-[rgb(var(--clr-cyan))]
-               dark:text-white"
+          class="pointer-events-none absolute top-0 -left-20 -translate-y-16 text-[2rem] leading-none font-extrabold tracking-tighter text-[rgb(var(--clr-cyan))] select-none sm:text-[3rem] md:text-[2rem] dark:text-white"
         >
           By
         </span>
@@ -69,11 +107,7 @@ const big = String(total).padStart(2, "0"); //  2 → 02, 9 → 09, 14 → 14
         width="200"
         height="200"
         style="object-position:center"
-        class="order-1 md:order-2 w-48 h-48 object-cover aspect-square
-               rounded-2xl rotate-3 shadow-xl ring-2 ring-white/20
-               dark:ring-[rgb(var(--clr-cyan)/.4)]
-               will-change-transform
-               hover:scale-125 transition-transform duration-500"
+        class="order-1 aspect-square h-48 w-48 rotate-3 rounded-2xl object-cover shadow-xl ring-2 ring-white/20 transition-transform duration-500 will-change-transform hover:scale-125 md:order-2 dark:ring-[rgb(var(--clr-cyan)/.4)]"
       />
     </div>
   </article>

@@ -6,13 +6,23 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "postinstall": "npx puppeteer browsers install chrome",
+    "build:demos": "node scripts/build-workspace-demos.mjs",
+    "gen:projects": "node scripts/generate-projects-consts.mjs"
   },
   "dependencies": {
-    "astro": "^5.8.2"
+    "astro": "^5.8.2",
+    "fs-extra": "^11.3.0",
+    "gray-matter": "^4.0.3",
+    "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "puppeteer": "^24.10.0",
+    "sharp": "^0.34.2"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.8",
+    "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4.1.8"
   }
 }

@@ -85,56 +85,6 @@ import Footer from "../components/Footer.astro";
     <Header />
     <Hero />
     <Projects />
-    <!-- Lógica de “interactive bubble” en un <script> -->
-    <script lang="ts" is:inline>
-      document.addEventListener("DOMContentLoaded", () => {
-        console.log("Entre");
-        const interBubble =
-          document.querySelector<HTMLDivElement>(".interactive");
-        console.log(interBubble);
-        if (!interBubble) return;
-
-        // Anchura y altura de la ventana
-        let vw = window.innerWidth;
-        let vh = window.innerHeight;
-
-        // Inicializamos el objetivo en el centro de la pantalla
-        let curX = vw;
-        let curY = vh;
-        let tgX = vw;
-        let tgY = vh;
-
-        // Mueve la burbuja suavemente hacia (tgX - vw/2, tgY - vh/2)
-        function move() {
-          // Interpolación suave
-          curX += (tgX - curX) / 20;
-          curY += (tgY - curY) / 20;
-
-          // Convertimos a coordenadas relativas al centro (por el -50%/-50% CSS)
-          const x = Math.round(curX - vw / 2);
-          const y = Math.round(curY - vh / 2);
-
-          interBubble.style.transform = `translate(${x}px, ${y}px)`;
-          requestAnimationFrame(move);
-        }
-
-        // Cuando el usuario mueva el ratón, actualizamos el target (tgX, tgY)
-        console.log("Entre");
-        window.addEventListener("mousemove", (event) => {
-          tgX = event.clientX;
-          tgY = event.clientY;
-          console.log("move");
-        });
-
-        // Si la ventana se redimensiona, recalculamos vw/vh para no desalinear
-        window.addEventListener("resize", () => {
-          vw = window.innerWidth;
-          vh = window.innerHeight;
-        });
-
-        move();
-      });
-    </script>
   </main>
   <Footer />
 </Layout>

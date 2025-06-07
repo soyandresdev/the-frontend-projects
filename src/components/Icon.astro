@@ -1,0 +1,27 @@
+---
+import type { IconName } from "../types/icons";
+import { icons } from "../utils/icons";
+
+const {
+  name = "html5",
+  size = 24,
+  color = "currentColor",
+  class: className = "",
+} = Astro.props;
+---
+
+{
+  icons[name] ? (
+    <svg
+      viewBox="0 0 128 128"
+      preserveAspectRatio="xMidYMid meet"
+      width={size}
+      height={size}
+      fill={color}
+      class={className}
+      set:html={icons[name]}
+    />
+  ) : (
+    <span style="color: red;">⚠️ Icon "{name}" not found</span>
+  )
+}

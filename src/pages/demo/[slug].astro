@@ -1,0 +1,34 @@
+---
+import { PROJECTS } from "../../consts";
+import Layout from "../../layouts/Layout.astro";
+import InfoProject from "../../components/InfoProject.astro";
+
+// 1) Astro generará una ruta /demo/{slug} por cada PROJECTS .slug
+export function getStaticPaths() {
+  return PROJECTS.filter((p) => !p.hidden).map((p) => ({
+    params: { slug: p.slug },
+  }));
+}
+
+// 2) Obtengo slug de la URL
+const { slug } = Astro.params;
+
+// 3) Busco sus datos en el array
+const idx = PROJECTS.findIndex((p) => p.slug === slug);
+const info = PROJECTS[idx];
+const number = String(idx + 1).padStart(2, "0");
+---
+
+<Layout title={`Demo ${number}: ${info.title}`}>
+  <!-- embebe el index.html estático -->
+  <div class="w-full h-screen">
+    <iframe
+      src={`/demo/${slug}/index.html`}
+      class="w-full h-full"
+      frameborder="0"
+      loading="lazy"></iframe>
+  </div>
+
+  <!-- abajo pones tu componente de información -->
+  <InfoProject info={{ ...info, number }} />
+</Layout>
