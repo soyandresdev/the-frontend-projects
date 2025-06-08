@@ -1,23 +1,8 @@
----
-title: "3D Restaurant Landing Page"
-description: "Landing page interactiva con modelo 3D animado usando Three.js."
-keywords:
-  - threejs
-  - landing page
-  - 3d
-  - webgl
-  - restaurante
-links:
-  code: "https://github.com/soyandresdev/frontend-projects/tree/main/02-landingpage_3d_restaurant"
-  demo: "/demo/02-landingpage_3d_restaurant/index.html"
-  youtube: null
----
-
 # 🍜 3D Restaurant Landing Page
 
-[![Last Commit](https://img.shields.io/github/last-commit/soyandresdev/frontend-projects?label=last%20update&color=purple)](https://github.com/soyandresdev/frontend-projects)
+[![Last Commit](https://img.shields.io/github/last-commit/soyandresdev/frontend-projects?label=last%20update&color=purple)](https://github.com/soyandresdev/the-frontend-projects)
 [![Live Demo](https://img.shields.io/badge/Demo-Live-green?style=flat&logo=vercel)](/demo/02-landingpage_3d_restaurant/index.html)
-[![Code](https://img.shields.io/badge/Code-Repository-blue?logo=github)](https://github.com/soyandresdev/frontend-projects/tree/main/02-landingpage_3d_restaurant)
+[![Code](https://img.shields.io/badge/Code-Repository-blue?logo=github)](https://github.com/soyandresdev/the-frontend-projects/tree/main/02-landingpage_3d_restaurant)
 
 Una landing page atractiva e inmersiva para un restaurante ficticio, que incorpora un modelo 3D animado usando **Three.js** y efectos visuales modernos.
 
@@ -36,7 +21,7 @@ Una landing page atractiva e inmersiva para un restaurante ficticio, que incorpo
 ## 📥 Instalación y uso
 
 ```bash
-git clone https://github.com/soyandresdev/frontend-projects.git
+git clone https://github.com/soyandresdev/the-frontend-projects.git
 cd frontend-projects/workspace/02-landingpage_3d_restaurant
 open index.html
 ```
@@ -75,7 +60,7 @@ open index.html
 
 ## 🌐 Enlaces
 
-- 🔗 [Código fuente](https://github.com/soyandresdev/frontend-projects/tree/main/02-landingpage_3d_restaurant)
+- 🔗 [Código fuente](https://github.com/soyandresdev/the-frontend-projects/tree/main/02-landingpage_3d_restaurant)
 - 🚀 [Demo en vivo](/demo/02-landingpage_3d_restaurant/index.html)
 
 ---

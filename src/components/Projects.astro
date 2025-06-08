@@ -1,25 +1,25 @@
 ---
-import Button from "../components/Button.astro";
-import { PROJECTS } from "../consts";
-import Icon from "../components/Icon.astro";
+import Button from '../components/Button.astro'
+import Icon from '../components/Icon.astro'
+import { PROJECTS } from '../consts'
 
 interface Project {
-  slug: string;
-  title: string;
-  description: string;
-  tags: string[];
+  slug: string
+  title: string
+  description: string
+  tags: string[]
   links: {
-    homepage: string | null;
-    repository: string | null;
-    youtube: string | null;
-  };
-  hidden?: boolean;
+    homepage: string | null
+    repository: string | null
+    youtube: string | null
+  }
+  hidden?: boolean
 }
 
 // Filtramos proyectos visibles y los invertimos para mostrar el más reciente primero
 const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
   .slice()
-  .reverse();
+  .reverse()
 ---
 
 <div
@@ -27,8 +27,8 @@ const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
 >
   {
     cards.map((p, i) => {
-      const idx = cards.length - i;
-      const num = String(idx).padStart(2, "0");
+      const idx = cards.length - i
+      const num = String(idx).padStart(2, '0')
 
       return (
         <article class="group relative overflow-hidden rounded-3xl bg-white/10 shadow-lg backdrop-blur transition-transform duration-300 hover:-translate-y-1 hover:bg-white/50 hover:shadow-2xl">
@@ -38,10 +38,7 @@ const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
           </span>
 
           {/* Imagen del demo (zoom al hover) */}
-          <a
-            href={p.links.homepage || `/demo/${p.slug}`}
-            class="block overflow-hidden"
-          >
+          <a href={p.links.homepage || `/demo/${p.slug}`} class="block overflow-hidden">
             <img
               loading="lazy"
               decoding="async"
@@ -78,17 +75,17 @@ const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
             {/* Iconos de tecnologías: opcional según tags */}
             <div class="relative">
               <div class="flex gap-[-12px] transition-all duration-500 ease-out group-hover:gap-2">
-                {p.tags.includes("HTML") && (
+                {p.tags.includes('HTML') && (
                   <div class="flex h-10 w-10 translate-x-[0px] scale-90 items-center justify-center rounded-full bg-white text-slate-800 shadow-lg transition-all duration-300 group-hover:scale-100 hover:bg-white/10 hover:backdrop-blur">
                     <Icon name="html5" class="h-5 w-5" />
                   </div>
                 )}
-                {p.tags.includes("CSS") && (
+                {p.tags.includes('CSS') && (
                   <div class="flex h-10 w-10 translate-x-[-25px] scale-90 items-center justify-center rounded-full bg-white text-slate-800 shadow-lg transition-all duration-300 group-hover:translate-x-[0px] group-hover:scale-100 hover:bg-white/10 hover:backdrop-blur">
                     <Icon name="css" class="h-5 w-5" />
                   </div>
                 )}
-                {p.tags.includes("JavaScript") && (
+                {p.tags.includes('JavaScript') && (
                   <div class="flex h-10 w-10 translate-x-[-50px] scale-90 items-center justify-center rounded-full bg-white text-slate-800 shadow-lg transition-all duration-300 group-hover:translate-x-[0px] group-hover:scale-100 hover:bg-white/10 hover:backdrop-blur">
                     <Icon name="javascript" class="h-5 w-5" />
                   </div>
@@ -98,21 +95,13 @@ const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
 
             {/* Botones de Code, Demo y Video */}
             <div class="grid grid-cols-3 gap-1">
-              {p.links.repository && (
-                <Button href={p.links.repository} label="Code" />
-              )}
-              <Button
-                href={p.links.homepage || `/demo/${p.slug}`}
-                label="Demo"
-                variant="demo"
-              />
-              {p.links.youtube && (
-                <Button href={p.links.youtube} label="Video" variant="video" />
-              )}
+              {p.links.repository && <Button href={p.links.repository} label="Code" />}
+              <Button href={p.links.homepage || `/demo/${p.slug}`} label="Demo" variant="demo" />
+              {p.links.youtube && <Button href={p.links.youtube} label="Video" variant="video" />}
             </div>
           </div>
         </article>
-      );
+      )
     })
   }
 </div>

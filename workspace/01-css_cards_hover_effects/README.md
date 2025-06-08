@@ -1,30 +1,48 @@
 ---
-title: "CSS Cards Hover Effects"
-description: "Colección de tarjetas con efectos de hover usando CSS y blending."
+title: 'CSS Cards Hover Effects'
+description: 'Colección de tarjetas con efectos de hover usando CSS y blending.'
 keywords:
   - css
   - hover
   - cards
 links:
-  youtube: null
+  code: 'https://github.com/soyandresdev/the-frontend-projects/tree/main/01-css_cards_hover_effects'
+  demo: '/demo/01-css_cards_hover_effects/index.html'
 ---
 
-# Cards with Hover Effects - HTML and CSS
+# ✨ Cards with Hover Effects - HTML + CSS
 
-This is a frontend project that uses HTML and CSS to create cards that enlarge and display more information when hovered over. The project utilizes animations on both the image and content elements to create a dynamic and interactive user experience.
+[![Made by SoyAndresDev](https://img.shields.io/badge/Made%20by-SoyAndresDev-blueviolet?style=flat-square&logo=github)](https://github.com/soyandresdev)
+[![Live Demo](https://img.shields.io/badge/🌐%20Live-Demo-brightgreen?style=flat-square)](/demo/01-css_cards_hover_effects/index.html)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 
-## How it works
+> Simple but effective cards with CSS-only hover interactions and smooth animations.
 
-This project uses CSS to apply hover effects to the cards. When the cursor moves over a card, both the image and content are animated, enlarging and revealing more information. When the cursor moves off the card, the animation reverses, and the card returns to its original size and position.
+---
 
-## How to use
+## 🎯 Overview
 
-To use this project, simply download the HTML and CSS files and open them in your web browser. You can also add your own images and content to customize the cards.
+This frontend micro-project demonstrates interactive **hover effects** on cards using just **HTML and CSS**. On hover, cards reveal additional information through subtle scaling and transition effects — ideal for portfolios, galleries, or feature highlights.
 
-## Technologies used
+---
 
-This project uses HTML, CSS, and CSS animations to create hover effects on the cards.
+## 🧠 What you'll learn
 
-## Contact
+- CSS Transitions & Transforms
+- `mix-blend-mode` for creative overlays
+- Responsive layout using **CSS Grid**
+- Utility-based styling with **Tailwind CSS**
 
-If you have any questions or comments about this project, please contact me through my email soyandresdev@gmail.com or via my GitHub profile.
+---
+
+## 📥 Installation & Usage
+
+```bash
+# Clone this repository
+git clone https://github.com/soyandresdev/the-frontend-projects
+
+# Navigate to the project folder
+cd frontend-projects/workspace/01-css_cards_hover_effects
+
+# Open index.html in your browser
+```
