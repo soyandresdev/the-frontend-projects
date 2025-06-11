@@ -16,7 +16,7 @@
   --clr-lime: 126 211 33; /* verde lima */
   --clr-lime-comp: 118 33 211; /* violeta */
 
-  --circle-size: 80rem;
+  --circle-size: 80vw;
   --blending: hard-light;
 
   --animate-circle-20: moveInCircle 20s linear infinite;
@@ -50,7 +50,7 @@
 @keyframes moveHorizontal {
   0%,
   100% {
-    transform: translateX(-50%) translateY(-10%);
+    transform: translateX(-35%) translateY(-10%);
   }
   50% {
     transform: translateX(50%) translateY(10%);

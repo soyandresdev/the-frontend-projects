@@ -7,7 +7,6 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "postinstall": "npx puppeteer browsers install chrome",
     "build:demos": "node scripts/build-workspace-demos.mjs",
     "gen:projects": "node scripts/generate-projects-consts.mjs"
   },

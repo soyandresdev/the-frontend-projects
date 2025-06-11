@@ -7,8 +7,10 @@ import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout>
-  <main class="relative flex min-h-screen flex-col justify-between gap-y-20 px-8">
-    <div class="noise-overlay absolute inset-0 -z-5 hidden md:block"></div>
+  <main
+    class="relative flex min-h-screen flex-col justify-between gap-y-20 bg-[linear-gradient(40deg,rgb(var(--bg-dark)),rgb(var(--bg-light)))] bg-no-repeat px-8"
+  >
+    <div class="noise-overlay absolute inset-0 z-0 hidden md:block"></div>
 
     <!-- filtro goo -->
     <svg class="fixed hidden h-0 w-0 md:block">
@@ -23,9 +25,7 @@ import Layout from '../layouts/Layout.astro'
       </filter>
     </svg>
 
-    <div
-      class="goo-blur pointer-events-none fixed inset-0 -z-10 h-screen bg-[linear-gradient(40deg,rgb(var(--bg-dark)),rgb(var(--bg-light)))] bg-no-repeat"
-    >
+    <div class="goo-blur pointer-events-none fixed inset-0 z-0 h-screen">
       <!-- g1: cyan, sube-baja (moveVertical) -->
       <div
         class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-vert-30)] bg-[radial-gradient(circle,rgba(var(--clr-cyan)_/_0.8)_0%,rgba(var(--clr-cyan)_/_0)_50%)] md:block"
@@ -40,13 +40,13 @@ import Layout from '../layouts/Layout.astro'
 
       <!-- g3: violeta (complemento lime), círculo grande -->
       <div
-        class="mix-blend-[var(--blending)] absolute top-[calc(50%_+_200px)] left-[calc(50%_-_500px)] hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_+_400px)] animate-[var(--animate-circle-40)] bg-[radial-gradient(circle,rgba(var(--clr-lime-comp)_/_0.8)_0%,rgba(var(--clr-lime-comp)_/_0)_50%)] md:block"
+        class="mix-blend-[var(--blending)] absolute inset-1/2 top-[calc(50%_+_200px)] left-[calc(50%_-_500px)] hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_+_400px)] animate-[var(--animate-circle-40)] bg-[radial-gradient(circle,rgba(var(--clr-lime-comp)_/_0.8)_0%,rgba(var(--clr-lime-comp)_/_0)_50%)] md:block"
       >
       </div>
 
       <!-- g4: rojo (complemento cyan), horizontal -->
       <div
-        class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_-_200px)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-horz-40)] bg-[radial-gradient(circle,rgba(var(--clr-cyan-comp)_/_0.8)_0%,rgba(var(--clr-cyan-comp)_/_0)_50%)] opacity-70 md:block"
+        class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_-_500px)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-horz-40)] bg-[radial-gradient(circle,rgba(var(--clr-cyan-comp)_/_0.8)_0%,rgba(var(--clr-cyan-comp)_/_0)_50%)] opacity-70 md:block"
       >
       </div>
 

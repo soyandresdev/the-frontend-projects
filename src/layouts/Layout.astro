@@ -8,6 +8,8 @@ import '../styles/global.css'
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <!-- 🅰️ Tipografía -->
+    <Font cssVariable="--font-poppins" preload />
 
     <!-- 🧠 Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -19,7 +21,8 @@ import '../styles/global.css'
     <!-- 🚀 Preload imagen LCP -->
     <link rel="preload" as="image" href="/me.webp" type="image/webp" />
 
-    <!-- ✂️ Estilos globales cargados de forma no bloqueante -->
+    <!-- ✂️ Preload y carga no bloqueante del CSS -->
+    <link rel="preload" href="/styles/global.css" as="style" />
     <link rel="stylesheet" href="/styles/global.css" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="/styles/global.css" /></noscript>
 
@@ -30,9 +33,6 @@ import '../styles/global.css'
       name="description"
       content="Proyectos frontend reales con estilo, animación y amor. Aprende, inspírate o explora el portafolio de un dev que vive el código."
     />
-
-    <!-- 🅰️ Tipografía -->
-    <Font cssVariable="--font-poppins" preload />
   </head>
   <body class="bg-[rgba(var(--bg-dark))]">
     <slot />
