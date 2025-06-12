@@ -10,6 +10,12 @@ import Layout from '../layouts/Layout.astro'
   <main
     class="relative flex min-h-screen flex-col justify-between gap-y-20 bg-[linear-gradient(40deg,rgb(var(--bg-dark)),rgb(var(--bg-light)))] bg-no-repeat px-8"
   >
+    <!-- g5 (opcional interactive): cyan soft -->
+    <div
+      class="absolute -top-1/2 left-0 block h-full w-full bg-[radial-gradient(circle,rgba(var(--clr-cyan)_/_0.6)_0%,rgba(var(--clr-cyan)_/_0)_50%)] opacity-70 md:hidden"
+    >
+    </div>
+
     <div class="noise-overlay absolute inset-0 z-0 hidden md:block"></div>
 
     <!-- filtro goo -->
@@ -25,7 +31,7 @@ import Layout from '../layouts/Layout.astro'
       </filter>
     </svg>
 
-    <div class="goo-blur pointer-events-none fixed inset-0 z-0 h-screen">
+    <div class="goo-blur pointer-events-none fixed inset-0 z-0 hidden h-screen md:block">
       <!-- g1: cyan, sube-baja (moveVertical) -->
       <div
         class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-vert-30)] bg-[radial-gradient(circle,rgba(var(--clr-cyan)_/_0.8)_0%,rgba(var(--clr-cyan)_/_0)_50%)] md:block"

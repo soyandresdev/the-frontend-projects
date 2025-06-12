@@ -31,7 +31,7 @@ const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
       const num = String(idx).padStart(2, '0')
 
       return (
-        <article class="group relative overflow-hidden rounded-3xl bg-white/10 backdrop-blur transition-transform duration-300 hover:-translate-y-1 hover:bg-white/50 md:shadow-lg md:hover:shadow-2xl">
+        <article class="group relative overflow-hidden rounded-3xl bg-white/10 transition-transform duration-300 hover:-translate-y-1 hover:bg-white/50 md:shadow-lg md:backdrop-blur md:hover:shadow-2xl">
           {/* Número de proyecto con animación al hover */}
           <span class="absolute top-3 left-3 z-10 rounded-lg bg-[linear-gradient(135deg,rgb(var(--clr-cyan)),rgb(var(--clr-lime)))] px-2 py-1 text-sm font-bold text-black opacity-70 transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-125 group-hover:opacity-100">
             #{num}

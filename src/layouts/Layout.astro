@@ -21,11 +21,6 @@ import '../styles/global.css'
     <!-- 🚀 Preload imagen LCP -->
     <link rel="preload" as="image" href="/me.webp" type="image/webp" />
 
-    <!-- ✂️ Preload y carga no bloqueante del CSS -->
-    <link rel="preload" href="/styles/global.css" as="style" />
-    <link rel="stylesheet" href="/styles/global.css" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="/styles/global.css" /></noscript>
-
     <!-- 🧠 Meta -->
     <meta name="generator" content={Astro.generator} />
     <title>The Frontend Projects - by SoyAndresDev</title>
@@ -33,8 +28,22 @@ import '../styles/global.css'
       name="description"
       content="Proyectos frontend reales con estilo, animación y amor. Aprende, inspírate o explora el portafolio de un dev que vive el código."
     />
+    <meta name="author" content="Andres Hernandez Lozano" />
   </head>
   <body class="bg-[rgba(var(--bg-dark))]">
     <slot />
+    <style is:global>
+      code {
+        font-family:
+          Menlo,
+          Monaco,
+          Lucida Console,
+          Liberation Mono,
+          DejaVu Sans Mono,
+          Bitstream Vera Sans Mono,
+          Courier New,
+          monospace;
+      }
+    </style>
   </body>
 </html>
