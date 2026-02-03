@@ -41,6 +41,12 @@ async function generate() {
       : Array.isArray(pkg.keywords)
         ? pkg.keywords
         : []
+    const VALID_DIFFICULTIES = ['beginner', 'intermediate', 'advanced']
+    const difficulty = VALID_DIFFICULTIES.includes(fmData.difficulty)
+      ? fmData.difficulty
+      : VALID_DIFFICULTIES.includes(pkg.difficulty)
+        ? pkg.difficulty
+        : 'beginner'
 
     const links = {
       homepage: fmData.links?.homepage || pkg.homepage || null,
@@ -48,14 +54,17 @@ async function generate() {
       youtube: fmData.links?.youtube || null
     }
 
-    projects.push({ slug, title, hidden: false, description, tags, links })
+    projects.push({ slug, title, hidden: false, description, difficulty, tags, links })
   }
 
-  const fileContent = `export interface Project {
+  const fileContent = `export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
+
+export interface Project {
   slug: string;
   title: string;
   hidden: boolean;
   description: string;
+  difficulty: Difficulty;
   tags: string[];
   links: { homepage: string | null; repository: string | null; youtube: string | null };
 }

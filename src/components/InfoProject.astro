@@ -1,5 +1,19 @@
 ---
-const { info } = Astro.props;
+import type { Difficulty } from '../consts'
+
+const { info } = Astro.props
+
+const DIFFICULTY_LABEL: Record<Difficulty, string> = {
+  beginner: 'Beginner',
+  intermediate: 'Intermediate',
+  advanced: 'Advanced'
+}
+
+const DIFFICULTY_CLASS: Record<Difficulty, string> = {
+  beginner: 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300',
+  intermediate: 'border-amber-400/30 bg-amber-400/10 text-amber-300',
+  advanced: 'border-rose-400/30 bg-rose-400/10 text-rose-300'
+}
 ---
 
 <!-- Panel informativo al estilo del sitio -->
@@ -17,6 +31,13 @@ const { info } = Astro.props;
   <h2 class="text-lg font-semibold text-white drop-shadow-md sm:text-2xl">
     {info.title}
   </h2>
+
+  <!-- Badge de dificultad -->
+  <span
+    class={`rounded-full border px-2 py-1 text-[11px] font-semibold tracking-wide uppercase backdrop-blur-md ${DIFFICULTY_CLASS[info.difficulty as Difficulty]}`}
+  >
+    {DIFFICULTY_LABEL[info.difficulty as Difficulty]}
+  </span>
 
   <!-- Enlace para volver a la lista de proyectos -->
   <a

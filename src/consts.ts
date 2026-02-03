@@ -1,8 +1,11 @@
+export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
+
 export interface Project {
   slug: string;
   title: string;
   hidden: boolean;
   description: string;
+  difficulty: Difficulty;
   tags: string[];
   links: { homepage: string | null; repository: string | null; youtube: string | null };
 }
@@ -13,6 +16,7 @@ export const PROJECTS: Project[] = [
     "title": "CSS Cards Hover Effects",
     "hidden": false,
     "description": "Colección de tarjetas con efectos de hover usando CSS y blending.",
+    "difficulty": "beginner",
     "tags": [
       "HTML",
       "CSS",
@@ -31,6 +35,7 @@ export const PROJECTS: Project[] = [
     "title": "3D Restaurant Landing Page",
     "hidden": false,
     "description": "Landing page interactiva con modelo 3D animado usando Three.js.",
+    "difficulty": "advanced",
     "tags": [
       "HTML",
       "CSS",
@@ -51,6 +56,7 @@ export const PROJECTS: Project[] = [
     "title": "Landing Page con Scroll Animado",
     "hidden": false,
     "description": "Futuristic electric car landing page with scroll-controlled animation and GSAP effects.",
+    "difficulty": "intermediate",
     "tags": [
       "scroll animation",
       "GSAP",

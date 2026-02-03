@@ -1,6 +1,7 @@
 ---
 title: '3D Restaurant Landing Page'
 description: 'Landing page interactiva con modelo 3D animado usando Three.js.'
+difficulty: 'advanced'
 keywords:
   - HTML
   - CSS
