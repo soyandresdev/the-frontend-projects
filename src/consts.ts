@@ -70,5 +70,25 @@ export const PROJECTS: Project[] = [
       "repository": null,
       "youtube": null
     }
+  },
+  {
+    "slug": "04-quiz-game",
+    "title": "Pulse Quiz",
+    "hidden": false,
+    "description": "Quiz interactivo con transiciones GSAP, glassmorphism y feedback animado, inspirado en html-css-js-projects #01.",
+    "difficulty": "beginner",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "GSAP",
+      "quiz",
+      "animation"
+    ],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
   }
 ] as Project[];

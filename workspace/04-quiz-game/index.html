@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pulse Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="stage">
+      <div class="aurora aurora--cyan" aria-hidden="true"></div>
+      <div class="aurora aurora--lime" aria-hidden="true"></div>
+      <div class="noise" aria-hidden="true"></div>
+
+      <main class="card" id="card">
+        <!-- START SCREEN -->
+        <section class="screen is-active" id="start-screen" data-screen>
+          <span class="eyebrow">Pulse Quiz</span>
+          <h1 class="title">Test your <span class="grad-text">general knowledge</span></h1>
+          <p class="subtitle">5 rapid-fire questions. No pressure. Well, a little pressure.</p>
+
+          <button class="btn btn--primary" id="start-btn" type="button">
+            <span>Start quiz</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M5 12h14M13 6l6 6-6 6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </section>
+
+        <!-- QUIZ SCREEN -->
+        <section class="screen" id="quiz-screen" data-screen>
+          <header class="quiz-header">
+            <div class="quiz-meta">
+              <span>Question <strong id="current-question">1</strong>/<span id="total-questions">5</span></span>
+              <span class="score-pill">Score <strong id="score">0</strong></span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progress"></div>
+            </div>
+          </header>
+
+          <h2 class="question-text" id="question-text">Question goes here</h2>
+
+          <div class="answers" id="answers-container"></div>
+        </section>
+
+        <!-- RESULT SCREEN -->
+        <section class="screen" id="result-screen" data-screen>
+          <div class="score-ring" aria-hidden="true">
+            <svg viewBox="0 0 140 140">
+              <circle class="score-ring__track" cx="70" cy="70" r="60" />
+              <circle class="score-ring__fill" id="score-ring-fill" cx="70" cy="70" r="60" />
+            </svg>
+            <div class="score-ring__value">
+              <span id="final-score">0</span><span class="score-ring__max">/<span id="max-score">5</span></span>
+            </div>
+          </div>
+
+          <h2 class="result-message" id="result-message">Nice work!</h2>
+          <p class="result-sub">Every attempt sharpens the next one.</p>
+
+          <button class="btn btn--ghost" id="restart-btn" type="button">
+            <span>Play again</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M4 4v6h6M20 20v-6h-6M4.5 15a8 8 0 1 0 1.5-9M19.5 9a8 8 0 0 0-1.5-4"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </section>
+      </main>
+    </div>
+
+    <div class="confetti-layer" id="confetti-layer" aria-hidden="true"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
