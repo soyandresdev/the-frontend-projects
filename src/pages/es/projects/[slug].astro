@@ -1,8 +1,8 @@
 ---
-import InfoProject from '../../components/InfoProject.astro'
-import { PROJECTS } from '../../consts'
-import { getLang, getLocalized } from '../../i18n/utils'
-import Layout from '../../layouts/Layout.astro'
+import InfoProject from '../../../components/InfoProject.astro'
+import { PROJECTS } from '../../../consts'
+import { getLang, getLocalized } from '../../../i18n/utils'
+import Layout from '../../../layouts/Layout.astro'
 
 export function getStaticPaths() {
   return PROJECTS.filter((p) => !p.hidden).map((p) => ({

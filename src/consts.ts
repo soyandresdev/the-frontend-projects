@@ -1,10 +1,12 @@
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 
+export type LocalizedText = { en: string; es: string };
+
 export interface Project {
   slug: string;
-  title: string;
+  title: LocalizedText;
   hidden: boolean;
-  description: string;
+  description: LocalizedText;
   difficulty: Difficulty;
   tags: string[];
   links: { homepage: string | null; repository: string | null; youtube: string | null };
@@ -13,9 +15,15 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     "slug": "01-css_cards_hover_effects",
-    "title": "CSS Cards Hover Effects",
+    "title": {
+      "en": "CSS Cards Hover Effects",
+      "es": "CSS Cards Hover Effects"
+    },
     "hidden": false,
-    "description": "Colección de tarjetas con efectos de hover usando CSS y blending.",
+    "description": {
+      "en": "A collection of cards with modern hover effects using CSS and blend modes.",
+      "es": "Colección de tarjetas con efectos de hover usando CSS y blending."
+    },
     "difficulty": "beginner",
     "tags": [
       "HTML",
@@ -32,9 +40,15 @@ export const PROJECTS: Project[] = [
   },
   {
     "slug": "02-landingpage_3d_restaurant",
-    "title": "3D Restaurant Landing Page",
+    "title": {
+      "en": "3D Restaurant Landing Page",
+      "es": "3D Restaurant Landing Page"
+    },
     "hidden": false,
-    "description": "Landing page interactiva con modelo 3D animado usando Three.js.",
+    "description": {
+      "en": "Interactive landing page with an animated 3D model built with Three.js.",
+      "es": "Landing page interactiva con modelo 3D animado usando Three.js."
+    },
     "difficulty": "advanced",
     "tags": [
       "HTML",
@@ -53,9 +67,15 @@ export const PROJECTS: Project[] = [
   },
   {
     "slug": "03-scroll-animation",
-    "title": "Landing Page con Scroll Animado",
+    "title": {
+      "en": "Scroll-Animated Landing Page",
+      "es": "Landing Page con Scroll Animado"
+    },
     "hidden": false,
-    "description": "Futuristic electric car landing page with scroll-controlled animation and GSAP effects.",
+    "description": {
+      "en": "Futuristic electric car landing page with scroll-controlled animation and GSAP effects.",
+      "es": "Landing page futurista de un auto eléctrico con animación controlada por scroll y efectos GSAP."
+    },
     "difficulty": "intermediate",
     "tags": [
       "scroll animation",
@@ -73,9 +93,15 @@ export const PROJECTS: Project[] = [
   },
   {
     "slug": "04-quiz-game",
-    "title": "Pulse Quiz",
+    "title": {
+      "en": "Pulse Quiz",
+      "es": "Pulse Quiz"
+    },
     "hidden": false,
-    "description": "Quiz interactivo con transiciones GSAP, glassmorphism y feedback animado, inspirado en html-css-js-projects #01.",
+    "description": {
+      "en": "Interactive quiz with GSAP transitions, glassmorphism and animated feedback, reimagined from html-css-js-projects #01.",
+      "es": "Quiz interactivo con transiciones GSAP, glassmorphism y feedback animado, inspirado en html-css-js-projects #01."
+    },
     "difficulty": "beginner",
     "tags": [
       "HTML",

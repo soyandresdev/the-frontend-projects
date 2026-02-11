@@ -1,5 +1,10 @@
 ---
 import { PROJECTS } from '../consts'
+import { getLang, useTranslations } from '../i18n/utils'
+
+const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
+
 const total = PROJECTS.filter((p) => !p.hidden).length // 4
 ---
 
@@ -22,6 +27,25 @@ const total = PROJECTS.filter((p) => !p.hidden).length // 4
   <span
     class="relative z-10 mt-2 inline-block rounded-full bg-black/30 px-4 py-1 text-sm font-semibold text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]"
   >
-    #{total} projects
+    #{total} {t('nav.projectsLabel')}
   </span>
+
+  <!-- Selector de idioma -->
+  <div class="mt-4 flex items-center gap-1 text-xs font-semibold tracking-wide">
+    <a
+      href="/"
+      aria-current={lang === 'en' ? 'page' : undefined}
+      class={`rounded-full px-2.5 py-1 transition ${lang === 'en' ? 'bg-white/20 text-white' : 'text-white/50 hover:text-white'}`}
+    >
+      EN
+    </a>
+    <span class="text-white/30">/</span>
+    <a
+      href="/es/"
+      aria-current={lang === 'es' ? 'page' : undefined}
+      class={`rounded-full px-2.5 py-1 transition ${lang === 'es' ? 'bg-white/20 text-white' : 'text-white/50 hover:text-white'}`}
+    >
+      ES
+    </a>
+  </div>
 </nav>

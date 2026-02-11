@@ -1,0 +1,20 @@
+---
+import AmbientBackground from '../../components/AmbientBackground.astro'
+import Footer from '../../components/Footer.astro'
+import Header from '../../components/Header.astro'
+import Hero from '../../components/Hero.astro'
+import Projects from '../../components/Projects.astro'
+import Layout from '../../layouts/Layout.astro'
+---
+
+<Layout>
+  <main
+    class="relative flex min-h-screen flex-col justify-between gap-y-20 bg-[linear-gradient(40deg,rgb(var(--bg-dark)),rgb(var(--bg-light)))] bg-no-repeat px-8"
+  >
+    <AmbientBackground />
+    <Header />
+    <Hero />
+    <Projects />
+  </main>
+  <Footer />
+</Layout>

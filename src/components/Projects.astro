@@ -1,12 +1,13 @@
 ---
 import Button from '../components/Button.astro'
 import Icon from '../components/Icon.astro'
-import { PROJECTS, type Difficulty } from '../consts'
+import { PROJECTS, type Difficulty, type LocalizedText } from '../consts'
+import { getLang, getLocalized, useTranslatedPath, useTranslations } from '../i18n/utils'
 
 interface Project {
   slug: string
-  title: string
-  description: string
+  title: LocalizedText
+  description: LocalizedText
   difficulty: Difficulty
   tags: string[]
   links: {
@@ -17,10 +18,14 @@ interface Project {
   hidden?: boolean
 }
 
+const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
 const DIFFICULTY_LABEL: Record<Difficulty, string> = {
-  beginner: 'Beginner',
-  intermediate: 'Intermediate',
-  advanced: 'Advanced'
+  beginner: t('difficulty.beginner'),
+  intermediate: t('difficulty.intermediate'),
+  advanced: t('difficulty.advanced')
 }
 
 const DIFFICULTY_CLASS: Record<Difficulty, string> = {
@@ -42,6 +47,9 @@ const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
     cards.map((p, i) => {
       const idx = cards.length - i
       const num = String(idx).padStart(2, '0')
+      const title = getLocalized(p.title, lang)
+      const description = getLocalized(p.description, lang)
+      const demoHref = p.links.homepage || translatePath(`/projects/${p.slug}`)
 
       return (
         <article class="group relative overflow-hidden rounded-3xl bg-white/10 transition-transform duration-300 hover:-translate-y-1 hover:bg-white/50 md:shadow-lg md:backdrop-blur md:hover:shadow-2xl">
@@ -58,12 +66,12 @@ const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
           </span>
 
           {/* Imagen del demo (zoom al hover) */}
-          <a href={p.links.homepage || `/projects/${p.slug}`} class="block overflow-hidden">
+          <a href={demoHref} class="block overflow-hidden">
             <img
               loading="lazy"
               decoding="async"
               src={`/demo/${p.slug}/screenshot.webp`}
-              alt={`Captura de ${p.title}`}
+              alt={title}
               class="aspect-video w-full rounded-t-3xl object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
             />
           </a>
@@ -72,15 +80,15 @@ const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
             {/* Título con gradiente al hover */}
             <h2 class="text-xl font-bold tracking-tight sm:text-2xl">
               <a
-                href={p.links.homepage || `/projects/${p.slug}`}
+                href={demoHref}
                 class="inline-block text-white transition-all duration-300 group-hover:bg-[linear-gradient(90deg,rgb(var(--clr-lime)),rgb(var(--clr-cyan)))] group-hover:bg-[length:100%_100%] group-hover:bg-clip-text group-hover:text-transparent"
               >
-                {p.title}
+                {title}
               </a>
             </h2>
 
             <p class="line-clamp-3 text-base text-slate-700 dark:text-slate-300 group-hover:dark:text-slate-800">
-              {p.description}
+              {description}
             </p>
 
             {/* Tags */}
@@ -117,14 +125,12 @@ const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
             <div class="grid grid-cols-3 gap-1">
               <Button
                 href={`https://github.com/soyandresdev/the-frontend-projects/tree/main/workspace/${p.slug}`}
-                label="Code"
+                label={t('project.code')}
               />
-              <Button
-                href={p.links.homepage || `/projects/${p.slug}`}
-                label="Demo"
-                variant="demo"
-              />
-              {p.links.youtube && <Button href={p.links.youtube} label="Video" variant="video" />}
+              <Button href={demoHref} label={t('project.demo')} variant="demo" />
+              {p.links.youtube && (
+                <Button href={p.links.youtube} label={t('project.video')} variant="video" />
+              )}
             </div>
           </div>
         </article>

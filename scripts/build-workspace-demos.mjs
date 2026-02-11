@@ -79,6 +79,8 @@ async function buildAllWorkspaceDemos() {
             waitUntil: 'networkidle0',
             timeout: 60000
           })
+          // Deja asentar animaciones de entrada (GSAP, CSS) antes de capturar.
+          await new Promise((r) => setTimeout(r, 900))
 
           const pngTemp = path.join(demoPath, 'screenshot.png')
           await page.screenshot({ path: pngTemp })

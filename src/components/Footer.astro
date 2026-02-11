@@ -1,3 +1,10 @@
+---
+import { getLang, useTranslations } from '../i18n/utils'
+
+const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
+---
+
 <!-- FOOTER ---------------------------------------------------------------->
 <footer class="relative flex justify-center">
   <!-- contenedor “glass” -->
@@ -56,9 +63,7 @@
       </div>
 
       <!-- copyright -->
-      <p class="text-xs opacity-70">
-        © {new Date().getFullYear()} Made with ❤️ by SoyAndresDev
-      </p>
+      <p class="text-xs opacity-70">© {new Date().getFullYear()} {t('footer.madeWith')}</p>
     </div>
   </div>
 </footer>

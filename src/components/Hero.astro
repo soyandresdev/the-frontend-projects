@@ -7,10 +7,14 @@
 */
 
 import { PROJECTS } from '../consts'
+import { getLang, useTranslations } from '../i18n/utils'
 
 /** total de proyectos que NO están marcados como hidden */
 const total = PROJECTS.filter((p) => !p.hidden).length
 const big = String(total).padStart(2, '0') //  2 → 02, 9 → 09, 14 → 14
+
+const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
 ---
 
 <!-- HERO / HEADER --------------------------------------------------------->
@@ -23,16 +27,15 @@ const big = String(total).padStart(2, '0') //  2 → 02, 9 → 09, 14 → 14
       <h2 class="text-2xl">
         <span
           class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
-          >¡Ey!, Soy Andres Hernandez Lozano</span
+          >{t('hero.greeting')}</span
         ><span> 👋</span>
       </h2>
       <p class="leading-relaxed text-slate-200/90">
-        Apasionado por el desarrollo <strong class="bg-yellow-100 text-yellow-800">frontend</strong
-        >, creo interfaces limpias y accesibles. Compartiendo proyectos y tutoriales prácticos de
+        {t('hero.bio.part1')} <strong class="bg-yellow-100 text-yellow-800">{t('hero.bio.frontend')}</strong>
+        {t('hero.bio.part2')}
         <strong class="bg-[rgb(243,115,33)] px-2 py-0.5 text-slate-800">HTML</strong>,
-        <strong class="bg-[rgb(22,118,188)] px-2 py-0.5 text-white">CSS</strong> y
-        <strong class="bg-[rgb(247,223,30)] px-2 py-0.5 text-slate-800">JavaScript</strong> para que
-        aprendas de forma rápida y divertida.
+        <strong class="bg-[rgb(22,118,188)] px-2 py-0.5 text-white">CSS</strong> {t('hero.bio.and')}
+        <strong class="bg-[rgb(247,223,30)] px-2 py-0.5 text-slate-800">JavaScript</strong> {t('hero.bio.part3')}
       </p>
       <div class="flex items-center justify-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -70,7 +73,7 @@ const big = String(total).padStart(2, '0') //  2 → 02, 9 → 09, 14 → 14
         ><p
           class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
         >
-          Located in Melbourne, VIC.
+          {t('hero.location')}
         </p>
       </div>
     </div>

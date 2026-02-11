@@ -5,6 +5,17 @@ import path from 'path'
 
 const WORKSPACE_DIR = path.resolve('workspace')
 const OUTPUT_FILE = path.resolve('src', 'consts.ts')
+const LOCALES = ['en', 'es']
+
+/** Normaliza un valor de frontmatter (string legado u objeto {en, es, ...}) a un Record completo por locale. */
+function toLocalized(value, fallback = '') {
+  if (value && typeof value === 'object') {
+    const en = value.en ?? fallback
+    return Object.fromEntries(LOCALES.map((locale) => [locale, value[locale] ?? en]))
+  }
+  const str = value ?? fallback
+  return Object.fromEntries(LOCALES.map((locale) => [locale, str]))
+}
 
 async function generate() {
   const entries = await fs.readdir(WORKSPACE_DIR, { withFileTypes: true })
@@ -34,8 +45,8 @@ async function generate() {
     }
 
     // Prioriza frontmatter > package.json > defaults
-    const title = fmData.title || pkg.title || pkg.name || slug
-    const description = fmData.description || pkg.description || ''
+    const title = toLocalized(fmData.title, pkg.title || pkg.name || slug)
+    const description = toLocalized(fmData.description, pkg.description || '')
     const tags = Array.isArray(fmData.keywords)
       ? fmData.keywords
       : Array.isArray(pkg.keywords)
@@ -59,11 +70,13 @@ async function generate() {
 
   const fileContent = `export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 
+export type LocalizedText = { en: string; es: string };
+
 export interface Project {
   slug: string;
-  title: string;
+  title: LocalizedText;
   hidden: boolean;
-  description: string;
+  description: LocalizedText;
   difficulty: Difficulty;
   tags: string[];
   links: { homepage: string | null; repository: string | null; youtube: string | null };

@@ -1,12 +1,18 @@
 ---
 import type { Difficulty } from '../consts'
+import { getLang, getLocalized, useTranslatedPath, useTranslations } from '../i18n/utils'
 
 const { info } = Astro.props
 
+const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+const title = getLocalized(info.title, lang)
+
 const DIFFICULTY_LABEL: Record<Difficulty, string> = {
-  beginner: 'Beginner',
-  intermediate: 'Intermediate',
-  advanced: 'Advanced'
+  beginner: t('difficulty.beginner'),
+  intermediate: t('difficulty.intermediate'),
+  advanced: t('difficulty.advanced')
 }
 
 const DIFFICULTY_CLASS: Record<Difficulty, string> = {
@@ -29,7 +35,7 @@ const DIFFICULTY_CLASS: Record<Difficulty, string> = {
 
   <!-- Título del proyecto -->
   <h2 class="text-lg font-semibold text-white drop-shadow-md sm:text-2xl">
-    {info.title}
+    {title}
   </h2>
 
   <!-- Badge de dificultad -->
@@ -41,9 +47,9 @@ const DIFFICULTY_CLASS: Record<Difficulty, string> = {
 
   <!-- Enlace para volver a la lista de proyectos -->
   <a
-    href="/"
+    href={translatePath('/')}
     class="mt-2 inline-block rounded-lg bg-[rgb(var(--clr-cyan))] px-4 py-1 font-medium text-black transition hover:bg-[rgb(var(--clr-cyan))]/80 dark:bg-[rgb(var(--clr-lime))] dark:hover:bg-[rgb(var(--clr-lime))]/80"
   >
-    ← Volver a proyectos
+    {t('project.back')}
   </a>
 </div>
