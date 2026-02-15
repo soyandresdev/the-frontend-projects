@@ -1,22 +1,8 @@
 ---
 import Button from '../components/Button.astro'
 import Icon from '../components/Icon.astro'
-import { PROJECTS, type Difficulty, type LocalizedText } from '../consts'
+import { PROJECTS, type Difficulty } from '../consts'
 import { getLang, getLocalized, useTranslatedPath, useTranslations } from '../i18n/utils'
-
-interface Project {
-  slug: string
-  title: LocalizedText
-  description: LocalizedText
-  difficulty: Difficulty
-  tags: string[]
-  links: {
-    homepage: string | null
-    repository: string | null
-    youtube: string | null
-  }
-  hidden?: boolean
-}
 
 const lang = getLang(Astro.currentLocale)
 const t = useTranslations(lang)
@@ -34,19 +20,34 @@ const DIFFICULTY_CLASS: Record<Difficulty, string> = {
   advanced: 'border-rose-400/30 bg-rose-400/10 text-rose-300'
 }
 
-// Filtramos proyectos visibles y los invertimos para mostrar el más reciente primero
-const cards: Project[] = PROJECTS.filter((p) => !p.hidden)
-  .slice()
-  .reverse()
+// Numeramos según el orden real de creación (posición en PROJECTS) ANTES de mezclar,
+// así el badge #NN no se ve afectado por el orden visual.
+const numbered = PROJECTS.filter((p) => !p.hidden).map((p, i) => ({
+  ...p,
+  num: String(i + 1).padStart(2, '0')
+}))
+
+// Hash simple y estable por slug: da un orden "mezclado" que no agrupa proyectos por
+// dificultad (como pasaría con el orden de creación), pero es el mismo en cada build,
+// así el grid no salta de posición entre visitas o recargas.
+function hashSlug(slug: string) {
+  let hash = 0
+  for (let i = 0; i < slug.length; i++) {
+    hash = (hash << 5) - hash + slug.charCodeAt(i)
+    hash |= 0
+  }
+  return hash
+}
+
+const cards = numbered.slice().sort((a, b) => hashSlug(a.slug) - hashSlug(b.slug))
 ---
 
 <div
   class="mx-auto mb-20 grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-2 lg:mb-32 lg:grid-cols-3 lg:gap-12"
 >
   {
-    cards.map((p, i) => {
-      const idx = cards.length - i
-      const num = String(idx).padStart(2, '0')
+    cards.map((p) => {
+      const num = p.num
       const title = getLocalized(p.title, lang)
       const description = getLocalized(p.description, lang)
       const demoHref = p.links.homepage || translatePath(`/projects/${p.slug}`)
