@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/05-inkline/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inkline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="progress-track" aria-hidden="true">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <div class="badge" id="badge" role="status" aria-live="polite">
+      <svg class="badge-ring" viewBox="0 0 36 36" aria-hidden="true">
+        <circle class="badge-ring__track" cx="18" cy="18" r="15" />
+        <circle class="badge-ring__fill" id="badge-ring-fill" cx="18" cy="18" r="15" />
+      </svg>
+      <span id="badge-text">0%</span>
+    </div>
+
+    <article class="content">
+      <p class="kicker">Inkline · a reading companion</p>
+      <h1>The Quiet Craft of Building for the Web</h1>
+
+      <p>
+        Every interface we touch is the result of thousands of small, invisible decisions. A
+        button that feels right to press. A page that loads before you notice the wait. A line of
+        text that sits at just the right width for your eye to travel without getting lost. None of
+        this is an accident — it's craft, practiced quietly, one detail at a time.
+      </p>
+
+      <p>
+        The web rewards this kind of attention in a way few other mediums do. Unlike a print
+        layout, a website breathes: it resizes, it reflows, it adapts to a phone in a pocket or a
+        monitor across a desk. Building for that constant motion means designing not for a single
+        moment, but for a spectrum of them.
+      </p>
+
+      <h2>Where Motion Earns Its Place</h2>
+
+      <p>
+        Animation is one of the most misunderstood tools in this craft. Used carelessly, it slows
+        people down and gets in the way of what they came to do. Used with intention, it explains a
+        change, softens a transition, or confirms that an action landed. The difference is rarely
+        the animation itself — it's whether anyone asked why it's there.
+      </p>
+
+      <p>
+        A good rule of thumb: if you can't answer "why does this move?" in one sentence, it
+        probably shouldn't. The best motion in an interface is often the kind nobody consciously
+        notices — it just makes everything feel a little more solid, a little more alive.
+      </p>
+
+      <h2>Performance as a Design Decision</h2>
+
+      <p>
+        Speed is not a technical afterthought bolted on at the end of a project — it's part of the
+        experience itself. A page that responds instantly to a tap feels trustworthy in a way that's
+        hard to fake. A page that stutters, even slightly, quietly erodes that trust with every
+        interaction.
+      </p>
+
+      <p>
+        This is why the best-performing animations on the web tend to animate only two properties:
+        transform and opacity. Both can be handled by the compositor, skipping the expensive layout
+        and paint work that causes jank. It's a small technical constraint that shapes an enormous
+        amount of good design.
+      </p>
+
+      <h2>Designing for the Person, Not the Demo</h2>
+
+      <p>
+        It's easy to build something that looks impressive in a fifteen-second screen recording and
+        falls apart the moment a real person tries to use it — on a slower connection, with a
+        screen reader, on a phone held in one hand while walking. The craft is in making it hold up
+        in all of those conditions, not just the one you happened to test.
+      </p>
+
+      <p>
+        Respecting a person's preferences is part of that same craft. Someone who has asked their
+        system for reduced motion isn't opting out of delight — they're asking not to be made
+        dizzy by it. Meeting that request well, rather than ignoring it, is itself a form of good
+        design.
+      </p>
+
+      <h2>The Long View</h2>
+
+      <p>
+        None of this happens in a single sitting. The interfaces that feel effortless are usually
+        the ones that were revisited, questioned, and refined well past the point where they
+        technically "worked." That extra pass — the one nobody asked for — is usually where the
+        craft actually lives.
+      </p>
+
+      <p>
+        You've just scrolled through this entire page, and somewhere along the way a thin line at
+        the top quietly tracked exactly how far you'd come. That's the same idea in miniature: a
+        small, considered detail, doing its job without asking for credit.
+      </p>
+
+      <p class="end">— fin —</p>
+    </article>
+
+    <script src="script.js"></script>
+  </body>
+</html>

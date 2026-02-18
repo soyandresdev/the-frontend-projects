@@ -116,5 +116,31 @@ export const PROJECTS: Project[] = [
       "repository": null,
       "youtube": null
     }
+  },
+  {
+    "slug": "05-inkline",
+    "title": {
+      "en": "Inkline",
+      "es": "Inkline"
+    },
+    "hidden": false,
+    "description": {
+      "en": "A reading-progress indicator with a scroll-driven CSS timeline and a glass badge, reimagined from html-css-js-projects #49.",
+      "es": "Indicador de progreso de lectura con una línea de tiempo CSS ligada al scroll y una badge de cristal, inspirado en html-css-js-projects #49."
+    },
+    "difficulty": "beginner",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "scroll",
+      "progress",
+      "animation-timeline"
+    ],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
   }
 ] as Project[];
