@@ -142,5 +142,31 @@ export const PROJECTS: Project[] = [
       "repository": null,
       "youtube": null
     }
+  },
+  {
+    "slug": "06-strongbox",
+    "title": {
+      "en": "Strongbox",
+      "es": "Strongbox"
+    },
+    "hidden": false,
+    "description": {
+      "en": "A password strength checker with a segmented live meter and animated requirement checklist, reimagined from html-css-js-projects #32.",
+      "es": "Verificador de fortaleza de contraseña con medidor segmentado en vivo y checklist animado de requisitos, inspirado en html-css-js-projects #32."
+    },
+    "difficulty": "beginner",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "password",
+      "forms",
+      "validation"
+    ],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
   }
 ] as Project[];
