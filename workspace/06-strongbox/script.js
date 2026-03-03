@@ -4,8 +4,8 @@ const toggleBtn = document.getElementById('toggle-btn')
 const meterBlocks = document.getElementById('meter-blocks')
 const meterLabel = document.getElementById('meter-label')
 const requirementItems = document.querySelectorAll('[data-req]')
-const continueBtn = document.getElementById('continue-btn')
-const continueLabel = document.getElementById('continue-label')
+const copyBtn = document.getElementById('copy-btn')
+const copyLabel = document.getElementById('copy-label')
 
 const TOTAL_BLOCKS = 5
 const LEVELS = [
@@ -16,8 +16,6 @@ const LEVELS = [
   { min: 5, className: 'lvl-strong', text: 'strong' }
 ]
 const LEVEL_CLASSES = LEVELS.map((l) => l.className)
-
-let isReady = false
 
 // ---------- Efecto de escritura para la línea de intro ----------
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -88,8 +86,7 @@ function updateMeter(strength, length) {
   if (length === 0) {
     meterLabel.textContent = 'idle'
     meterLabel.classList.remove(...LEVEL_CLASSES)
-    isReady = false
-    continueBtn.classList.remove('is-ready')
+    copyBtn.classList.remove('is-ready')
     return
   }
 
@@ -103,28 +100,35 @@ function updateMeter(strength, length) {
   meterLabel.classList.remove(...LEVEL_CLASSES)
   meterLabel.classList.add(level.className)
 
-  isReady = strength >= 4
-  continueBtn.classList.toggle('is-ready', isReady)
+  // "is-ready" es solo un refuerzo visual (verde) para contraseñas good/strong;
+  // copiar sigue funcionando con cualquier contraseña no vacía.
+  copyBtn.classList.toggle('is-ready', strength >= 4)
 }
 
-continueBtn.addEventListener('click', () => {
-  if (!isReady) {
-    passwordInput.classList.remove('is-shaking')
-    continueBtn.classList.remove('is-shaking')
-    void continueBtn.offsetWidth
-    passwordInput.classList.add('is-shaking')
-    continueBtn.classList.add('is-shaking')
+function triggerShake(el) {
+  el.classList.remove('is-shaking')
+  void el.offsetWidth
+  el.classList.add('is-shaking')
+}
+
+copyBtn.addEventListener('click', async () => {
+  if (!passwordInput.value) {
+    triggerShake(passwordInput)
+    triggerShake(copyBtn)
     passwordInput.focus()
     return
   }
 
-  const original = continueLabel.textContent
-  continueLabel.textContent = '[ access granted ]'
-  continueBtn.disabled = true
+  const original = copyLabel.textContent
+  try {
+    await navigator.clipboard.writeText(passwordInput.value)
+    copyLabel.textContent = '[ copied to clipboard ]'
+  } catch {
+    copyLabel.textContent = '[ copy failed ]'
+  }
 
   window.setTimeout(() => {
-    continueLabel.textContent = original
-    continueBtn.disabled = false
+    copyLabel.textContent = original
   }, 1600)
 })
 
