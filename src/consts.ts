@@ -168,5 +168,31 @@ export const PROJECTS: Project[] = [
       "repository": null,
       "youtube": null
     }
+  },
+  {
+    "slug": "07-masthead",
+    "title": {
+      "en": "Masthead",
+      "es": "Masthead"
+    },
+    "hidden": false,
+    "description": {
+      "en": "A print-editorial team page — cream paper tones, serif display type and duotone photography, reimagined from html-css-js-projects #20.",
+      "es": "Página de equipo estilo editorial impreso — tonos crema, tipografía serif y fotografía a duotono, inspirada en html-css-js-projects #20."
+    },
+    "difficulty": "beginner",
+    "tags": [
+      "HTML",
+      "CSS",
+      "team",
+      "editorial",
+      "grid",
+      "typography"
+    ],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
   }
 ] as Project[];
