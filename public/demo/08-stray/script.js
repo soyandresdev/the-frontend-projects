@@ -4,6 +4,9 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 // levemente en overshoot al soltar — el "bounce" que solo debe pasar tras arrastrar.
 const SPRING = { stiffness: 220, damping: 18, mass: 1 }
 const REST_DELTA = 0.4
+const MAX_TILT = 14
+
+const instances = []
 
 class DraggableDigit {
   constructor(el) {
@@ -31,7 +34,13 @@ class DraggableDigit {
     this.cancelSpring()
     this.dragging = true
     this.pointerId = e.pointerId
-    this.el.setPointerCapture(e.pointerId)
+    try {
+      // Algunos navegadores pueden rechazar la captura en ciertos escenarios;
+      // seguimos igual con los listeners en window como respaldo.
+      this.el.setPointerCapture(e.pointerId)
+    } catch {
+      /* noop */
+    }
     this.el.classList.add('is-dragging')
 
     this.startPointerX = e.clientX
@@ -74,24 +83,34 @@ class DraggableDigit {
     window.removeEventListener('pointerup', this.onPointerUp)
 
     if (prefersReducedMotion) {
-      this.settleInstantly()
+      this.snapHome({ animate: true })
     } else {
       this.startSpring()
     }
   }
 
   applyTransform() {
-    this.el.style.transform = `translate(${this.x}px, ${this.y}px)`
+    // Ligera inclinación proporcional al desplazamiento horizontal: hace que el
+    // arrastre se sienta como un objeto físico volando, no solo una traslación.
+    const tilt = Math.max(-MAX_TILT, Math.min(MAX_TILT, this.x * 0.06))
+    this.el.style.transform = `translate(${this.x}px, ${this.y}px) rotate(${tilt}deg)`
   }
 
-  settleInstantly() {
-    this.el.style.transition = 'transform 220ms ease-out'
+  /** Reposiciona en el sitio al instante, sin animar. Usado como red de seguridad
+   * (pestaña oculta a mitad de vuelo) y para prefers-reduced-motion. */
+  snapHome({ animate = false } = {}) {
+    this.cancelSpring()
+    if (animate) {
+      this.el.style.transition = 'transform 220ms ease-out'
+      window.setTimeout(() => {
+        this.el.style.transition = ''
+      }, 240)
+    }
     this.x = 0
     this.y = 0
+    this.vx = 0
+    this.vy = 0
     this.applyTransform()
-    window.setTimeout(() => {
-      this.el.style.transition = ''
-    }, 240)
   }
 
   // RELEASE: resorte sembrado con la velocidad del gesto, no un keyframe fijo —
@@ -143,4 +162,14 @@ class DraggableDigit {
   }
 }
 
-document.querySelectorAll('[data-digit]').forEach((el) => new DraggableDigit(el))
+document.querySelectorAll('[data-digit]').forEach((el) => instances.push(new DraggableDigit(el)))
+
+// Red de seguridad: si la pestaña se oculta, rAF se congela y un resorte en vuelo
+// se quedaría atascado para siempre. Al ocultarse, resuelve al instante lo que no
+// se esté arrastrando activamente (lo que sigue en mano se resuelve al soltar).
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) return
+  instances.forEach((inst) => {
+    if (!inst.dragging) inst.snapHome()
+  })
+})
