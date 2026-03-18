@@ -28,6 +28,7 @@ class DraggableDigit {
     this.lastMoveY = 0
 
     this.el.addEventListener('pointerdown', this.onPointerDown)
+    this.el.addEventListener('lostpointercapture', this.onLostPointerCapture)
   }
 
   onPointerDown = (e) => {
@@ -56,6 +57,10 @@ class DraggableDigit {
 
     window.addEventListener('pointermove', this.onPointerMove)
     window.addEventListener('pointerup', this.onPointerUp)
+    // El navegador puede cancelar el gesto (gesto del sistema, cambio de foco,
+    // o cruzar el borde del iframe) en vez de disparar pointerup — sin esto el
+    // tile se queda "enganchado" en modo arrastre para siempre.
+    window.addEventListener('pointercancel', this.onPointerUp)
   }
 
   onPointerMove = (e) => {
@@ -77,10 +82,24 @@ class DraggableDigit {
 
   onPointerUp = (e) => {
     if (e.pointerId !== this.pointerId) return
+    this.endDrag()
+  }
+
+  // Si el navegador suelta la captura por su cuenta (p. ej. el puntero cruza
+  // el borde del iframe hacia el documento padre) sin avisar con pointerup/
+  // pointercancel, este evento sí es garantizado por la spec — es la red de
+  // seguridad definitiva contra el tile quedando atascado en "is-dragging".
+  onLostPointerCapture = () => {
+    if (this.dragging) this.endDrag()
+  }
+
+  endDrag() {
+    if (!this.dragging) return
     this.dragging = false
     this.el.classList.remove('is-dragging')
     window.removeEventListener('pointermove', this.onPointerMove)
     window.removeEventListener('pointerup', this.onPointerUp)
+    window.removeEventListener('pointercancel', this.onPointerUp)
 
     if (prefersReducedMotion) {
       this.snapHome({ animate: true })
