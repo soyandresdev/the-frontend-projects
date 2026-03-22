@@ -3,167 +3,242 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🚗 Neon Velocity</title>
+    <meta name="color-scheme" content="dark" />
+    <title>Velocity — Electric Performance</title>
     <link rel="stylesheet" href="/src/style.css" />
     <script type="module" src="/src/main.js" defer></script>
   </head>
 
   <body>
-    <!-- 🔧 Background scroll-controlled car -->
+    <!-- Grain + scroll progress live above everything, below nothing -->
+    <div class="grain" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Background scroll-controlled car flipbook -->
     <div class="bg--scroller">
-      <img id="car-frame" src="/assets/frames/frame-0001.jpg" alt="Scroll Car Frame" />
+      <img id="car-frame" src="/assets/frames/frame-0001.jpg" alt="" aria-hidden="true" />
     </div>
 
-    <!-- 🧱 Foreground sections -->
-    <main class="main-content">
-      <!-- 🚀 Hero Section -->
-      <section class="section section--hero">
-        <h1 class="title">YOUR NEXT CAR</h1>
-        <p class="subtitle">Explore futuristic performance and design</p>
-        <div class="hero-buttons">
-          <button class="btn btn--primary">Sign Up</button>
-          <button class="btn btn--outline">Learn More</button>
+    <header class="header" id="header">
+      <a class="header__logo" href="#top">Velocity<span class="header__logo-dot">.</span></a>
+      <nav class="header__nav">
+        <a href="#models">Models</a>
+        <a href="#services">Services</a>
+        <a href="#test-drive">Test Drive</a>
+      </nav>
+      <a class="btn btn--ghost btn--small" href="#test-drive">Book a Test Drive</a>
+    </header>
+
+    <div id="smooth-wrapper">
+    <div id="smooth-content">
+    <main class="main-content" id="content">
+      <!-- Hero -->
+      <section class="section section--hero" id="top">
+        <p class="hero__kicker">/ Electric performance — 2026</p>
+        <h1 class="hero__heading">
+          <span class="hero__line hero__line--outline">Drive</span>
+          <span class="hero__line">the <em>future</em>.</span>
+        </h1>
+        <p class="hero__subtitle">Explore futuristic performance and design.</p>
+        <div class="hero__ctas">
+          <button class="btn btn--primary" data-magnetic>Sign Up</button>
+          <button class="btn btn--outline" data-magnetic>Learn More</button>
+        </div>
+        <div class="hero__scroll-cue" aria-hidden="true">
+          <span class="hero__scroll-line"></span>
+          <span>Scroll</span>
         </div>
       </section>
 
-      <!-- 🛠️ Dream Section with Parallax -->
+      <!-- Marquee strip -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span
+            >Zero emissions&nbsp;&nbsp;—&nbsp;&nbsp;Instant torque&nbsp;&nbsp;—&nbsp;&nbsp;AI-assisted
+            drive&nbsp;&nbsp;—&nbsp;&nbsp;Over-the-air updates&nbsp;&nbsp;—&nbsp;&nbsp;</span
+          >
+          <span
+            >Zero emissions&nbsp;&nbsp;—&nbsp;&nbsp;Instant torque&nbsp;&nbsp;—&nbsp;&nbsp;AI-assisted
+            drive&nbsp;&nbsp;—&nbsp;&nbsp;Over-the-air updates&nbsp;&nbsp;—&nbsp;&nbsp;</span
+          >
+        </div>
+      </div>
+
+      <!-- Manifesto / Dream section -->
       <section class="section section--dream">
-        <div class="dream-section__text">
-          <h2>Find Your Dream Car Today</h2>
-          <p>
-            At Unique Cars, we offer a wide selection of high-quality vehicles to suit every style
-            and budget.
-          </p>
-          <div class="dream-section__benefits">
-            <div class="dream-section__benefit">
-              <img
-                src="/assets/icon-quality.svg"
-                alt="Quality Icon"
-                class="dream-section__benefit-icon"
-              />
-              <div class="dream-section__benefit-content">
-                <strong>Quality Cars</strong>
-                <p>Top-notch vehicles that combine style and performance.</p>
-              </div>
-            </div>
-            <div class="dream-section__benefit">
-              <img
-                src="/assets/icon-service.svg"
-                alt="Service Icon"
-                class="dream-section__benefit-icon"
-              />
-              <div class="dream-section__benefit-content">
-                <strong>Exceptional Service</strong>
-                <p>Experience our personalized approach to car buying and ownership.</p>
-              </div>
-            </div>
+        <div class="dream">
+          <span class="dream__index">01</span>
+          <div class="dream__text">
+            <h2 class="reveal-words">Find your dream car today</h2>
+            <p>
+              At Velocity, we offer a wide selection of high-quality vehicles to suit every style
+              and budget.
+            </p>
+            <ul class="dream__benefits">
+              <li class="dream__benefit">
+                <img src="/assets/icon-quality.svg" alt="" class="dream__benefit-icon" />
+                <div>
+                  <strong>Quality cars</strong>
+                  <p>Top-notch vehicles that combine style and performance.</p>
+                </div>
+              </li>
+              <li class="dream__benefit">
+                <img src="/assets/icon-service.svg" alt="" class="dream__benefit-icon" />
+                <div>
+                  <strong>Exceptional service</strong>
+                  <p>Experience our personalized approach to car buying and ownership.</p>
+                </div>
+              </li>
+            </ul>
           </div>
-        </div>
 
-        <div class="dream-section__visual">
-          <img src="/assets/garage-car.webp" alt="Garage Car" />
+          <div class="dream__visual">
+            <img src="/assets/garage-car.webp" alt="Car resting in a private garage" />
+          </div>
         </div>
       </section>
 
-      <!-- 🏁 Featured Cars -->
-      <section class="section section--featured">
-        <h2>Explore Our Models</h2>
-        <div class="card-grid">
-          <div class="card card--product">
-            <div class="image-wrapper">
+      <!-- Models — pinned horizontal gallery -->
+      <section class="section section--models" id="models">
+        <div class="models__intro">
+          <span class="models__index">02</span>
+          <h2 class="reveal-words">Explore the lineup</h2>
+        </div>
+
+        <div class="models__pin">
+          <div class="models__track">
+            <article class="model-card">
               <img src="/assets/luxury-sedan.webp" alt="Luxury Sedan" />
-              <div class="icon-circle">
-                <img src="/assets/icon-cart.svg" alt="Add to cart" />
+              <div class="model-card__body">
+                <p class="model-card__spec">0–60 in 3.1s · 405 mi range</p>
+                <h3>Luxury Sedan</h3>
+                <div class="model-card__row">
+                  <span class="model-card__model">Model S</span>
+                  <span class="model-card__price">$85,000</span>
+                </div>
               </div>
-            </div>
-            <div class="info">
-              <h4>Luxury Sedan</h4>
-              <p class="model">Model S</p>
-              <p class="price">$85,000</p>
-            </div>
-          </div>
+            </article>
 
-          <div class="card card--product">
-            <div class="image-wrapper">
+            <article class="model-card">
               <img src="/assets/sports-coupe.webp" alt="Sports Coupe" />
-              <div class="icon-circle">
-                <img src="/assets/icon-cart.svg" alt="Add to cart" />
+              <div class="model-card__body">
+                <p class="model-card__spec">0–60 in 2.4s · 320 mi range</p>
+                <h3>Sports Coupe</h3>
+                <div class="model-card__row">
+                  <span class="model-card__model">Model X</span>
+                  <span class="model-card__price">$92,000</span>
+                </div>
               </div>
-            </div>
-            <div class="info">
-              <h4>Sports Coupe</h4>
-              <p class="model">Model X</p>
-              <p class="price">$92,000</p>
-            </div>
-          </div>
+            </article>
 
-          <div class="card card--product">
-            <div class="image-wrapper">
+            <article class="model-card">
               <img src="/assets/electric-suv.webp" alt="Electric SUV" />
-              <div class="icon-circle">
-                <img src="/assets/icon-cart.svg" alt="Add to cart" />
+              <div class="model-card__body">
+                <p class="model-card__spec">0–60 in 4.0s · 350 mi range</p>
+                <h3>Electric SUV</h3>
+                <div class="model-card__row">
+                  <span class="model-card__model">Model Z</span>
+                  <span class="model-card__price">$78,500</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="model-card model-card--cta">
+              <div class="model-card__body">
+                <h3>See the full lineup</h3>
+                <p>Every model, every trim, every color.</p>
+                <button class="btn btn--outline" data-magnetic>Browse Models</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section class="section section--services" id="services">
+        <div class="services__intro">
+          <span class="models__index">03</span>
+          <h2 class="reveal-words">Smart services</h2>
+        </div>
+        <ul class="services-list">
+          <li class="service-row">
+            <span class="service-row__index">01</span>
+            <div class="service-row__content">
+              <img src="/assets/icon-tradein.svg" alt="" />
+              <div>
+                <h4>Trade-in Program</h4>
+                <p>Upgrade with ease and get value instantly.</p>
               </div>
             </div>
-            <div class="info">
-              <h4>Electric SUV</h4>
-              <p class="model">Model Z</p>
-              <p class="price">$78,500</p>
+            <span class="service-row__arrow" aria-hidden="true">&rarr;</span>
+          </li>
+          <li class="service-row">
+            <span class="service-row__index">02</span>
+            <div class="service-row__content">
+              <img src="/assets/icon-maintenance.svg" alt="" />
+              <div>
+                <h4>Maintenance</h4>
+                <p>Stay on the road with confidence.</p>
+              </div>
+            </div>
+            <span class="service-row__arrow" aria-hidden="true">&rarr;</span>
+          </li>
+          <li class="service-row">
+            <span class="service-row__index">03</span>
+            <div class="service-row__content">
+              <img src="/assets/icon-insurance.svg" alt="" />
+              <div>
+                <h4>Insurance</h4>
+                <p>Drive worry-free with complete coverage.</p>
+              </div>
+            </div>
+            <span class="service-row__arrow" aria-hidden="true">&rarr;</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Testimonial -->
+      <section class="section section--testimonials">
+        <div class="testimonial">
+          <span class="testimonial__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>An incredible experience — the future of driving starts here.</blockquote>
+          <div class="testimonial__author">
+            <img src="/assets/avatar.webp" alt="" />
+            <div>
+              <cite>Alex M.</cite>
+              <span>Verified Owner</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ⚙️ Services -->
-      <section class="section section--services">
-        <h2>Smart Services</h2>
-        <div class="services-grid">
-          <div class="service">
-            <img src="/assets/icon-tradein.svg" alt="Trade-in" />
-            <h4>Trade-in Program</h4>
-            <p>Upgrade with ease and get value instantly.</p>
-          </div>
-          <div class="service">
-            <img src="/assets/icon-maintenance.svg" alt="Maintenance" />
-            <h4>Maintenance</h4>
-            <p>Stay on the road with confidence.</p>
-          </div>
-          <div class="service">
-            <img src="/assets/icon-insurance.svg" alt="Insurance" />
-            <h4>Insurance</h4>
-            <p>Drive worry-free with complete coverage.</p>
-          </div>
+      <!-- CTA Test Drive -->
+      <section class="section section--cta" id="test-drive">
+        <img class="cta-banner" src="/assets/test-drive-banner.webp" alt="" aria-hidden="true" />
+        <div class="cta-banner__scrim" aria-hidden="true"></div>
+        <div class="cta__content">
+          <p class="hero__kicker">/ Limited availability</p>
+          <h2 class="reveal-words">Book a free test drive</h2>
+          <p>Feel the thrill of tomorrow's technology — today.</p>
+          <button class="btn btn--primary btn--glow" data-magnetic>Start Now</button>
         </div>
       </section>
 
-      <!-- 🧑‍💼 Testimonial -->
-      <section class="section section--testimonials">
-        <h2>What Drivers Say</h2>
-        <div class="testimonial">
-          <img src="/assets/avatar.webp" alt="Avatar" />
-          <blockquote>
-            "An incredible experience — the future of driving starts here."
-            <cite>— Alex M.</cite>
-          </blockquote>
-        </div>
-      </section>
-
-      <!-- 🚘 CTA Test Drive -->
-      <section class="section section--cta">
-        <h2>Book a Free Test Drive</h2>
-        <p>Feel the thrill of tomorrow’s technology — today.</p>
-        <img class="cta-banner" src="/assets/test-drive-banner.webp" alt="Test Drive" />
-        <button class="btn btn--primary btn--pulse">Start Now</button>
-      </section>
-
-      <!-- 📫 Footer -->
+      <!-- Footer -->
       <footer class="section section--footer">
-        <p>© 2025 Neon Velocity. All rights reserved.</p>
-        <nav>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Support</a>
-        </nav>
+        <div class="footer__top">
+          <a class="header__logo" href="#top">Velocity<span class="header__logo-dot">.</span></a>
+          <nav>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Support</a>
+          </nav>
+        </div>
+        <p class="footer__wordmark" aria-hidden="true">Velocity</p>
+        <p class="footer__copyright">© 2026 Velocity. All rights reserved.</p>
       </footer>
     </main>
+    </div>
+    </div>
   </body>
 </html>
