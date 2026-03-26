@@ -104,7 +104,7 @@ class DraggableDigit {
     if (prefersReducedMotion) {
       this.snapHome({ animate: true })
     } else {
-      this.startSpring()
+      this.startSpring(true)
     }
   }
 
@@ -134,7 +134,9 @@ class DraggableDigit {
 
   // RELEASE: resorte sembrado con la velocidad del gesto, no un keyframe fijo —
   // así puede interrumpirse (re-agarrar a mitad de vuelo) sin saltos.
-  startSpring() {
+  // `rippleOnLand` solo es true para el aterrizaje real de un drag de usuario,
+  // así el impulso que sacude a los demás no dispara más impulsos en cadena.
+  startSpring(rippleOnLand = false) {
     let lastTime = performance.now()
 
     const step = (now) => {
@@ -164,6 +166,7 @@ class DraggableDigit {
         this.vy = 0
         this.applyTransform()
         this.rafId = null
+        if (rippleOnLand) rippleImpact(this)
         return
       }
 
@@ -173,12 +176,30 @@ class DraggableDigit {
     this.rafId = requestAnimationFrame(step)
   }
 
+  // Pequeño empujón (lo siente al aterrizar un vecino), reutilizando el mismo
+  // resorte — no una animación CSS aparte, para no repetir el bug del transform.
+  impulse(dx, dy) {
+    if (this.dragging) return
+    this.x += dx
+    this.y += dy
+    if (!this.rafId) this.startSpring()
+  }
+
   cancelSpring() {
     if (this.rafId) {
       cancelAnimationFrame(this.rafId)
       this.rafId = null
     }
   }
+}
+
+function rippleImpact(landed) {
+  if (prefersReducedMotion) return
+  instances.forEach((other) => {
+    if (other === landed) return
+    const dir = Math.random() < 0.5 ? -1 : 1
+    other.impulse(dir * (5 + Math.random() * 5), (Math.random() - 0.5) * 8)
+  })
 }
 
 document.querySelectorAll('[data-digit]').forEach((el) => instances.push(new DraggableDigit(el)))
