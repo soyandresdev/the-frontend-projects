@@ -3,6 +3,9 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 // Resorte amortiguado simple (semi-implícito). Con stiffness/damping bajos entra
 // levemente en overshoot al soltar — el "bounce" que solo debe pasar tras arrastrar.
 const SPRING = { stiffness: 220, damping: 18, mass: 1 }
+// Más suelto que SPRING (menor damping ⇒ más oscilaciones): para que el
+// impacto se sienta como un shake de lado a lado, no un solo bounce.
+const SHAKE_SPRING = { stiffness: 260, damping: 9, mass: 1 }
 const REST_DELTA = 0.4
 const MAX_TILT = 14
 
@@ -136,18 +139,18 @@ class DraggableDigit {
   // así puede interrumpirse (re-agarrar a mitad de vuelo) sin saltos.
   // `rippleOnLand` solo es true para el aterrizaje real de un drag de usuario,
   // así el impulso que sacude a los demás no dispara más impulsos en cadena.
-  startSpring(rippleOnLand = false) {
+  startSpring(rippleOnLand = false, spring = SPRING) {
     let lastTime = performance.now()
 
     const step = (now) => {
       const dt = Math.min((now - lastTime) / 1000, 0.032)
       lastTime = now
 
-      const fx = -SPRING.stiffness * this.x - SPRING.damping * this.vx
-      const fy = -SPRING.stiffness * this.y - SPRING.damping * this.vy
+      const fx = -spring.stiffness * this.x - spring.damping * this.vx
+      const fy = -spring.stiffness * this.y - spring.damping * this.vy
 
-      this.vx += (fx / SPRING.mass) * dt
-      this.vy += (fy / SPRING.mass) * dt
+      this.vx += (fx / spring.mass) * dt
+      this.vy += (fy / spring.mass) * dt
       this.x += this.vx * dt
       this.y += this.vy * dt
 
@@ -166,7 +169,7 @@ class DraggableDigit {
         this.vy = 0
         this.applyTransform()
         this.rafId = null
-        if (rippleOnLand) rippleImpact(this)
+        if (rippleOnLand) rippleImpact()
         return
       }
 
@@ -178,11 +181,13 @@ class DraggableDigit {
 
   // Pequeño empujón (lo siente al aterrizar un vecino), reutilizando el mismo
   // resorte — no una animación CSS aparte, para no repetir el bug del transform.
+  // Siempre arranca fresco con SHAKE_SPRING para que se note como sacudida.
   impulse(dx, dy) {
     if (this.dragging) return
+    this.cancelSpring()
     this.x += dx
     this.y += dy
-    if (!this.rafId) this.startSpring()
+    this.startSpring(false, SHAKE_SPRING)
   }
 
   cancelSpring() {
@@ -193,12 +198,13 @@ class DraggableDigit {
   }
 }
 
-function rippleImpact(landed) {
+// Al aterrizar, los 3 tiles "sienten" el golpe — incluido el que acaba de
+// llegar — con una sacudida marcadamente horizontal (lado a lado).
+function rippleImpact() {
   if (prefersReducedMotion) return
-  instances.forEach((other) => {
-    if (other === landed) return
+  instances.forEach((inst) => {
     const dir = Math.random() < 0.5 ? -1 : 1
-    other.impulse(dir * (5 + Math.random() * 5), (Math.random() - 0.5) * 8)
+    inst.impulse(dir * (18 + Math.random() * 12), (Math.random() - 0.5) * 6)
   })
 }
 
