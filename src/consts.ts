@@ -221,5 +221,31 @@ export const PROJECTS: Project[] = [
       "repository": null,
       "youtube": null
     }
+  },
+  {
+    "slug": "09-flapboard",
+    "title": {
+      "en": "Flapboard",
+      "es": "Flapboard"
+    },
+    "hidden": false,
+    "description": {
+      "en": "A countdown timer styled as an airport split-flap departure board, with real mechanical flip animation per digit. Reimagined from html-css-js-projects #29.",
+      "es": "Cronómetro de cuenta regresiva estilo tablero de salidas de aeropuerto, con animación mecánica de flip por dígito. Inspirado en html-css-js-projects #29."
+    },
+    "difficulty": "intermediate",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "countdown",
+      "split-flap",
+      "Web Animations API"
+    ],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
   }
 ] as Project[];

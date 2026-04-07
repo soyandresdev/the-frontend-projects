@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flapboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="hall">
+      <p class="eyebrow">Departures · Gate 29</p>
+      <h1>Flapboard</h1>
+      <p class="lede">Pick a moment in time. Watch the board count down to it, one clack at a time.</p>
+
+      <form class="picker" id="picker-form">
+        <label for="target">Target date &amp; time</label>
+        <div class="picker-row">
+          <input type="datetime-local" id="target" />
+          <button type="submit" id="start-btn">Start countdown</button>
+        </div>
+      </form>
+
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+
+      <div class="board" id="board" hidden>
+        <div class="unit">
+          <div class="flaps" id="flaps-days" data-digits="2"></div>
+          <span class="unit-label">Days</span>
+        </div>
+        <div class="colon">:</div>
+        <div class="unit">
+          <div class="flaps" id="flaps-hours" data-digits="2"></div>
+          <span class="unit-label">Hours</span>
+        </div>
+        <div class="colon">:</div>
+        <div class="unit">
+          <div class="flaps" id="flaps-minutes" data-digits="2"></div>
+          <span class="unit-label">Minutes</span>
+        </div>
+        <div class="colon">:</div>
+        <div class="unit">
+          <div class="flaps" id="flaps-seconds" data-digits="2"></div>
+          <span class="unit-label">Seconds</span>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
