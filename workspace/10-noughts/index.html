@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noughts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <p class="eyebrow">Two players · one grid</p>
+      <h1>Noughts <span class="amp">&amp;</span> Crosses</h1>
+
+      <div class="panel">
+        <div class="status-bar">
+          <span class="status" id="status">
+            <span class="turn-dot turn-dot--x" id="turn-dot"></span>
+            <span id="status-text">Player X's turn</span>
+          </span>
+          <button type="button" class="reset-btn" id="reset-btn">Reset</button>
+        </div>
+
+        <div class="board-wrap">
+          <div class="board" id="board">
+            <button class="cell" data-index="0" aria-label="Cell 1"></button>
+            <button class="cell" data-index="1" aria-label="Cell 2"></button>
+            <button class="cell" data-index="2" aria-label="Cell 3"></button>
+            <button class="cell" data-index="3" aria-label="Cell 4"></button>
+            <button class="cell" data-index="4" aria-label="Cell 5"></button>
+            <button class="cell" data-index="5" aria-label="Cell 6"></button>
+            <button class="cell" data-index="6" aria-label="Cell 7"></button>
+            <button class="cell" data-index="7" aria-label="Cell 8"></button>
+            <button class="cell" data-index="8" aria-label="Cell 9"></button>
+          </div>
+          <svg class="win-line" id="win-line" viewBox="0 0 3 3" aria-hidden="true">
+            <line id="win-line-path" x1="0" y1="0" x2="0" y2="0" pathLength="100" />
+          </svg>
+        </div>
+      </div>
+
+      <p class="hint">First to line up three takes the round.</p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

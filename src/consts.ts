@@ -247,5 +247,31 @@ export const PROJECTS: Project[] = [
       "repository": null,
       "youtube": null
     }
+  },
+  {
+    "slug": "10-noughts",
+    "title": {
+      "en": "Noughts",
+      "es": "Noughts"
+    },
+    "hidden": false,
+    "description": {
+      "en": "Tic-tac-toe with a bold neo-brutalist look — flat color, thick borders, hard offset shadows and a hand-drawn winning line. Reimagined from html-css-js-projects #44.",
+      "es": "Tres en línea con estética neobrutalista — color plano, bordes gruesos, sombras duras y una línea ganadora \"dibujada a mano\". Inspirado en html-css-js-projects #44."
+    },
+    "difficulty": "beginner",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "game",
+      "tic-tac-toe",
+      "neubrutalism"
+    ],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
   }
 ] as Project[];

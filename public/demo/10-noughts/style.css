@@ -1,0 +1,242 @@
+:root {
+  --ink: 17 17 19;
+  --paper: 255 250 240;
+  --bg: 255 209 92;
+  --x-color: 255 76 96;
+  --o-color: 47 111 237;
+  --win: 39 191 118;
+
+  --border-w: 4px;
+  --shadow-off: 6px;
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: rgb(var(--bg));
+  background-image: radial-gradient(rgb(0 0 0 / 0.08) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  color: rgb(var(--ink));
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+}
+
+.stage {
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  opacity: 0.7;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 6vw, 2.4rem);
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.amp {
+  color: rgb(var(--paper));
+  -webkit-text-stroke: 2px rgb(var(--ink));
+}
+
+.panel {
+  background: rgb(var(--paper));
+  border: var(--border-w) solid rgb(var(--ink));
+  border-radius: 20px;
+  box-shadow: var(--shadow-off) var(--shadow-off) 0 rgb(var(--ink));
+  padding: 1.25rem;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.turn-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2.5px solid rgb(var(--ink));
+  background: rgb(var(--x-color));
+  transition: background-color 200ms ease;
+}
+
+.turn-dot--o {
+  background: rgb(var(--o-color));
+}
+
+.reset-btn {
+  padding: 0.45rem 0.9rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgb(var(--ink));
+  background: rgb(var(--paper));
+  border: 2.5px solid rgb(var(--ink));
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 rgb(var(--ink));
+  cursor: pointer;
+  transition: all 120ms var(--ease-out-quad);
+}
+
+.reset-btn:hover {
+  background: rgb(var(--bg));
+}
+
+.reset-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 rgb(var(--ink));
+}
+
+.board-wrap {
+  position: relative;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.cell {
+  aspect-ratio: 1;
+  background: rgb(var(--paper));
+  border: var(--border-w) solid rgb(var(--ink));
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 rgb(var(--ink));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: transform 100ms var(--ease-out-quad), box-shadow 100ms var(--ease-out-quad);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cell:not(:disabled):hover {
+    background: rgb(0 0 0 / 0.04);
+  }
+}
+
+.cell:not(:disabled):active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 rgb(var(--ink));
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell svg {
+  width: 52%;
+  height: 52%;
+  overflow: visible;
+}
+
+.cell .mark-path {
+  fill: none;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cell.is-x .mark-path {
+  stroke: rgb(var(--x-color));
+}
+
+.cell.is-o .mark-path {
+  stroke: rgb(var(--o-color));
+}
+
+.cell.is-win {
+  background: rgb(var(--win) / 0.18);
+}
+
+/* Cada trazo del marcador se dibuja con stroke-dashoffset (no scale-in): un
+   sello no aparece de la nada, se traza — coherente con el resto de la marca. */
+.mark-path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: draw-mark 260ms var(--ease-out-quad) forwards;
+}
+
+@keyframes draw-mark {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark-path {
+    animation-duration: 1ms;
+  }
+}
+
+.win-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.win-line line {
+  stroke: rgb(var(--ink));
+  stroke-width: 0.1;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+}
+
+.win-line.is-drawn line {
+  opacity: 1;
+  animation: draw-line 380ms var(--ease-out-quad) forwards;
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .win-line.is-drawn line {
+    animation-duration: 1ms;
+  }
+}
+
+.hint {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  opacity: 0.65;
+}
