@@ -273,5 +273,31 @@ export const PROJECTS: Project[] = [
       "repository": null,
       "youtube": null
     }
+  },
+  {
+    "slug": "11-presence",
+    "title": {
+      "en": "Presence",
+      "es": "Presence"
+    },
+    "hidden": false,
+    "description": {
+      "en": "A product-style avatar stack with hover tooltips, a live status pulse and an expandable full roster — reimagined from html-css-js-projects #43.",
+      "es": "Stack de avatares estilo producto con tooltips al hover, pulso de estado en vivo y un roster completo expandible — inspirado en html-css-js-projects #43."
+    },
+    "difficulty": "beginner",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "avatars",
+      "tooltip",
+      "presence"
+    ],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
   }
 ] as Project[];

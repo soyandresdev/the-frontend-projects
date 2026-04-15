@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/11-presence/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Presence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <div class="card">
+        <p class="eyebrow">
+          <span class="live-dot" aria-hidden="true"></span>
+          Live now
+        </p>
+        <h1 id="headline">12 people are here</h1>
+        <p class="lede">Everyone currently looking at this project.</p>
+
+        <div class="stack" id="stack"></div>
+
+        <button type="button" class="see-all" id="see-all-btn">
+          <span id="see-all-label">See everyone</span>
+          <span class="chevron" aria-hidden="true">⌄</span>
+        </button>
+
+        <div class="roster" id="roster">
+          <div class="roster-inner" id="roster-inner"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
