@@ -41,13 +41,13 @@ export const PROJECTS: Project[] = [
   {
     "slug": "02-landingpage_3d_restaurant",
     "title": {
-      "en": "3D Restaurant Landing Page",
-      "es": "3D Restaurant Landing Page"
+      "en": "CyberNoodles — 3D Restaurant Landing",
+      "es": "CyberNoodles — Landing 3D de restaurante"
     },
     "hidden": false,
     "description": {
-      "en": "Interactive landing page with an animated 3D model built with Three.js.",
-      "es": "Landing page interactiva con modelo 3D animado usando Three.js."
+      "en": "Cyberpunk noodle kiosk landing with a scroll-driven Three.js camera, GSAP ScrollTrigger sections and a pinned menu gallery.",
+      "es": "Landing de un kiosco de fideos cyberpunk con cámara Three.js controlada por scroll, secciones GSAP ScrollTrigger y galería de menú fijada."
     },
     "difficulty": "advanced",
     "tags": [
@@ -55,9 +55,12 @@ export const PROJECTS: Project[] = [
       "CSS",
       "JavaScript",
       "ThreeJs",
+      "GSAP",
+      "ScrollTrigger",
       "landing page",
       "3d",
-      "webgl"
+      "webgl",
+      "vite"
     ],
     "links": {
       "homepage": null,
@@ -293,6 +296,33 @@ export const PROJECTS: Project[] = [
       "avatars",
       "tooltip",
       "presence"
+    ],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
+  },
+  {
+    "slug": "12-tally",
+    "title": {
+      "en": "Tally",
+      "es": "Tally"
+    },
+    "hidden": false,
+    "description": {
+      "en": "Colorful KPI cards with count-up numbers, inline sparklines and a scroll-triggered reveal. Reimagined from html-css-js-projects #35.",
+      "es": "Tarjetas KPI de colores saturados con números que cuentan hacia arriba, mini gráficos y revelado al hacer scroll. Inspirado en html-css-js-projects #35."
+    },
+    "difficulty": "beginner",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "dashboard",
+      "stats",
+      "count-up",
+      "intersection observer"
     ],
     "links": {
       "homepage": null,
