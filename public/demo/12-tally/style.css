@@ -75,6 +75,17 @@ h1 {
   animation: rise 650ms var(--ease-out-expo) forwards;
 }
 
+/* Una vez que la animación de entrada terminó, el estado final queda fijado
+   por una regla normal (no por el fill-forward de la animación). Solo así se
+   puede quitar `animation` de forma segura después — quitar una animación con
+   fill:forwards revierte al estado ANTERIOR a ella (opacity:0), no al final;
+   eso era lo que hacía "desaparecer" la tarjeta al hacer hover. */
+.stat-card.has-landed {
+  opacity: 1;
+  transform: translateY(0);
+  animation: none;
+}
+
 @keyframes rise {
   to {
     opacity: 1;
@@ -91,13 +102,9 @@ h1 {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .stat-card:hover {
+  .stat-card.has-landed:hover {
     transform: translateY(-4px);
     box-shadow: 0 20px 40px -20px rgb(var(--card-r) var(--card-g) var(--card-b) / 0.6);
-  }
-
-  .stat-card.is-visible:hover {
-    animation: none;
   }
 }
 

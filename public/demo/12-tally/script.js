@@ -167,6 +167,15 @@ const cards = STATS.map((stat, index) => {
   card.append(icon, value, label, svg)
   grid.appendChild(card)
 
+  // Fija el estado final con una clase normal (no con el fill-forward de la
+  // animación) para poder quitar `animation` después sin que el hover "borre"
+  // la tarjeta al revertirla a su opacity:0 previo a la animación.
+  if (prefersReducedMotion) {
+    card.classList.add('has-landed')
+  } else {
+    card.addEventListener('animationend', () => card.classList.add('has-landed'), { once: true })
+  }
+
   return { card, value, line, stat }
 })
 
