@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/13-eclipse/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eclipse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      // Aplica el tema guardado ANTES del primer paint, para que no haya un
+      // parpadeo del tema equivocado al cargar.
+      if (localStorage.getItem('eclipse-theme') === 'dark') {
+        document.documentElement.classList.add('dark')
+      }
+    </script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <span class="logo">Eclipse</span>
+
+        <button type="button" class="theme-switch" id="theme-switch" aria-label="Toggle dark mode">
+          <span class="theme-switch__track">
+            <span class="theme-switch__thumb">
+              <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="4.5" />
+                <path
+                  d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"
+                />
+              </svg>
+              <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" />
+              </svg>
+            </span>
+          </span>
+        </button>
+      </header>
+
+      <main>
+        <section class="hero">
+          <p class="eyebrow">Same page, two moods</p>
+          <h1>Watch the theme sweep across the screen.</h1>
+          <p class="lede">
+            Flip the switch — the new theme expands outward from it using the View Transitions
+            API, not a flat crossfade.
+          </p>
+        </section>
+
+        <section class="cards">
+          <article class="card">
+            <h2>Native, not faked</h2>
+            <p>
+              The wipe is a real <code>::view-transition</code> clip-path animation, not a
+              full-screen overlay animating on top of the page.
+            </p>
+          </article>
+          <article class="card">
+            <h2>Falls back gracefully</h2>
+            <p>
+              Browsers without View Transitions just swap the theme instantly — no missing
+              functionality, only missing flair.
+            </p>
+          </article>
+          <article class="card">
+            <h2>Remembers your pick</h2>
+            <p>Your preference is saved, so a refresh keeps whichever mood you left it in.</p>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

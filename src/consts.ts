@@ -329,5 +329,31 @@ export const PROJECTS: Project[] = [
       "repository": null,
       "youtube": null
     }
+  },
+  {
+    "slug": "13-eclipse",
+    "title": {
+      "en": "Eclipse",
+      "es": "Eclipse"
+    },
+    "hidden": false,
+    "description": {
+      "en": "A dark mode toggle with a circular wipe transition that expands from the switch, using the View Transitions API. Reimagined from html-css-js-projects #27.",
+      "es": "Toggle de modo oscuro con una transición circular que se expande desde el switch, usando la View Transitions API. Inspirado en html-css-js-projects #27."
+    },
+    "difficulty": "intermediate",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "dark mode",
+      "view transitions",
+      "theming"
+    ],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
   }
 ] as Project[];
