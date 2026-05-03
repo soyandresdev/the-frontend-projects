@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="tape-wrap" aria-hidden="true">
+      <div class="tape" id="tape"></div>
+      <div class="tape" id="tape-dup"></div>
+    </div>
+
+    <main class="page">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Live market · simulated</p>
+          <h1>Ticker</h1>
+        </div>
+        <p class="lede">Prices tick every couple of seconds, right here in the browser.</p>
+      </header>
+
+      <div class="coins" id="coins"></div>
+
+      <p class="footnote">
+        Simulated data for demo purposes — no live feed, so it never rate-limits or goes stale.
+      </p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
