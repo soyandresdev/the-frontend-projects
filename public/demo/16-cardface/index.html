@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/16-cardface/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cardface</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <div class="card-scene">
+        <div class="card-3d" id="card-3d">
+          <div class="card-face card-face--front" id="card-brand">
+            <div class="card-face__top">
+              <div class="chip"></div>
+              <span class="network" id="network-label">CARD</span>
+            </div>
+            <div class="card-number mono" id="preview-number">•••• •••• •••• ••••</div>
+            <div class="card-face__bottom">
+              <div class="field">
+                <span class="field-label">Card holder</span>
+                <span class="field-value" id="preview-name">YOUR NAME</span>
+              </div>
+              <div class="field field--right">
+                <span class="field-label">Expires</span>
+                <span class="field-value mono" id="preview-expiry">MM/YY</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-face card-face--back">
+            <div class="magstripe"></div>
+            <div class="cvv-strip">
+              <span class="cvv-strip__label">CVV</span>
+              <span class="cvv-strip__value mono" id="preview-cvv">•••</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="form-panel">
+        <h1>Payment details</h1>
+
+        <form id="payment-form">
+          <div class="field-group">
+            <label for="card-number">Card number</label>
+            <input
+              type="text"
+              id="card-number"
+              inputmode="numeric"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <div class="row">
+            <div class="field-group">
+              <label for="expiry">Expiry</label>
+              <input
+                type="text"
+                id="expiry"
+                inputmode="numeric"
+                placeholder="MM / YY"
+                maxlength="7"
+                autocomplete="off"
+                required
+              />
+            </div>
+            <div class="field-group">
+              <label for="cvv">CVV</label>
+              <input
+                type="text"
+                id="cvv"
+                inputmode="numeric"
+                placeholder="123"
+                maxlength="3"
+                autocomplete="off"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="name">Cardholder name</label>
+            <input type="text" id="name" placeholder="Jane Doe" autocomplete="off" required />
+          </div>
+
+          <button type="submit" class="submit-btn">Pay $128.00</button>
+        </form>
+      </div>
+
+      <div class="panel panel--success" id="success-panel" hidden>
+        <div class="success-icon">✓</div>
+        <h1>Payment successful</h1>
+        <p>Your card was charged and a receipt is on its way.</p>
+        <button type="button" class="btn-ghost" id="reset-btn">Make another payment</button>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

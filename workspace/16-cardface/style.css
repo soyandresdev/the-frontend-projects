@@ -1,0 +1,355 @@
+:root {
+  --bg: 9 11 15;
+  --surface: 17 19 25;
+  --ink: 237 238 242;
+  --muted: 140 143 155;
+  --border: 255 255 255;
+  --accent: 129 111 246;
+  --success: 52 211 153;
+  --error: 248 113 113;
+
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-flip: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+}
+
+.mono {
+  font-family: 'Space Mono', ui-monospace, monospace;
+}
+
+.stage {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ---------- 3D card ---------- */
+.card-scene {
+  width: 100%;
+  aspect-ratio: 1.586;
+  perspective: 1200px;
+}
+
+.card-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 650ms var(--ease-flip);
+}
+
+.card-3d.is-flipped {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-3d {
+    transition-duration: 1ms;
+  }
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  backface-visibility: hidden;
+  padding: 1.4rem 1.5rem;
+  box-shadow: 0 25px 50px -20px rgb(0 0 0 / 0.6);
+  color: white;
+}
+
+.card-face--front {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 45%, #d946a8 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-face__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.chip {
+  width: 38px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(160deg, #f4e397, #c9a227);
+  position: relative;
+  overflow: hidden;
+}
+
+.chip::before,
+.chip::after {
+  content: '';
+  position: absolute;
+  background: rgb(0 0 0 / 0.25);
+}
+
+.chip::before {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+}
+
+.chip::after {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+}
+
+.network {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.card-number {
+  font-size: clamp(1.15rem, 5.5vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.card-face__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.field--right {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.field-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.65;
+}
+
+.field-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+.card-face--back {
+  background: rgb(24 26 33);
+  transform: rotateY(180deg);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.magstripe {
+  background: rgb(10 10 12);
+  height: 22%;
+  margin-top: 1.5rem;
+}
+
+.cvv-strip {
+  margin: 1.25rem 1.5rem 0;
+  background: rgb(255 255 255 / 0.92);
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.cvv-strip__label {
+  color: rgb(90 90 95);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.cvv-strip__value {
+  color: rgb(30 30 33);
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+}
+
+/* ---------- Form panel ---------- */
+.panel {
+  background: rgb(var(--surface));
+  border: 1px solid rgb(var(--border) / 0.08);
+  border-radius: 18px;
+  padding: 1.75rem;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.field-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgb(var(--muted));
+  margin-bottom: 0.4rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  font-family: 'Space Mono', ui-monospace, monospace;
+  font-size: 0.92rem;
+  color: rgb(var(--ink));
+  background: rgb(var(--bg));
+  border: 1.5px solid rgb(var(--border) / 0.12);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+input:focus {
+  border-color: rgb(var(--accent));
+}
+
+input.is-invalid {
+  border-color: rgb(var(--error));
+}
+
+.row {
+  display: flex;
+  gap: 0.85rem;
+}
+
+.row .field-group {
+  flex: 1;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.85rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: white;
+  background: rgb(var(--accent));
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 0.4rem;
+  transition:
+    transform 150ms var(--ease-out-quad),
+    background-color 200ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .submit-btn:hover {
+    background: rgb(112 94 232);
+  }
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* ---------- Success ---------- */
+.panel--success {
+  text-align: center;
+  animation: rise 400ms var(--ease-out-quad);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel--success {
+    animation: none;
+  }
+}
+
+.success-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgb(var(--success) / 0.15);
+  color: rgb(var(--success));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 auto 1rem;
+}
+
+.panel--success p {
+  color: rgb(var(--muted));
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-ghost {
+  width: 100%;
+  padding: 0.8rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgb(var(--ink));
+  background: rgb(var(--border) / 0.08);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-ghost:hover {
+    background: rgb(var(--border) / 0.14);
+  }
+}
