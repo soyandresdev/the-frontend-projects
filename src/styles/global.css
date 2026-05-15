@@ -59,14 +59,20 @@
 
 /* Sustituye el bloque @plugin por @layer */
 @layer utilities {
+  /* Solo blur: el filtro SVG url(#goo) obligaba a re-rasterizar todo el
+     viewport en cada frame y era la principal causa de frames descartados. */
   .goo-blur {
-    contain: layout style;
-    filter: url('#goo') blur(40px);
+    contain: layout style paint;
+    filter: blur(40px);
   }
   .goo-blur div {
-    will-change: transform, opacity;
-    transform: translateZ(0); /* fuerza renderizado por GPU */
+    will-change: transform;
     backface-visibility: hidden;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .goo-blur div {
+      animation-play-state: paused;
+    }
   }
 
   .noise-overlay {

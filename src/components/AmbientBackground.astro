@@ -9,47 +9,29 @@
 
 <div class="noise-overlay absolute inset-0 z-0 hidden md:block"></div>
 
-<!-- filtro goo -->
-<svg class="fixed hidden h-0 w-0 md:block">
-  <filter id="goo">
-    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
-    <feColorMatrix
-      in="blur"
-      mode="matrix"
-      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8"
-      result="goo"></feColorMatrix>
-    <feBlend in="SourceGraphic" in2="goo"></feBlend>
-  </filter>
-</svg>
-
 <div class="goo-blur pointer-events-none fixed inset-0 z-0 hidden h-screen md:block">
   <!-- g1: cyan, sube-baja (moveVertical) -->
   <div
-    class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-vert-30)] bg-[radial-gradient(circle,rgba(var(--clr-cyan)_/_0.8)_0%,rgba(var(--clr-cyan)_/_0)_50%)] md:block"
+    class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-vert-30)] bg-[radial-gradient(circle,rgb(var(--clr-cyan))_0%,rgb(var(--clr-cyan))_19%,rgba(var(--clr-cyan)_/_0.45)_24%,rgba(var(--clr-cyan)_/_0)_50%)] md:block"
   >
   </div>
 
   <!-- g2: lime, círculo reversed -->
   <div
-    class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_-_400px)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-circle-20R)] bg-[radial-gradient(circle,rgba(var(--clr-lime)_/_0.8)_0%,rgba(var(--clr-lime)_/_0)_50%)] md:block"
+    class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_-_400px)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-circle-20R)] bg-[radial-gradient(circle,rgb(var(--clr-lime))_0%,rgb(var(--clr-lime))_19%,rgba(var(--clr-lime)_/_0.45)_24%,rgba(var(--clr-lime)_/_0)_50%)] md:block"
   >
   </div>
 
   <!-- g3: violeta (complemento lime), círculo grande -->
   <div
-    class="mix-blend-[var(--blending)] absolute inset-1/2 top-[calc(50%_+_200px)] left-[calc(50%_-_500px)] hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_+_400px)] animate-[var(--animate-circle-40)] bg-[radial-gradient(circle,rgba(var(--clr-lime-comp)_/_0.8)_0%,rgba(var(--clr-lime-comp)_/_0)_50%)] md:block"
+    class="mix-blend-[var(--blending)] absolute inset-1/2 top-[calc(50%_+_200px)] left-[calc(50%_-_500px)] hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_+_400px)] animate-[var(--animate-circle-40)] bg-[radial-gradient(circle,rgb(var(--clr-lime-comp))_0%,rgb(var(--clr-lime-comp))_19%,rgba(var(--clr-lime-comp)_/_0.45)_24%,rgba(var(--clr-lime-comp)_/_0)_50%)] md:block"
   >
   </div>
 
   <!-- g4: rojo (complemento cyan), horizontal -->
   <div
-    class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_-_500px)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-horz-40)] bg-[radial-gradient(circle,rgba(var(--clr-cyan-comp)_/_0.8)_0%,rgba(var(--clr-cyan-comp)_/_0)_50%)] opacity-70 md:block"
+    class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] origin-[calc(50%_-_500px)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-horz-40)] bg-[radial-gradient(circle,rgb(var(--clr-cyan-comp))_0%,rgb(var(--clr-cyan-comp))_5%,rgba(var(--clr-cyan-comp)_/_0.45)_10%,rgba(var(--clr-cyan-comp)_/_0)_50%)] md:block"
   >
   </div>
 
-  <!-- g5 (opcional interactive): cyan soft -->
-  <div
-    class="interactive goo-blur mix-blend-[var(--blending)] absolute -top-1/2 h-full w-full bg-[radial-gradient(circle,rgba(var(--clr-cyan)_/_0.6)_0%,rgba(var(--clr-cyan)_/_0)_50%)] opacity-70"
-  >
-  </div>
 </div>
