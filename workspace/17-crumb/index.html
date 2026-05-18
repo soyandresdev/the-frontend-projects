@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crumb</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <h1>Welcome to the bakery.</h1>
+      <p class="lede">This page just exists to hold the banner below. Try the buttons.</p>
+      <button type="button" class="reset-btn" id="reset-btn">Reset cookie choice</button>
+    </main>
+
+    <section class="banner" id="banner" aria-live="polite">
+      <div class="banner-main">
+        <div class="cookie-icon" aria-hidden="true">
+          <span class="chip"></span>
+          <span class="chip"></span>
+          <span class="chip"></span>
+          <span class="chip"></span>
+          <span class="chip"></span>
+        </div>
+
+        <div class="banner-text">
+          <h2>We use cookies</h2>
+          <p>A few crumbs help this site remember you and see what's working. Nothing weird.</p>
+        </div>
+      </div>
+
+      <div class="banner-actions">
+        <button type="button" class="btn btn-text" id="customize-btn">Customize</button>
+        <button type="button" class="btn btn-ghost" id="decline-btn">Decline</button>
+        <button type="button" class="btn btn-primary" id="accept-btn">Accept all</button>
+      </div>
+
+      <div class="prefs" id="prefs">
+        <div class="prefs-inner">
+          <label class="pref-row">
+            <div>
+              <span class="pref-name">Necessary</span>
+              <span class="pref-desc">Required for the site to function. Always on.</span>
+            </div>
+            <span class="switch is-locked" aria-hidden="true">
+              <span class="switch-thumb"></span>
+            </span>
+          </label>
+
+          <label class="pref-row" id="row-analytics">
+            <div>
+              <span class="pref-name">Analytics</span>
+              <span class="pref-desc">Helps us see which pages people actually use.</span>
+            </div>
+            <input type="checkbox" class="pref-checkbox" id="toggle-analytics" />
+            <span class="switch" data-switch-for="toggle-analytics">
+              <span class="switch-thumb"></span>
+            </span>
+          </label>
+
+          <label class="pref-row" id="row-marketing">
+            <div>
+              <span class="pref-name">Marketing</span>
+              <span class="pref-desc">Used to make ads elsewhere less irrelevant.</span>
+            </div>
+            <input type="checkbox" class="pref-checkbox" id="toggle-marketing" />
+            <span class="switch" data-switch-for="toggle-marketing">
+              <span class="switch-thumb"></span>
+            </span>
+          </label>
+
+          <button type="button" class="btn btn-primary btn-block" id="save-btn">
+            Save preferences
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
