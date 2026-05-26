@@ -1,17 +1,28 @@
 ---
 import { Font } from 'astro:assets'
+import { ClientRouter } from 'astro:transitions'
+import Cursor from '../components/Cursor.astro'
 import { getLang, useTranslations } from '../i18n/utils'
 import '../styles/global.css'
 
 interface Props {
   title?: string
   description?: string
+  ogImage?: string
 }
 
 const lang = getLang(Astro.currentLocale)
 const t = useTranslations(lang)
 
-const { title = t('site.title'), description = t('site.description') } = Astro.props
+const {
+  title = t('site.title'),
+  description = t('site.description'),
+  ogImage = '/og.webp'
+} = Astro.props
+
+const site = Astro.site ?? new URL('http://localhost:4321')
+const canonical = new URL(Astro.url.pathname, site).href
+const ogAbsolute = new URL(ogImage, site).href
 ---
 
 <!doctype html>
@@ -19,8 +30,14 @@ const { title = t('site.title'), description = t('site.description') } = Astro.p
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <script is:inline>
+      document.documentElement.classList.add('js')
+    </script>
+
     <!-- 🅰️ Tipografía -->
-    <Font cssVariable="--font-poppins" preload />
+    <Font cssVariable="--font-bricolage" preload />
+    <Font cssVariable="--font-geist" preload />
+    <Font cssVariable="--font-geist-mono" />
 
     <!-- 🧠 Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -37,21 +54,29 @@ const { title = t('site.title'), description = t('site.description') } = Astro.p
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Andres Hernandez Lozano" />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0a121e" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogAbsolute} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@soyandresdev" />
+
+    <ClientRouter />
   </head>
-  <body class="bg-[rgba(var(--bg-dark))]">
+  <body class="bg-ink text-white">
+    <div
+      class="scroll-progress pointer-events-none fixed top-0 left-0 z-[70] h-[2px] w-full bg-[linear-gradient(90deg,var(--color-brand-cyan),var(--color-brand-lime))]"
+      aria-hidden="true"
+    >
+    </div>
     <slot />
-    <style is:global>
-      code {
-        font-family:
-          Menlo,
-          Monaco,
-          Lucida Console,
-          Liberation Mono,
-          DejaVu Sans Mono,
-          Bitstream Vera Sans Mono,
-          Courier New,
-          monospace;
-      }
-    </style>
+    <Cursor />
+    <script>
+      import '../scripts/motion'
+    </script>
   </body>
 </html>

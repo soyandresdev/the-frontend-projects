@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://thefrontendprojects.dev',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es'],
@@ -15,10 +16,33 @@ export default defineConfig({
   experimental: {
     fonts: [
       {
+        // Display: titulares editoriales con carácter
         provider: fontProviders.google(),
-        name: 'Poppins',
-        weights: [100, 300, 400, 500, 600, 700, 800, 900],
-        cssVariable: '--font-poppins',
+        name: 'Bricolage Grotesque',
+        weights: [400, 500, 600, 700, 800],
+        styles: ['normal'],
+        subsets: ['latin'],
+        cssVariable: '--font-bricolage',
+        display: 'swap'
+      },
+      {
+        // Texto: neutra y legible
+        provider: fontProviders.google(),
+        name: 'Geist',
+        weights: [400, 500, 600],
+        styles: ['normal'],
+        subsets: ['latin'],
+        cssVariable: '--font-geist',
+        display: 'swap'
+      },
+      {
+        // Mono: etiquetas, números y metadatos
+        provider: fontProviders.google(),
+        name: 'Geist Mono',
+        weights: [400, 500],
+        styles: ['normal'],
+        subsets: ['latin'],
+        cssVariable: '--font-geist-mono',
         display: 'swap'
       }
     ]

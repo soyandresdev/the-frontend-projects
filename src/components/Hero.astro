@@ -1,104 +1,166 @@
 ---
 /*
-  Header.astro
-  ============
-  • Mantiene tu hero original.
-  • Añade un número gigante (total de proyectos visibles) flotando a la derecha.
+  Hero.astro
+  ==========
+  Intro editorial: título gigante con reveal por caracteres, bio, contador,
+  avatar con tilt y marquee de tecnologías. Se anima al cargar (no espera scroll).
 */
-
 import { PROJECTS } from '../consts'
 import { getLang, useTranslations } from '../i18n/utils'
-
-/** total de proyectos que NO están marcados como hidden */
-const total = PROJECTS.filter((p) => !p.hidden).length
-const big = String(total).padStart(2, '0') //  2 → 02, 9 → 09, 14 → 14
+import Icon from './Icon.astro'
 
 const lang = getLang(Astro.currentLocale)
 const t = useTranslations(lang)
+
+const visible = PROJECTS.filter((p) => !p.hidden)
+const total = visible.length
+const big = String(total).padStart(2, '0')
+
+// Tags únicos para el marquee (los 3 básicos primero, luego por frecuencia)
+const freq = new Map<string, number>()
+visible.forEach((p) => p.tags.forEach((tag) => freq.set(tag, (freq.get(tag) ?? 0) + 1)))
+const marquee = [...freq.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .map(([tag]) => tag)
+  .slice(0, 24)
 ---
 
-<!-- HERO / HEADER --------------------------------------------------------->
-<header class="relative mx-auto flex max-w-4xl flex-col items-center gap-10 pt-20 text-center">
-  <!-- intro block -->
-  <article class="flex w-full flex-col items-center justify-center gap-10 md:flex-row">
-    <!-- text -->
+<section
+  id="about"
+  class="relative mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col justify-center px-6 pt-28 pb-20 md:px-10"
+>
+  <!-- eyebrow -->
+  <p
+    data-reveal="hero"
+    class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] tracking-[0.22em] text-white/60 uppercase"
+  >
+    <span class="inline-flex items-center gap-2">
+      <span class="bg-brand-lime h-2 w-2 animate-[var(--animate-pulse-dot)] rounded-full"></span>
+      {t('hero.available')}
+    </span>
+    <span class="text-white/25">/</span>
+    <span>{t('hero.eyebrow')}</span>
+    <span class="text-white/25">/</span>
+    <span>{total} {t('nav.projectsLabel')}</span>
+  </p>
 
-    <div class="order-2 flex max-w-lg flex-col gap-3 md:order-1">
-      <h2 class="text-2xl">
-        <span
-          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
-          >{t('hero.greeting')}</span
-        ><span> 👋</span>
-      </h2>
-      <p class="leading-relaxed text-slate-200/90">
-        {t('hero.bio.part1')} <strong class="bg-yellow-100 text-yellow-800">{t('hero.bio.frontend')}</strong>
-        {t('hero.bio.part2')}
-        <strong class="bg-[rgb(243,115,33)] px-2 py-0.5 text-slate-800">HTML</strong>,
-        <strong class="bg-[rgb(22,118,188)] px-2 py-0.5 text-white">CSS</strong> {t('hero.bio.and')}
-        <strong class="bg-[rgb(247,223,30)] px-2 py-0.5 text-slate-800">JavaScript</strong> {t('hero.bio.part3')}
+  <!-- título -->
+  <h1
+    class="split-mask font-display mt-6 text-[clamp(3.4rem,11.5vw,10.5rem)] leading-[0.92] font-bold tracking-[-0.045em]"
+  >
+    <span class="block" data-split>The Front-End</span>
+    <span class="block overflow-clip pb-[0.1em]">
+      <span class="text-gradient block" data-line>Projects</span>
+    </span>
+  </h1>
+
+  <div class="mt-8 grid gap-10 md:mt-10 md:grid-cols-[1.35fr_1fr] md:items-end">
+    <!-- texto -->
+    <div class="max-w-xl">
+      <p data-reveal="hero" class="text-xl leading-snug text-white md:text-2xl">
+        {t('hero.tagline')}
       </p>
-      <div class="flex items-center justify-center">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-          ><path
-            d="M12 12.75C13.6569 12.75 15 11.4069 15 9.75C15 8.09315 13.6569 6.75 12 6.75C10.3431 6.75 9 8.09315 9 9.75C9 11.4069 10.3431 12.75 12 12.75Z"
-            stroke="url(#paint0_linear_66_2414)"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"></path><path
-            d="M19.5 9.75C19.5 16.5 12 21.75 12 21.75C12 21.75 4.5 16.5 4.5 9.75C4.5 7.76088 5.29018 5.85322 6.6967 4.4467C8.10322 3.04018 10.0109 2.25 12 2.25C13.9891 2.25 15.8968 3.04018 17.3033 4.4467C18.7098 5.85322 19.5 7.76088 19.5 9.75Z"
-            stroke="url(#paint1_linear_66_2414)"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"></path><defs
-            ><linearGradient
-              id="paint0_linear_66_2414"
-              x1="12"
-              y1="6.75"
-              x2="12"
-              y2="12.75"
-              gradientUnits="userSpaceOnUse"
-              ><stop stop-color="#00F3FF"></stop><stop offset="1" stop-color="#87F113"
-              ></stop></linearGradient
-            ><linearGradient
-              id="paint1_linear_66_2414"
-              x1="12"
-              y1="2.25"
-              x2="12"
-              y2="21.75"
-              gradientUnits="userSpaceOnUse"
-              ><stop stop-color="#00F3FF"></stop><stop offset="1" stop-color="#87F113"
-              ></stop></linearGradient
-            ></defs
-          ></svg
-        ><p
-          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
+      <p data-reveal="hero" class="mt-5 leading-relaxed text-white/65">
+        {t('hero.greeting')} 👋 — {t('hero.bio.part1')}
+        <strong class="font-medium text-white">{t('hero.bio.frontend')}</strong>
+        {t('hero.bio.part2')}
+        <span class="font-mono text-[0.85em] text-white">HTML</span>,
+        <span class="font-mono text-[0.85em] text-white">CSS</span>
+        {t('hero.bio.and')}
+        <span class="font-mono text-[0.85em] text-white">JavaScript</span>
+        {t('hero.bio.part3')}
+      </p>
+      <div data-reveal="hero" class="mt-7 flex flex-wrap items-center gap-3">
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-[11px] tracking-wider text-white/70 uppercase"
         >
+          <svg
+            viewBox="0 0 24 24"
+            class="h-3.5 w-3.5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11Z"></path><circle
+              cx="12"
+              cy="10"
+              r="2.5"></circle>
+          </svg>
           {t('hero.location')}
-        </p>
+        </span>
+        <span class="flex items-center -space-x-2">
+          <span
+            class="text-ink ring-ink grid h-9 w-9 place-items-center rounded-full bg-white ring-2"
+            ><Icon name="html5" class="h-4 w-4" /></span
+          >
+          <span
+            class="text-ink ring-ink grid h-9 w-9 place-items-center rounded-full bg-white ring-2"
+            ><Icon name="css" class="h-4 w-4" /></span
+          >
+          <span
+            class="text-ink ring-ink grid h-9 w-9 place-items-center rounded-full bg-white ring-2"
+            ><Icon name="javascript" class="h-4 w-4" /></span
+          >
+        </span>
       </div>
     </div>
-    <div>
-      <!-- contador decorativo -->
-      <p class="relative top-0 z-1 rotate-3">
+
+    <!-- contador + avatar -->
+    <div data-reveal="hero" class="flex items-end justify-start gap-6 md:justify-end">
+      <div class="flex flex-col">
+        <span
+          class="font-display text-outline text-[6rem] leading-none font-bold tracking-tighter tabular-nums md:text-[7.5rem]"
+          data-counter={total}
+          aria-label={`${total} ${t('hero.counterLabel')}`}>{big}</span
+        >
+        <span class="mt-2 font-mono text-[11px] tracking-[0.2em] text-white/50 uppercase">
+          {t('hero.counterLabel')}
+        </span>
+      </div>
+      <div data-tilt class="relative shrink-0 [transform-style:preserve-3d]">
+        <img
+          src="/me.webp"
+          alt="Andres Hernandez Lozano"
+          width="200"
+          height="200"
+          class="h-40 w-40 rounded-[28px] object-cover shadow-2xl ring-1 ring-white/15 md:h-52 md:w-52"
+        />
         <span
           aria-hidden="true"
-          class="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 text-[5rem] leading-none font-extrabold tracking-tighter text-white select-none sm:top-1/4 sm:-translate-y-1/2 sm:text-[6rem] md:text-[5rem]"
-          >Andres</span
+          class="font-display text-ink absolute -top-3 -left-4 rotate-[-6deg] [transform:translateZ(30px)] rounded-full bg-white px-3 py-1 text-sm font-semibold shadow-lg"
         >
-        <span
-          aria-hidden="true"
-          class="pointer-events-none absolute -top-16 text-[2rem] leading-none font-extrabold tracking-tighter text-white select-none sm:top-0 sm:-left-6 sm:-translate-y-16 sm:text-[3rem] md:text-[2rem]"
-          >By</span
-        >
-      </p>
-      <!-- avatar -->
-      <img
-        src="/me.webp"
-        alt="Andres Hernandez Lozano"
-        width="200"
-        height="200"
-        class="order-1 aspect-square h-48 w-48 rotate-3 rounded-2xl object-cover ring-2 ring-white/20 transition-transform duration-500 md:order-2 md:shadow-xl md:hover:scale-125 dark:ring-[rgb(var(--clr-cyan)/.4)]"
-      />
+          By Andres
+        </span>
+      </div>
     </div>
-  </article>
-</header>
+  </div>
+
+  <!-- marquee de tecnologías -->
+  <div data-reveal="hero" class="marquee mt-12 overflow-hidden border-y border-white/10 py-3.5">
+    <div
+      class="marquee-track flex w-max gap-8 font-mono text-[11px] tracking-[0.22em] text-white/50 uppercase"
+    >
+      {
+        [...marquee, ...marquee].map((tag) => (
+          <span class="flex items-center gap-8">
+            {tag}
+            <span class="text-brand-lime" aria-hidden="true">
+              ✦
+            </span>
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- scroll hint -->
+  <a
+    href="#projects"
+    data-reveal="hero"
+    class="absolute bottom-7 left-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase transition-colors hover:text-white md:left-10"
+  >
+    <span class="block h-9 w-px origin-top animate-[var(--animate-scroll-line)] bg-white/50"></span>
+    {t('hero.scroll')}
+  </a>
+</section>

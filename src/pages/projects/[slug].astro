@@ -1,7 +1,7 @@
 ---
-import InfoProject from '../../components/InfoProject.astro'
+import ProjectPanel from '../../components/ProjectPanel.astro'
 import { PROJECTS } from '../../consts'
-import { getLang, getLocalized } from '../../i18n/utils'
+import { getLang, getLocalized, useTranslations } from '../../i18n/utils'
 import Layout from '../../layouts/Layout.astro'
 
 export function getStaticPaths() {
@@ -11,18 +11,52 @@ export function getStaticPaths() {
 }
 
 const { slug } = Astro.params
-const idx = PROJECTS.findIndex((p) => p.slug === slug)
-const info = PROJECTS[idx]
+const visible = PROJECTS.filter((p) => !p.hidden)
+const idx = visible.findIndex((p) => p.slug === slug)
+const info = visible[idx]
 const number = String(idx + 1).padStart(2, '0')
 
 const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
 const title = getLocalized(info.title, lang)
+const description = getLocalized(info.description, lang)
+
+const toNav = (p?: (typeof visible)[number]) =>
+  p ? { slug: p.slug, title: getLocalized(p.title, lang) } : null
+const prev = toNav(visible[idx - 1])
+const next = toNav(visible[idx + 1])
 ---
 
-<Layout title={`Demo ${number}: ${title}`}>
-  <div class="h-screen w-full">
-    <iframe src={`/demo/${slug}/index.html`} class="h-full w-full"></iframe>
+<Layout
+  title={`#${number} ${title} · The Frontend Projects`}
+  description={description}
+  ogImage={`/demo/${slug}/screenshot.webp`}
+>
+  <div class="bg-ink fixed inset-0">
+    <div
+      data-demo-cover
+      class="bg-ink absolute inset-0 z-10 grid place-items-center overflow-hidden"
+    >
+      <img
+        src={`/demo/${slug}/screenshot.webp`}
+        alt=""
+        transition:name={`shot-${slug}`}
+        class="absolute inset-0 h-full w-full scale-105 object-cover opacity-40 blur-sm"
+      />
+      <p
+        class="bg-ink/70 relative flex items-center gap-3 rounded-full px-4 py-2 font-mono text-[11px] tracking-[0.2em] text-white/80 uppercase ring-1 ring-white/10"
+      >
+        <span class="bg-brand-lime h-2 w-2 animate-[var(--animate-pulse-dot)] rounded-full"></span>
+        {t('project.loading')}
+      </p>
+    </div>
+    <iframe
+      data-demo
+      src={`/demo/${slug}/index.html`}
+      title={title}
+      class="h-full w-full border-0"
+      loading="eager"></iframe>
   </div>
 
-  <InfoProject info={{ ...info, number }} />
+  <ProjectPanel project={info} number={number} prev={prev} next={next} />
 </Layout>

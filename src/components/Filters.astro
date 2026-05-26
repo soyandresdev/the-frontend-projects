@@ -1,0 +1,87 @@
+---
+import type { Difficulty } from '../consts'
+import { getLang, useTranslations } from '../i18n/utils'
+
+interface Props {
+  tags: string[]
+}
+const { tags } = Astro.props
+
+const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
+
+const levels: Array<{ key: Difficulty | 'all'; label: string }> = [
+  { key: 'all', label: t('filter.all') },
+  { key: 'beginner', label: t('difficulty.beginner') },
+  { key: 'intermediate', label: t('difficulty.intermediate') },
+  { key: 'advanced', label: t('difficulty.advanced') }
+]
+---
+
+<div class="flex flex-col gap-4">
+  <div class="flex flex-wrap items-center gap-3">
+    <div
+      role="group"
+      aria-label="Difficulty"
+      class="flex rounded-full border border-white/10 bg-white/5 p-1"
+    >
+      {
+        levels.map((l) => (
+          <button
+            type="button"
+            data-filter={l.key}
+            aria-pressed={l.key === 'all' ? 'true' : 'false'}
+            class="rounded-full border border-transparent px-3.5 py-1.5 text-[13px] font-medium text-white/65 transition-[background-color,color,transform] duration-200 hover:text-white active:scale-[0.97] sm:px-4"
+          >
+            {l.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <label class="relative ml-auto w-full sm:w-64">
+      <span class="sr-only">{t('filter.search')}</span>
+      <svg
+        viewBox="0 0 24 24"
+        class="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-white/40"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5" stroke-linecap="round"
+        ></path>
+      </svg>
+      <input
+        data-search
+        type="search"
+        autocomplete="off"
+        placeholder={t('filter.search')}
+        class="h-10 w-full rounded-full border border-white/10 bg-white/5 pr-4 pl-10 text-sm text-white transition-colors outline-none placeholder:text-white/40 focus:border-white/35 focus:bg-white/[0.07]"
+      />
+    </label>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-2 font-mono text-[11px] tracking-wider uppercase">
+    <span class="mr-1 text-white/40">{t('filter.tags')}</span>
+    {
+      tags.map((tag) => (
+        <button
+          type="button"
+          data-tag={tag}
+          aria-pressed="false"
+          class="rounded-full border border-white/15 px-3 py-1 text-white/70 transition-[background-color,color,border-color,transform] duration-200 hover:border-white/45 hover:text-white active:scale-[0.97]"
+        >
+          {tag}
+        </button>
+      ))
+    }
+    <button
+      type="button"
+      data-clear
+      class="text-brand-cyan decoration-brand-cyan/40 hover:decoration-brand-cyan ml-1 hidden rounded-full px-3 py-1 underline underline-offset-4 transition-colors"
+    >
+      {t('filter.clear')}
+    </button>
+  </div>
+</div>
