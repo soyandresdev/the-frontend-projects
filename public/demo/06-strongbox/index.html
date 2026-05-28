@@ -24,7 +24,7 @@
         <span class="titlebar-name">strongbox.sh</span>
       </div>
 
-      <div class="screen">
+      <div class="screen" id="screen">
         <p class="line line--intro">
           <span class="prompt">$</span> <span id="typed"></span><span class="caret">_</span>
         </p>
@@ -42,6 +42,12 @@
               [ show ]
             </button>
           </div>
+          <div class="utility-row">
+            <button type="button" class="ghost-btn" id="generate-btn">[ generate ]</button>
+            <button type="button" class="ghost-btn" id="copy-btn">
+              <span id="copy-label">[ copy ]</span>
+            </button>
+          </div>
         </div>
 
         <p class="line">
@@ -57,8 +63,30 @@
           <li data-req="special"><span class="box">[ ]</span> special char</li>
         </ul>
 
-        <button type="button" class="btn-continue" id="copy-btn">
-          <span id="copy-label">[ copy password ]</span>
+        <div class="line line--field">
+          <label class="prompt" for="confirm">confirm:</label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="confirm"
+              autocomplete="new-password"
+              spellcheck="false"
+            />
+            <button
+              type="button"
+              class="toggle-btn"
+              id="toggle-confirm-btn"
+              aria-label="Show confirm password"
+            >
+              [ show ]
+            </button>
+          </div>
+          <p class="match-hint" id="match-hint" aria-live="polite"></p>
+        </div>
+
+        <button type="button" class="btn-continue" id="set-btn">[ set password ]</button>
+        <button type="button" class="ghost-btn btn-reset" id="reset-btn" hidden>
+          [ reset ]
         </button>
       </div>
     </main>

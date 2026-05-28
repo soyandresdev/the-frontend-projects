@@ -208,6 +208,41 @@ input.is-shaking {
   color: rgb(var(--green));
 }
 
+.utility-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.ghost-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: rgb(var(--text) / 0.4);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.ghost-btn:hover {
+  color: rgb(var(--green));
+}
+
+.match-hint {
+  font-size: 0.78rem;
+  min-height: 1.1em;
+  color: rgb(var(--text) / 0.3);
+  transition: color 150ms ease;
+}
+
+.match-hint.is-match {
+  color: rgb(var(--green));
+}
+
+.match-hint.is-mismatch {
+  color: rgb(var(--red));
+}
+
 /* ---------- Meter ---------- */
 .blocks {
   letter-spacing: 1px;
@@ -311,8 +346,42 @@ input.is-shaking {
   animation: shake 380ms var(--ease-out-quad);
 }
 
+.btn-continue + .btn-reset {
+  margin-top: 0.75rem;
+  width: 100%;
+  text-align: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btn-continue.is-shaking {
+    animation: none;
+  }
+}
+
+input:disabled,
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.line--success {
+  color: rgb(var(--green));
+  animation: rise-in 300ms var(--ease-out-quad) both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line--success {
     animation: none;
   }
 }
