@@ -25,7 +25,24 @@ function hashSlug(slug: string) {
   }
   return hash
 }
-const cards = numbered.slice().sort((a, b) => hashSlug(a.slug) - hashSlug(b.slug))
+const shuffled = numbered.slice().sort((a, b) => hashSlug(a.slug) - hashSlug(b.slug))
+
+// Bento: dos anchos (1x1 y 2x1) y tres estilos. Las anchas van en las posiciones
+// 0 y 6 de cada bloque de 10 (nunca juntas, filas completas en 3 columnas) y se
+// reservan para proyectos intermedios/avanzados cuando los hay.
+type Size = 'sm' | 'wide' | 'side'
+const pool = shuffled.slice()
+const cards: Array<(typeof shuffled)[number] & { size: Size }> = []
+for (let i = 0; pool.length > 0; i++) {
+  const slot: Size = i % 10 === 0 ? 'wide' : i % 10 === 6 ? 'side' : 'sm'
+  let idx = 0
+  if (slot !== 'sm') {
+    const j = pool.findIndex((p) => p.difficulty !== 'beginner')
+    if (j >= 0) idx = j
+  }
+  const [p] = pool.splice(idx, 1)
+  cards.push({ ...p, size: slot })
+}
 
 // Chips de tecnología: tags presentes en 2+ proyectos, excluyendo los universales.
 const freq = new Map<string, number>()
@@ -61,13 +78,9 @@ const tagChips = [...freq.entries()]
   <div
     data-grid
     data-reveal-group
-    class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+    class="relative mt-8 grid [grid-auto-flow:dense] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
   >
-    {
-      cards.map((p) => (
-        <ProjectCard project={p} num={p.num} featured={p.difficulty === 'advanced'} />
-      ))
-    }
+    {cards.map((p) => <ProjectCard project={p} num={p.num} size={p.size} />)}
   </div>
 
   <p

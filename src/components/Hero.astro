@@ -2,12 +2,12 @@
 /*
   Hero.astro
   ==========
-  Intro editorial: título gigante con reveal por caracteres, bio, contador,
-  avatar con tilt y marquee de tecnologías. Se anima al cargar (no espera scroll).
+  Intro editorial afín al hero original: "The" gigante con degradado,
+  "Front-End Projects" debajo, bio con contador y foto grande con "By Andres".
+  Se anima al cargar (no espera scroll).
 */
 import { PROJECTS } from '../consts'
 import { getLang, useTranslations } from '../i18n/utils'
-import Icon from './Icon.astro'
 
 const lang = getLang(Astro.currentLocale)
 const t = useTranslations(lang)
@@ -16,7 +16,7 @@ const visible = PROJECTS.filter((p) => !p.hidden)
 const total = visible.length
 const big = String(total).padStart(2, '0')
 
-// Tags únicos para el marquee (los 3 básicos primero, luego por frecuencia)
+// Tags únicos para el marquee, por frecuencia
 const freq = new Map<string, number>()
 visible.forEach((p) => p.tags.forEach((tag) => freq.set(tag, (freq.get(tag) ?? 0) + 1)))
 const marquee = [...freq.entries()]
@@ -32,7 +32,7 @@ const marquee = [...freq.entries()]
   <!-- eyebrow -->
   <p
     data-reveal="hero"
-    class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] tracking-[0.22em] text-white/60 uppercase"
+    class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] tracking-[0.22em] text-white/60 uppercase"
   >
     <span class="inline-flex items-center gap-2">
       <span class="bg-brand-lime h-2 w-2 animate-[var(--animate-pulse-dot)] rounded-full"></span>
@@ -44,100 +44,124 @@ const marquee = [...freq.entries()]
     <span>{total} {t('nav.projectsLabel')}</span>
   </p>
 
-  <!-- título -->
-  <h1
-    class="split-mask font-display mt-6 text-[clamp(3.4rem,11.5vw,10.5rem)] leading-[0.92] font-bold tracking-[-0.045em]"
-  >
-    <span class="block" data-split>The Front-End</span>
-    <span class="block overflow-clip pb-[0.1em]">
-      <span class="text-gradient block" data-line>Projects</span>
+  <!-- título: "The" gigante con degradado + "Front-End Projects" -->
+  <h1 class="split-mask font-display mt-2 flex flex-col items-center text-center font-bold">
+    <span class="block overflow-clip px-[0.1em] pb-[0.05em]">
+      <span
+        class="text-gradient block text-[clamp(7rem,24vw,19rem)] leading-[0.85] tracking-[-0.05em] drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+        data-line>The</span
+      >
     </span>
+    <span
+      class="mt-1 block text-[clamp(2rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.035em] text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.45)]"
+      data-split>Front-End Projects</span
+    >
   </h1>
 
-  <div class="mt-8 grid gap-10 md:mt-10 md:grid-cols-[1.35fr_1fr] md:items-end">
-    <!-- texto -->
-    <div class="max-w-xl">
-      <p data-reveal="hero" class="text-xl leading-snug text-white md:text-2xl">
-        {t('hero.tagline')}
-      </p>
-      <p data-reveal="hero" class="mt-5 leading-relaxed text-white/65">
-        {t('hero.greeting')} 👋 — {t('hero.bio.part1')}
-        <strong class="font-medium text-white">{t('hero.bio.frontend')}</strong>
+  <div class="mt-10 grid items-center gap-12 md:mt-12 md:grid-cols-[1.2fr_auto] md:gap-16">
+    <!-- texto (bloque de bio original: saludo en degradado, chips de color, ubicación) -->
+    <div class="mx-auto max-w-xl text-center md:mx-0 md:text-left">
+      <h2 data-reveal="hero" class="text-2xl md:text-[1.7rem]">
+        <span
+          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] transition-colors hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
+          >{t('hero.greeting')}</span
+        ><span> 👋</span>
+      </h2>
+      <p data-reveal="hero" class="mt-4 leading-relaxed text-slate-200/90">
+        {t('hero.bio.part1')}
+        <strong class="rounded-sm bg-yellow-100 px-1.5 py-0.5 text-yellow-800"
+          >{t('hero.bio.frontend')}</strong
+        >
         {t('hero.bio.part2')}
-        <span class="font-mono text-[0.85em] text-white">HTML</span>,
-        <span class="font-mono text-[0.85em] text-white">CSS</span>
+        <strong class="rounded-sm bg-[rgb(243,115,33)] px-2 py-0.5 text-slate-900">HTML</strong>,
+        <strong class="rounded-sm bg-[rgb(22,118,188)] px-2 py-0.5 text-white">CSS</strong>
         {t('hero.bio.and')}
-        <span class="font-mono text-[0.85em] text-white">JavaScript</span>
+        <strong class="rounded-sm bg-[rgb(247,223,30)] px-2 py-0.5 text-slate-900"
+          >JavaScript</strong
+        >
         {t('hero.bio.part3')}
       </p>
-      <div data-reveal="hero" class="mt-7 flex flex-wrap items-center gap-3">
+      <p data-reveal="hero" class="mt-4 flex items-center justify-center gap-1.5 md:justify-start">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M12 12.75C13.6569 12.75 15 11.4069 15 9.75C15 8.09315 13.6569 6.75 12 6.75C10.3431 6.75 9 8.09315 9 9.75C9 11.4069 10.3431 12.75 12 12.75Z"
+            stroke="url(#pin-a)"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+          <path
+            d="M19.5 9.75C19.5 16.5 12 21.75 12 21.75C12 21.75 4.5 16.5 4.5 9.75C4.5 7.76088 5.29018 5.85322 6.6967 4.4467C8.10322 3.04018 10.0109 2.25 12 2.25C13.9891 2.25 15.8968 3.04018 17.3033 4.4467C18.7098 5.85322 19.5 7.76088 19.5 9.75Z"
+            stroke="url(#pin-b)"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+          <defs>
+            <linearGradient
+              id="pin-a"
+              x1="12"
+              y1="6.75"
+              x2="12"
+              y2="12.75"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#00F3FF"></stop><stop offset="1" stop-color="#87F113"></stop>
+            </linearGradient>
+            <linearGradient
+              id="pin-b"
+              x1="12"
+              y1="2.25"
+              x2="12"
+              y2="21.75"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#00F3FF"></stop><stop offset="1" stop-color="#87F113"></stop>
+            </linearGradient>
+          </defs>
+        </svg>
         <span
-          class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-[11px] tracking-wider text-white/70 uppercase"
+          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)]"
         >
-          <svg
-            viewBox="0 0 24 24"
-            class="h-3.5 w-3.5"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11Z"></path><circle
-              cx="12"
-              cy="10"
-              r="2.5"></circle>
-          </svg>
-          {t('hero.location')}
+          {t('hero.locationLong')}
         </span>
-        <span class="flex items-center -space-x-2">
-          <span
-            class="text-ink ring-ink grid h-9 w-9 place-items-center rounded-full bg-white ring-2"
-            ><Icon name="html5" class="h-4 w-4" /></span
-          >
-          <span
-            class="text-ink ring-ink grid h-9 w-9 place-items-center rounded-full bg-white ring-2"
-            ><Icon name="css" class="h-4 w-4" /></span
-          >
-          <span
-            class="text-ink ring-ink grid h-9 w-9 place-items-center rounded-full bg-white ring-2"
-            ><Icon name="javascript" class="h-4 w-4" /></span
-          >
+      </p>
+      <!-- contador -->
+      <div data-reveal="hero" class="mt-8 flex items-end justify-center gap-4 md:justify-start">
+        <span
+          class="font-display text-outline text-[4.5rem] leading-none font-bold tracking-tighter tabular-nums md:text-[5.5rem]"
+          data-counter={total}
+          aria-label={`${total} ${t('hero.counterLabel')}`}>{big}</span
+        >
+        <span
+          class="mb-2 max-w-[9rem] text-left font-mono text-[11px] leading-relaxed tracking-[0.2em] text-white/50 uppercase"
+        >
+          {t('hero.counterLabel')}
         </span>
       </div>
     </div>
 
-    <!-- contador + avatar -->
-    <div data-reveal="hero" class="flex items-end justify-start gap-6 md:justify-end">
-      <div class="flex flex-col">
-        <span
-          class="font-display text-outline text-[6rem] leading-none font-bold tracking-tighter tabular-nums md:text-[7.5rem]"
-          data-counter={total}
-          aria-label={`${total} ${t('hero.counterLabel')}`}>{big}</span
-        >
-        <span class="mt-2 font-mono text-[11px] tracking-[0.2em] text-white/50 uppercase">
-          {t('hero.counterLabel')}
-        </span>
-      </div>
-      <div data-tilt class="relative shrink-0 [transform-style:preserve-3d]">
+    <!-- foto con "By Andres" -->
+    <div data-reveal="hero" class="relative mx-auto mt-6 pt-16 md:mx-0 md:mt-0 md:pr-6">
+      <div data-tilt class="relative rotate-3 [transform-style:preserve-3d]">
         <img
           src="/me.webp"
           alt="Andres Hernandez Lozano"
-          width="200"
-          height="200"
-          class="h-40 w-40 rounded-[28px] object-cover shadow-2xl ring-1 ring-white/15 md:h-52 md:w-52"
+          width="288"
+          height="288"
+          class="h-60 w-60 rounded-[32px] object-cover shadow-2xl ring-1 ring-white/20 md:h-72 md:w-72"
         />
         <span
           aria-hidden="true"
-          class="font-display text-ink absolute -top-3 -left-4 rotate-[-6deg] [transform:translateZ(30px)] rounded-full bg-white px-3 py-1 text-sm font-semibold shadow-lg"
+          class="font-display pointer-events-none absolute -top-11 left-1/2 [transform:translateX(-50%)_translateZ(40px)] text-[5.5rem] leading-none font-extrabold tracking-tighter whitespace-nowrap text-white drop-shadow-[0_6px_18px_rgba(0,0,0,0.6)] select-none md:-top-14 md:text-[7rem]"
         >
-          By Andres
+          <span class="absolute -top-[0.55em] -left-[0.1em] text-[0.45em] tracking-tight">By</span>
+          Andres
         </span>
       </div>
     </div>
   </div>
 
   <!-- marquee de tecnologías -->
-  <div data-reveal="hero" class="marquee mt-12 overflow-hidden border-y border-white/10 py-3.5">
+  <div data-reveal="hero" class="marquee mt-14 overflow-hidden border-y border-white/10 py-3.5">
     <div
       class="marquee-track flex w-max gap-8 font-mono text-[11px] tracking-[0.22em] text-white/50 uppercase"
     >

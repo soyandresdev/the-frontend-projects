@@ -303,6 +303,7 @@ function initFilters() {
 
   const apply = () => {
     const animate = !reducedMotion()
+    const prevHeight = grid.offsetHeight
     const flipState = animate ? Flip.getState(cards) : null
     let visible = 0
     cards.forEach((card) => {
@@ -310,12 +311,18 @@ function initFilters() {
       card.classList.toggle('is-hidden', !ok)
       if (ok) visible++
     })
+    // Con absolute:true las cards salen del flujo y el grid colapsaría a 0 (el footer
+    // subiría de golpe y las cards entrantes aparecerían ahí). Fijamos la altura previa
+    // y la llevamos suavemente a la nueva.
+    const nextHeight = grid.offsetHeight
     if (count) count.textContent = String(visible)
     if (empty) empty.classList.toggle('hidden', visible > 0)
     const active = state.difficulty !== 'all' || state.tags.size > 0 || !!state.q
     if (clear) clear.classList.toggle('hidden', !active)
 
     if (flipState) {
+      gsap.set(grid, { height: prevHeight })
+      gsap.to(grid, { height: nextHeight, duration: 0.6, ease: EASE_INOUT })
       Flip.from(flipState, {
         duration: 0.6,
         ease: EASE_INOUT,
@@ -330,7 +337,10 @@ function initFilters() {
           ),
         onLeave: (els) =>
           gsap.to(els, { autoAlpha: 0, scale: 0.94, duration: 0.3, ease: 'power2.in' }),
-        onComplete: () => ScrollTrigger.refresh()
+        onComplete: () => {
+          gsap.set(grid, { clearProps: 'height' })
+          ScrollTrigger.refresh()
+        }
       })
     } else {
       ScrollTrigger.refresh()
