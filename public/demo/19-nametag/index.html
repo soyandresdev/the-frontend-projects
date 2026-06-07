@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/19-nametag/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nametag</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">Badge printer</p>
+      <h1 class="page-title">Nametag</h1>
+      <p class="page-lede">
+        Type a name, stick your badge, and see which way it's historically leaned.
+      </p>
+
+      <section class="badge" id="badge">
+        <div class="badge-band">
+          <span class="badge-band-main">HELLO</span>
+          <span class="badge-band-sub">my name is</span>
+        </div>
+
+        <div class="badge-body">
+          <div class="name-field">
+            <label for="name-input" class="sr-only">Your name</label>
+            <input
+              type="text"
+              id="name-input"
+              class="name-input"
+              placeholder="type a name&hellip;"
+              autocomplete="off"
+              maxlength="24"
+            />
+            <ul class="suggestions" id="suggestions" role="listbox" hidden></ul>
+          </div>
+
+          <div class="readout" id="readout" hidden>
+            <div class="lean-bar" id="lean-bar" aria-hidden="true">
+              <span class="lean-fill" id="lean-fill"></span>
+              <span class="lean-marker" id="lean-marker"></span>
+            </div>
+            <p class="lean-label" id="lean-label"></p>
+            <p class="lean-count" id="lean-count"></p>
+          </div>
+
+          <div class="readout-empty" id="readout-empty" hidden>
+            <p>No badge history on file for that one &mdash; but nice to meet you!</p>
+          </div>
+        </div>
+
+        <p class="badge-fineprint">
+          Just for fun, based on a small curated sample of public name registries.
+          Not a comment on anyone's real identity.
+        </p>
+      </section>
+
+      <button type="button" class="print-btn" id="print-btn">Stick this badge</button>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
