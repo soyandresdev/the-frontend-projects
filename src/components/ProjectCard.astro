@@ -1,6 +1,7 @@
 ---
 import type { Difficulty, Project } from '../consts'
 import { getLang, getLocalized, useTranslatedPath, useTranslations } from '../i18n/utils'
+import { getAccent } from '../utils/color'
 import Button from './Button.astro'
 
 interface Props {
@@ -42,6 +43,7 @@ const DIFFICULTY_CLASS: Record<Difficulty, string> = {
   advanced: 'border-rose-400/40 bg-ink/75 text-rose-300'
 }
 
+const accent = await getAccent(p.slug)
 const searchIndex = [title, description, ...p.tags, num].join(' ').toLowerCase()
 const visibleTags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includes(tag)).slice(0, 4)
 ---
@@ -53,6 +55,9 @@ const visibleTags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includ
   data-tags={p.tags.join('|')}
   data-search={searchIndex}
   data-size={size}
+  data-color={accent.color}
+  data-ink={accent.ink}
+  style={`--glow: ${accent.color}`}
   class={`card-glow group relative flex overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] transition-colors duration-500 hover:bg-white/[0.07] ${ARTICLE_CLASS}`}
 >
   <a

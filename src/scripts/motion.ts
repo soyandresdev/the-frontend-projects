@@ -264,6 +264,9 @@ function initCursor() {
     const t = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor]')
     if (!t) return
     if (label) label.textContent = t.dataset.cursor || ''
+    const src = t.closest<HTMLElement>('[data-color]')
+    cursor.style.setProperty('--cursor', src?.dataset.color || '#fff')
+    cursor.style.setProperty('--cursor-ink', src?.dataset.ink || '')
     cursor.classList.add('is-active')
   })
   on(document, 'mouseout', (e: MouseEvent) => {
@@ -272,6 +275,8 @@ function initCursor() {
     const to = (e.relatedTarget as HTMLElement | null)?.closest('[data-cursor]')
     if (to === t) return
     cursor.classList.remove('is-active')
+    cursor.style.removeProperty('--cursor')
+    cursor.style.removeProperty('--cursor-ink')
   })
 }
 

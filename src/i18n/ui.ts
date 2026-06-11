@@ -31,6 +31,7 @@ export const ui = {
     'hero.scroll': 'Scroll to explore',
     'hero.counterLabel': 'projects and counting',
 
+    'featured.eyebrow': 'Latest',
     'projects.heading': 'All projects',
     'projects.sub': 'Filter by difficulty, search by name or tech, and open any demo.',
     'filter.all': 'All',
@@ -89,6 +90,7 @@ export const ui = {
     'hero.scroll': 'Desliza para explorar',
     'hero.counterLabel': 'proyectos y contando',
 
+    'featured.eyebrow': 'Último proyecto',
     'projects.heading': 'Todos los proyectos',
     'projects.sub': 'Filtra por dificultad, busca por nombre o tecnología y abre cualquier demo.',
     'filter.all': 'Todos',

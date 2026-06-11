@@ -9,13 +9,11 @@ const t = useTranslations(getLang(Astro.currentLocale))
   aria-hidden="true"
   class="pointer-events-none fixed top-0 left-0 z-[80] h-20 w-20 place-items-center [&.is-active_[data-cursor-dot]]:scale-100 [&.is-active_[data-cursor-label]]:opacity-100"
 >
-  <span
-    data-cursor-dot
-    class="col-start-1 row-start-1 h-full w-full scale-[0.14] rounded-full bg-white transition-transform duration-500 ease-[var(--ease-out-expo)]"
+  <span data-cursor-dot class="col-start-1 row-start-1 h-full w-full scale-[0.14] rounded-full"
   ></span>
   <span
     data-cursor-label
-    class="text-ink col-start-1 row-start-1 font-mono text-[11px] font-medium tracking-[0.2em] uppercase opacity-0 transition-opacity duration-300"
+    class="relative z-10 col-start-1 row-start-1 font-mono text-[11px] font-medium tracking-[0.2em] uppercase opacity-0 transition-opacity duration-300"
   >
     {t('cursor.view')}
   </span>

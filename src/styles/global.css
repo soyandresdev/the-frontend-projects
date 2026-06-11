@@ -226,6 +226,15 @@
       display: grid;
     }
   }
+  #cursor [data-cursor-dot] {
+    background: var(--cursor, #fff);
+    transition:
+      transform 0.5s var(--ease-out-expo),
+      background-color 0.35s ease;
+  }
+  #cursor [data-cursor-label] {
+    color: var(--cursor-ink, var(--color-ink));
+  }
 
   /* Tarjeta: borde iluminado que sigue al ratón */
   .card-glow::before {
@@ -235,9 +244,9 @@
     border-radius: inherit;
     padding: 1px;
     background: radial-gradient(
-      300px circle at var(--mx, 50%) var(--my, 50%),
-      rgb(0 243 255 / 0.55),
-      rgb(126 211 33 / 0.25) 40%,
+      320px circle at var(--mx, 50%) var(--my, 50%),
+      var(--glow, rgb(0 243 255)),
+      color-mix(in srgb, var(--glow, rgb(0 243 255)) 35%, transparent) 40%,
       transparent 70%
     );
     -webkit-mask:
