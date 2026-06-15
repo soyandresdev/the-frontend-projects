@@ -45,15 +45,17 @@ const marquee = [...freq.entries()]
   </p>
 
   <!-- título: "The" gigante con degradado + "Front-End Projects" -->
-  <h1 class="split-mask font-display mt-2 flex flex-col items-center text-center font-bold">
+  <h1
+    class="split-mask font-display mt-2 flex flex-col items-center text-center font-bold drop-shadow-[0_6px_18px_rgba(0,0,0,0.45)]"
+  >
     <span class="block overflow-clip px-[0.1em] pb-[0.05em]">
       <span
-        class="text-gradient block text-[clamp(7rem,24vw,19rem)] leading-[0.85] tracking-[-0.05em] drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+        class="text-gradient block text-[clamp(7rem,24vw,19rem)] leading-[0.85] tracking-[-0.05em]"
         data-line>The</span
       >
     </span>
     <span
-      class="mt-1 block text-[clamp(2rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.035em] text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.45)]"
+      class="mt-1 block text-[clamp(2rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.035em] text-white"
       data-split>Front-End Projects</span
     >
   </h1>
@@ -61,9 +63,12 @@ const marquee = [...freq.entries()]
   <div class="mt-10 grid items-center gap-12 md:mt-12 md:grid-cols-[1.2fr_auto] md:gap-16">
     <!-- texto (bloque de bio original: saludo en degradado, chips de color, ubicación) -->
     <div class="mx-auto max-w-xl text-center md:mx-0 md:text-left">
-      <h2 data-reveal="hero" class="text-2xl md:text-[1.7rem]">
+      <h2
+        data-reveal="hero"
+        class="text-2xl drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] md:text-[1.7rem]"
+      >
         <span
-          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] transition-colors hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
+          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent transition-colors hover:from-[rgb(var(--clr-cyan))] hover:to-[rgb(var(--clr-lime))]"
           >{t('hero.greeting')}</span
         ><span> 👋</span>
       </h2>
@@ -81,7 +86,10 @@ const marquee = [...freq.entries()]
         >
         {t('hero.bio.part3')}
       </p>
-      <p data-reveal="hero" class="mt-4 flex items-center justify-center gap-1.5 md:justify-start">
+      <p
+        data-reveal="hero"
+        class="mt-4 flex items-center justify-center gap-1.5 drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)] md:justify-start"
+      >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
             d="M12 12.75C13.6569 12.75 15 11.4069 15 9.75C15 8.09315 13.6569 6.75 12 6.75C10.3431 6.75 9 8.09315 9 9.75C9 11.4069 10.3431 12.75 12 12.75Z"
@@ -119,7 +127,7 @@ const marquee = [...freq.entries()]
           </defs>
         </svg>
         <span
-          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)]"
+          class="bg-gradient-to-r from-[rgb(var(--clr-lime))] to-[rgb(var(--clr-cyan))] bg-clip-text text-transparent"
         >
           {t('hero.locationLong')}
         </span>
