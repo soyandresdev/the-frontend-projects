@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/20-boothstrip/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boothstrip</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">Photo booth</p>
+      <h1 class="page-title">Boothstrip</h1>
+      <p class="page-lede">Type a name, pull the lever, and eight styles print out at once.</p>
+
+      <div class="machine">
+        <div class="machine-field">
+          <label for="seed-input" class="sr-only">Name or seed</label>
+          <input
+            type="text"
+            id="seed-input"
+            class="seed-input"
+            placeholder="enter a name&hellip;"
+            autocomplete="off"
+            maxlength="24"
+          />
+          <button type="button" class="dice-btn" id="dice-btn" aria-label="Random seed">
+            &#127922;
+          </button>
+        </div>
+
+        <button type="button" class="lever-btn" id="lever-btn">
+          <span class="lever-knob" aria-hidden="true"></span>
+          Pull to print
+        </button>
+      </div>
+
+      <div class="strip-wrap">
+        <div class="strip" id="strip">
+          <figure class="frame" data-style="lorelei">
+            <img class="frame-img" id="img-lorelei" alt="" />
+            <figcaption class="frame-label">Classic</figcaption>
+          </figure>
+          <figure class="frame" data-style="adventurer">
+            <img class="frame-img" id="img-adventurer" alt="" />
+            <figcaption class="frame-label">Adventurer</figcaption>
+          </figure>
+          <figure class="frame" data-style="avataaars">
+            <img class="frame-img" id="img-avataaars" alt="" />
+            <figcaption class="frame-label">Cartoon</figcaption>
+          </figure>
+          <figure class="frame" data-style="bottts">
+            <img class="frame-img" id="img-bottts" alt="" />
+            <figcaption class="frame-label">Robot</figcaption>
+          </figure>
+          <figure class="frame" data-style="pixel-art">
+            <img class="frame-img" id="img-pixel-art" alt="" />
+            <figcaption class="frame-label">8-Bit</figcaption>
+          </figure>
+          <figure class="frame" data-style="big-smile">
+            <img class="frame-img" id="img-big-smile" alt="" />
+            <figcaption class="frame-label">Grinning</figcaption>
+          </figure>
+          <figure class="frame" data-style="notionists">
+            <img class="frame-img" id="img-notionists" alt="" />
+            <figcaption class="frame-label">Notionist</figcaption>
+          </figure>
+          <figure class="frame" data-style="thumbs">
+            <img class="frame-img" id="img-thumbs" alt="" />
+            <figcaption class="frame-label">Thumbs</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <button type="button" class="download-btn" id="download-btn" disabled>
+        <span id="download-label">Download strip</span>
+      </button>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
