@@ -289,6 +289,12 @@
   [data-card].is-hidden {
     display: none;
   }
+  /* Sin scroll anchoring: al ocultar cards por encima del viewport Chrome
+     recolocaría el scroll de golpe en mitad de la animación. */
+  #projects,
+  [data-grid] {
+    overflow-anchor: none;
+  }
 
   /* Filtros activos */
   [data-filter][aria-pressed='true'],

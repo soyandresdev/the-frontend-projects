@@ -19,13 +19,15 @@ import { Flip } from 'gsap/Flip'
 gsap.registerPlugin(ScrollTrigger, SplitText, Flip)
 
 const EASE_OUT = 'expo.out'
-const EASE_INOUT = 'expo.inOut'
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const finePointer = () => window.matchMedia('(pointer: fine)').matches
 
 let ctx: gsap.Context | null = null
 const cleanups: Array<() => void> = []
+// Triggers del reveal por scroll de las cards: al filtrar se anulan y las cards
+// pasan a estar siempre visibles (si no, Flip las movería invisibles).
+let cardRevealTriggers: ScrollTrigger[] = []
 
 function on<K extends keyof HTMLElementEventMap>(
   el: HTMLElement | Window | Document,
@@ -120,7 +122,7 @@ function initScrollReveals() {
     const children = $$('[data-reveal]', group).filter((c) => !grouped.has(c))
     children.forEach((c) => grouped.add(c))
     if (!children.length) return
-    ScrollTrigger.batch(children, {
+    const triggers = ScrollTrigger.batch(children, {
       start: 'top 88%',
       once: true,
       batchMax: 6,
@@ -131,6 +133,7 @@ function initScrollReveals() {
           { autoAlpha: 1, y: 0, duration: 0.9, ease: EASE_OUT, stagger: 0.08, overwrite: true }
         )
     })
+    if (group.hasAttribute('data-grid')) cardRevealTriggers.push(...triggers)
   })
 
   items
@@ -306,8 +309,18 @@ function initFilters() {
     return true
   }
 
+  let revealed = false
+  const revealAll = () => {
+    if (revealed) return
+    revealed = true
+    cardRevealTriggers.forEach((t) => t.kill())
+    cardRevealTriggers = []
+    gsap.set(cards, { autoAlpha: 1, y: 0, overwrite: true })
+  }
+
   const apply = () => {
     const animate = !reducedMotion()
+    revealAll()
     const prevHeight = grid.offsetHeight
     const flipState = animate ? Flip.getState(cards) : null
     let visible = 0
@@ -317,31 +330,37 @@ function initFilters() {
       if (ok) visible++
     })
     // Con absolute:true las cards salen del flujo y el grid colapsaría a 0 (el footer
-    // subiría de golpe y las cards entrantes aparecerían ahí). Fijamos la altura previa
-    // y la llevamos suavemente a la nueva.
+    // subiría de golpe). Fijamos la altura previa y la llevamos suavemente a la nueva.
     const nextHeight = grid.offsetHeight
     if (count) count.textContent = String(visible)
     if (empty) empty.classList.toggle('hidden', visible > 0)
     const active = state.difficulty !== 'all' || state.tags.size > 0 || !!state.q
     if (clear) clear.classList.toggle('hidden', !active)
 
+    // Si el usuario está dentro del grid, subimos suavemente hasta los filtros para que
+    // el resultado se vea desde el principio (y no dependa del recorte del documento).
+    const filtersTop = grid.getBoundingClientRect().top + window.scrollY - 200
+    if (window.scrollY > filtersTop) {
+      window.scrollTo({ top: filtersTop, behavior: animate ? 'smooth' : 'auto' })
+    }
+
     if (flipState) {
       gsap.set(grid, { height: prevHeight })
-      gsap.to(grid, { height: nextHeight, duration: 0.6, ease: EASE_INOUT })
+      gsap.to(grid, { height: nextHeight, duration: 0.7, ease: 'power3.inOut' })
       Flip.from(flipState, {
-        duration: 0.6,
-        ease: EASE_INOUT,
+        duration: 0.7,
+        ease: 'power3.inOut',
         absolute: true,
-        scale: true,
-        stagger: 0.02,
+        scale: false,
+        stagger: 0.012,
         onEnter: (els) =>
           gsap.fromTo(
             els,
-            { autoAlpha: 0, scale: 0.94 },
-            { autoAlpha: 1, scale: 1, duration: 0.5, ease: EASE_OUT }
+            { autoAlpha: 0, scale: 0.92 },
+            { autoAlpha: 1, scale: 1, duration: 0.55, delay: 0.15, ease: EASE_OUT }
           ),
         onLeave: (els) =>
-          gsap.to(els, { autoAlpha: 0, scale: 0.94, duration: 0.3, ease: 'power2.in' }),
+          gsap.to(els, { autoAlpha: 0, scale: 0.92, duration: 0.35, ease: 'power2.in' }),
         onComplete: () => {
           gsap.set(grid, { clearProps: 'height' })
           ScrollTrigger.refresh()
@@ -461,6 +480,7 @@ function teardown() {
   cleanups.splice(0).forEach((fn) => fn())
   ctx?.revert()
   ctx = null
+  cardRevealTriggers = []
   ScrollTrigger.getAll().forEach((t) => t.kill())
 }
 
