@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Umbra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">Shadow studio</p>
+      <h1 class="page-title">Umbra</h1>
+      <p class="page-lede">A lighting console for your next <code>box-shadow</code>.</p>
+
+      <section class="stage">
+        <div class="stage-glow" id="stage-glow" aria-hidden="true"></div>
+        <div class="stage-box" id="preview-box"></div>
+        <div class="stage-floor" aria-hidden="true"></div>
+      </section>
+
+      <section class="console">
+        <div class="faders">
+          <div class="fader">
+            <span class="fader-value" id="offsetX-value">0px</span>
+            <input type="range" id="offsetX" min="-50" max="50" value="20" />
+            <span class="fader-label">Light X</span>
+          </div>
+          <div class="fader">
+            <span class="fader-value" id="offsetY-value">0px</span>
+            <input type="range" id="offsetY" min="-50" max="50" value="20" />
+            <span class="fader-label">Light Y</span>
+          </div>
+          <div class="fader">
+            <span class="fader-value" id="blur-value">0px</span>
+            <input type="range" id="blur" min="0" max="50" value="24" />
+            <span class="fader-label">Diffusion</span>
+          </div>
+          <div class="fader">
+            <span class="fader-value" id="spread-value">0px</span>
+            <input type="range" id="spread" min="-20" max="20" value="0" />
+            <span class="fader-label">Spread</span>
+          </div>
+          <div class="fader">
+            <span class="fader-value" id="opacity-value">0.50</span>
+            <input type="range" id="opacity" min="0" max="100" value="35" />
+            <span class="fader-label">Darkness</span>
+          </div>
+        </div>
+
+        <div class="gels">
+          <span class="gels-label">Gel</span>
+          <div class="gel-row" id="gel-row">
+            <button type="button" class="gel is-active" data-rgb="10,10,12" aria-label="Noir"></button>
+            <button type="button" class="gel" data-rgb="180,83,9" aria-label="Amber"></button>
+            <button type="button" class="gel" data-rgb="190,24,93" aria-label="Rose"></button>
+            <button type="button" class="gel" data-rgb="109,40,217" aria-label="Violet"></button>
+            <button type="button" class="gel" data-rgb="15,118,110" aria-label="Teal"></button>
+            <button type="button" class="gel" data-rgb="37,99,235" aria-label="Ice"></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="cue">
+        <div class="cue-head">
+          <span>CSS cue</span>
+          <button type="button" class="copy-btn" id="copy-btn">Copy</button>
+        </div>
+        <code id="css-code"></code>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,316 @@
+:root {
+  --stage: 12 12 15;
+  --panel: 27 27 32;
+  --line: 255 255 255;
+  --ink: 235 235 238;
+  --muted: 150 147 156;
+  --accent: 245 197 66;
+
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+  background: rgb(var(--stage));
+  color: rgb(var(--ink));
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.page {
+  width: 100%;
+  max-width: 420px;
+}
+
+.page-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(var(--accent));
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.page-lede {
+  font-size: 0.85rem;
+  color: rgb(var(--muted));
+  margin-bottom: 1.5rem;
+}
+
+.page-lede code {
+  font-family: 'JetBrains Mono', monospace;
+  color: rgb(var(--ink));
+}
+
+/* ---------- Stage ---------- */
+.stage {
+  position: relative;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgb(20 20 24), rgb(var(--stage)) 70%);
+  border: 1px solid rgb(var(--line) / 0.06);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 3.5rem;
+}
+
+.stage-glow {
+  position: absolute;
+  top: 12%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(var(--accent) / 0.22), transparent 70%);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.stage-box {
+  position: relative;
+  z-index: 1;
+  width: 92px;
+  height: 92px;
+  border-radius: 14px;
+  background: rgb(244 243 240);
+}
+
+.stage-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(var(--line) / 0.14), transparent);
+}
+
+/* ---------- Console ---------- */
+.console {
+  margin-top: 1.25rem;
+  padding: 1.5rem 1.25rem 1.25rem;
+  border-radius: 16px;
+  background: rgb(var(--panel));
+  background-image:
+    radial-gradient(circle, rgb(var(--line) / 0.14) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgb(var(--line) / 0.14) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgb(var(--line) / 0.14) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgb(var(--line) / 0.14) 1.5px, transparent 1.5px);
+  background-size: 4px 4px;
+  background-position:
+    10px 10px,
+    calc(100% - 10px) 10px,
+    10px calc(100% - 10px),
+    calc(100% - 10px) calc(100% - 10px);
+  background-repeat: no-repeat;
+  border: 1px solid rgb(var(--line) / 0.06);
+  box-shadow: 0 24px 46px -26px rgb(0 0 0 / 0.7);
+}
+
+.faders {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.fader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fader-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: rgb(var(--accent));
+  min-height: 1em;
+}
+
+.fader-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(var(--muted));
+  text-align: center;
+}
+
+.fader input[type='range'] {
+  appearance: none;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 20px;
+  height: 130px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.fader input[type='range']::-webkit-slider-runnable-track {
+  width: 5px;
+  background: rgb(var(--line) / 0.1);
+  border-radius: 999px;
+}
+
+.fader input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 11px;
+  border-radius: 3px;
+  background: rgb(var(--accent));
+  box-shadow: 0 0 10px rgb(var(--accent) / 0.55);
+  margin-left: -7.5px;
+}
+
+.fader input[type='range']::-moz-range-track {
+  width: 5px;
+  background: rgb(var(--line) / 0.1);
+  border-radius: 999px;
+}
+
+.fader input[type='range']::-moz-range-thumb {
+  width: 20px;
+  height: 11px;
+  border: none;
+  border-radius: 3px;
+  background: rgb(var(--accent));
+  box-shadow: 0 0 10px rgb(var(--accent) / 0.55);
+}
+
+.gels {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgb(var(--line) / 0.07);
+}
+
+.gels-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--muted));
+}
+
+.gel-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.gel {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 150ms var(--ease-out-quad);
+}
+
+.gel:hover {
+  transform: scale(1.12);
+}
+
+.gel.is-active {
+  border-color: rgb(var(--line) / 0.7);
+  box-shadow: 0 0 0 2px rgb(var(--panel));
+}
+
+/* ---------- Cue / code output ---------- */
+.cue {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  background: rgb(0 0 0 / 0.3);
+  border: 1px solid rgb(var(--line) / 0.06);
+}
+
+.cue-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--muted));
+  margin-bottom: 0.6rem;
+}
+
+.cue #css-code {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: rgb(var(--ink));
+  word-break: break-all;
+}
+
+.copy-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: rgb(var(--muted));
+  background: rgb(var(--line) / 0.06);
+  border: 1px solid rgb(var(--line) / 0.1);
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    transform 150ms var(--ease-out-quad);
+}
+
+.copy-btn:hover {
+  color: rgb(var(--accent));
+  border-color: rgb(var(--accent) / 0.4);
+}
+
+.copy-btn.is-copied {
+  color: rgb(var(--accent));
+  border-color: rgb(var(--accent) / 0.5);
+  animation: pulse 300ms var(--ease-out-quad);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy-btn.is-copied {
+    animation: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .faders {
+    gap: 0.2rem;
+  }
+
+  .fader input[type='range'] {
+    height: 100px;
+  }
+}
