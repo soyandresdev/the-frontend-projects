@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sealed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=EB+Garamond:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">Correspondence</p>
+      <h1 class="page-title">Sealed</h1>
+      <p class="page-lede">A newsletter signup, folded and sealed like a proper letter.</p>
+
+      <section class="envelope" id="envelope">
+        <div class="flap" aria-hidden="true"></div>
+        <div class="seal" id="seal" aria-hidden="true">
+          <span class="seal-mark">S</span>
+        </div>
+
+        <div class="letter">
+          <h2 class="letter-title" id="letter-title">Join the newsletter</h2>
+          <p class="letter-lede" id="letter-lede">
+            Get the latest updates and coding tips straight to your inbox.
+          </p>
+
+          <form class="letter-form" id="signup-form" novalidate>
+            <div class="field">
+              <input
+                type="email"
+                id="email-input"
+                placeholder="you@example.com"
+                autocomplete="email"
+              />
+              <p class="field-error" id="field-error" aria-live="polite"></p>
+            </div>
+
+            <button type="submit" class="subscribe-btn" id="subscribe-btn">Subscribe</button>
+          </form>
+
+          <ul class="benefits" id="benefits">
+            <li>Weekly coding tips</li>
+            <li>No spam, unsubscribe anytime</li>
+          </ul>
+
+          <div class="success" id="success" hidden>
+            <p>Sealed and sent &mdash; check your inbox to confirm.</p>
+            <button type="button" class="reset-btn" id="reset-btn">Subscribe another email</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
