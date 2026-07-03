@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/23-wavelength/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wavelength</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="console">
+      <section class="panel panel-info">
+        <span class="on-air"><span class="dot" aria-hidden="true"></span>On air</span>
+        <h1>Let's get on the same wavelength</h1>
+        <p>Have a project in mind? Send a transmission and we'll tune in shortly.</p>
+
+        <div class="waveform" id="waveform" aria-hidden="true"></div>
+
+        <ul class="frequencies">
+          <li>
+            <span class="freq-label">Email</span>
+            <a class="freq-value" href="mailto:hello@studio.dev">hello@studio.dev</a>
+          </li>
+          <li>
+            <span class="freq-label">Phone</span>
+            <a class="freq-value" href="tel:+12345678900">+1 (234) 567-890</a>
+          </li>
+          <li>
+            <span class="freq-label">Studio</span>
+            <span class="freq-value">San Francisco, CA</span>
+          </li>
+        </ul>
+
+        <div class="channels">
+          <a href="#" class="channel" aria-label="X (Twitter)">X</a>
+          <a href="#" class="channel" aria-label="LinkedIn">in</a>
+          <a href="#" class="channel" aria-label="Instagram">IG</a>
+          <a href="#" class="channel" aria-label="GitHub">GH</a>
+        </div>
+      </section>
+
+      <section class="panel panel-form">
+        <form id="transmit-form" novalidate>
+          <h2>Send a transmission</h2>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="first-name">First name</label>
+              <input type="text" id="first-name" placeholder="John" required />
+            </div>
+            <div class="field">
+              <label for="last-name">Last name</label>
+              <input type="text" id="last-name" placeholder="Doe" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="john@example.com" required />
+          </div>
+
+          <div class="field">
+            <label for="subject">Subject</label>
+            <select id="subject" required>
+              <option value="" selected disabled>Select a frequency</option>
+              <option value="general">General inquiry</option>
+              <option value="support">Technical support</option>
+              <option value="sales">Sales question</option>
+              <option value="partnership">Partnership</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              placeholder="Tell us about your project&hellip;"
+              required
+              rows="4"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="transmit-btn" id="transmit-btn">
+            <span id="transmit-label">Transmit</span>
+          </button>
+        </form>
+
+        <div class="success" id="success" hidden>
+          <div class="success-ring"><span>&#10003;</span></div>
+          <h2>Message received.</h2>
+          <p>We're tuned in &mdash; expect a reply within 24 hours.</p>
+          <button type="button" class="reset-btn" id="reset-btn">Send another transmission</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
