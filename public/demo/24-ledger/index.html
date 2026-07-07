@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/24-ledger/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ledger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">Bookkeeping</p>
+      <h1 class="page-title">Ledger</h1>
+      <p class="page-lede">Every entry, ruled and totaled like the real thing.</p>
+
+      <section class="book">
+        <header class="book-head">
+          <p class="book-label">Balance</p>
+          <h2 class="balance" id="balance">$0.00</h2>
+
+          <div class="stats">
+            <div class="stat stat-income">
+              <span class="stat-label">Income</span>
+              <span class="stat-value" id="income-amount">$0.00</span>
+            </div>
+            <div class="stat stat-expense">
+              <span class="stat-label">Expenses</span>
+              <span class="stat-value" id="expense-amount">$0.00</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="sheet">
+          <ul class="rows" id="transaction-list"></ul>
+          <p class="empty-note" id="empty-note">
+            No entries yet &mdash; record your first transaction below.
+          </p>
+        </div>
+
+        <form class="entry-form" id="transaction-form" novalidate>
+          <div class="entry-row">
+            <div class="field field-desc">
+              <label for="description" class="sr-only">Description</label>
+              <input
+                type="text"
+                id="description"
+                placeholder="Description"
+                autocomplete="off"
+              />
+            </div>
+            <div class="field field-amount">
+              <label for="amount" class="sr-only">Amount</label>
+              <input type="number" id="amount" placeholder="0.00" min="0" step="0.01" />
+            </div>
+          </div>
+
+          <div class="entry-row entry-row-actions">
+            <div class="kind-toggle">
+              <button
+                type="button"
+                class="kind-btn is-active"
+                data-kind="income"
+                aria-pressed="true"
+              >
+                + Income
+              </button>
+              <button type="button" class="kind-btn" data-kind="expense" aria-pressed="false">
+                &minus; Expense
+              </button>
+            </div>
+            <button type="submit" class="record-btn">Record entry</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
