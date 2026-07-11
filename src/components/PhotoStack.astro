@@ -1,0 +1,55 @@
+---
+/*
+  PhotoStack.astro
+  ================
+  Mazo de fotos del hero: la principal delante y el resto en abanico detrás.
+  Cada pocos segundos (o al hacer clic) la de delante se desliza y se mete al
+  fondo con un rebote, dejando ver la siguiente. La lógica vive en motion.ts
+  (initPhotoStack). Sin JS se ve solo la primera foto.
+*/
+import { getLang, useTranslations } from '../i18n/utils'
+
+const t = useTranslations(getLang(Astro.currentLocale))
+
+const PHOTOS = [
+  { src: '/photos/blossom.webp', alt: 'Andres smiling under a blossom tree' },
+  { src: '/photos/opera.webp', alt: 'Andres sitting at the Sydney Opera House' },
+  { src: '/photos/snow.webp', alt: 'Andres with open arms in the snow at sunset' },
+  { src: '/photos/autumn.webp', alt: 'Andres in an autumn garden' },
+  { src: '/photos/sculpture.webp', alt: 'Andres next to a silver sculpture' },
+  { src: '/photos/bridge-night.webp', alt: 'Andres in front of the Harbour Bridge at night' },
+  { src: '/photos/bridge-day.webp', alt: 'Andres on a suspension bridge' },
+  { src: '/photos/garden-jump.webp', alt: 'Andres jumping in a garden' }
+]
+---
+
+<div
+  data-stack
+  data-cursor={t('cursor.next')}
+  role="button"
+  tabindex="0"
+  aria-label={t('hero.photosLabel')}
+  class="relative h-80 w-60 cursor-pointer select-none [transform-style:preserve-3d] md:h-96 md:w-72"
+>
+  {
+    PHOTOS.map((p, i) => (
+      <figure
+        data-stack-card
+        class="bg-ink-2 absolute inset-0 m-0 overflow-hidden rounded-[28px] shadow-2xl ring-1 ring-white/20 will-change-transform"
+        style={`z-index:${PHOTOS.length - i}`}
+      >
+        <img
+          src={p.src}
+          alt={p.alt}
+          width="720"
+          height="960"
+          loading={i === 0 ? 'eager' : 'lazy'}
+          fetchpriority={i === 0 ? 'high' : undefined}
+          decoding="async"
+          draggable="false"
+          class="h-full w-full object-cover"
+        />
+      </figure>
+    ))
+  }
+</div>

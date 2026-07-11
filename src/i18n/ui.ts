@@ -41,6 +41,8 @@ export const ui = {
     'filter.empty': 'Nothing matches that filter yet.',
     'filter.clear': 'Clear filters',
     'cursor.view': 'View',
+    'cursor.next': 'Next',
+    'hero.photosLabel': 'Photo deck, click to see the next one',
 
     'footer.cta': 'Have an idea worth building?',
     'footer.ctaBtn': "Let's talk",
@@ -100,6 +102,8 @@ export const ui = {
     'filter.empty': 'Nada coincide con ese filtro todavía.',
     'filter.clear': 'Limpiar filtros',
     'cursor.view': 'Ver',
+    'cursor.next': 'Siguiente',
+    'hero.photosLabel': 'Mazo de fotos, haz clic para ver la siguiente',
 
     'footer.cta': '¿Tienes una idea que valga la pena construir?',
     'footer.ctaBtn': 'Hablemos',

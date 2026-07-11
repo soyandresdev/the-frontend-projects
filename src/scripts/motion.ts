@@ -216,6 +216,90 @@ function initTilt() {
 }
 
 /* ------------------------------------------------------------------ */
+/* Mazo de fotos del hero: rota sola cada 3.5 s, o al hacer clic         */
+/* ------------------------------------------------------------------ */
+function initPhotoStack() {
+  const stack = $<HTMLElement>('[data-stack]')
+  if (!stack) return
+  let cards = $$('[data-stack-card]', stack)
+  if (cards.length < 2) return
+  const reduced = reducedMotion()
+
+  // Posición de cada carta según su puesto en el mazo (0 = delante).
+  const ROT = [3, -5, 6, -4, 5, -6, 4, -3]
+  const slot = (i: number) => ({
+    x: i === 0 ? 0 : (i % 2 ? -1 : 1) * Math.min(i, 3) * 4,
+    y: Math.min(i, 3) * -10,
+    scale: 1 - Math.min(i, 3) * 0.045,
+    rotation: ROT[i % ROT.length],
+    autoAlpha: i < 4 ? 1 : 0,
+    zIndex: cards.length - i
+  })
+  gsap.set(cards, { transformOrigin: '50% 60%' })
+  cards.forEach((c, i) => gsap.set(c, slot(i)))
+
+  let busy = false
+  let pending = false // clic recibido durante la animación: se encadena al terminar
+  let timer: gsap.core.Tween | null = null
+  const schedule = () => {
+    timer?.kill()
+    if (reduced) return
+    timer = gsap.delayedCall(3.5, next)
+  }
+
+  function next() {
+    if (busy) {
+      pending = true
+      return
+    }
+    busy = true
+    const front = cards[0]
+    cards = [...cards.slice(1), front]
+    if (reduced) {
+      cards.forEach((c, i) => gsap.set(c, slot(i)))
+      busy = false
+      return
+    }
+    const last = cards.length - 1
+    const tl = gsap.timeline({
+      onComplete: () => {
+        busy = false
+        if (pending) {
+          pending = false
+          next()
+        } else {
+          schedule()
+        }
+      }
+    })
+    // La de delante sale hacia la derecha girando y cae al fondo del mazo.
+    tl.to(front, { xPercent: 55, rotation: 14, y: -24, duration: 0.42, ease: 'power2.in' }, 0)
+      .set(front, { zIndex: 0 }, 0.42)
+      .to(front, { xPercent: 0, ...slot(last), duration: 0.7, ease: 'power3.out' }, 0.42)
+    // El resto avanza un puesto, con un pequeño rebote al llegar.
+    cards.slice(0, last).forEach((c, i) => {
+      tl.to(c, { ...slot(i), duration: 0.8, ease: 'back.out(1.4)' }, 0.25 + i * 0.03)
+    })
+  }
+
+  on(stack, 'click', () => {
+    timer?.kill()
+    next()
+  })
+  on(stack, 'keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      timer?.kill()
+      next()
+    }
+  })
+  on(stack, 'mouseenter', () => timer?.kill())
+  on(stack, 'mouseleave', () => !busy && schedule())
+  schedule()
+  cleanups.push(() => timer?.kill())
+}
+
+/* ------------------------------------------------------------------ */
 /* Card glow: la posición del ratón alimenta --mx/--my (solo CSS pinta) */
 /* ------------------------------------------------------------------ */
 function initCardGlow() {
@@ -467,6 +551,7 @@ function initPage() {
     initNav()
     initMagnetic()
     initTilt()
+    initPhotoStack()
     initCardGlow()
     initCursor()
     initFilters()
