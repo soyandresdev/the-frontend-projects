@@ -1,0 +1,149 @@
+---
+import type { Difficulty, Project } from '../consts'
+import { getLang, getLocalized, useTranslatedPath, useTranslations } from '../i18n/utils'
+import { getAccent } from '../utils/color'
+import Button from './Button.astro'
+
+interface Props {
+  project: Project
+  num: string
+  /** sm = 1x1 · wide = 2x1 con imagen arriba · side = 2x1 con imagen a un lado (solo desde lg) */
+  size?: 'sm' | 'wide' | 'side'
+}
+const { project: p, num, size = 'sm' } = Astro.props
+
+const ARTICLE_CLASS = {
+  sm: 'flex-col',
+  wide: 'flex-col lg:col-span-2',
+  side: 'flex-col lg:col-span-2 lg:flex-row'
+}[size]
+const IMAGE_CLASS = {
+  sm: 'aspect-video',
+  wide: 'aspect-video lg:aspect-[8/3]',
+  side: 'aspect-video lg:aspect-auto lg:w-[54%] lg:shrink-0 lg:self-stretch'
+}[size]
+
+const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
+const title = getLocalized(p.title, lang)
+const description = getLocalized(p.description, lang)
+const demoHref = p.links.homepage || translatePath(`/projects/${p.slug}`)
+const codeHref = `https://github.com/soyandresdev/the-frontend-projects/tree/main/workspace/${p.slug}`
+
+const DIFFICULTY_LABEL: Record<Difficulty, string> = {
+  beginner: t('difficulty.beginner'),
+  intermediate: t('difficulty.intermediate'),
+  advanced: t('difficulty.advanced')
+}
+const DIFFICULTY_CLASS: Record<Difficulty, string> = {
+  beginner: 'border-emerald-400/40 bg-ink/75 text-emerald-300',
+  intermediate: 'border-amber-400/40 bg-ink/75 text-amber-300',
+  advanced: 'border-rose-400/40 bg-ink/75 text-rose-300'
+}
+
+const accent = await getAccent(p.slug)
+const searchIndex = [title, description, ...p.tags, num].join(' ').toLowerCase()
+const visibleTags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includes(tag)).slice(0, 4)
+---
+
+<article
+  data-card
+  data-reveal
+  data-difficulty={p.difficulty}
+  data-tags={p.tags.join('|')}
+  data-search={searchIndex}
+  data-size={size}
+  data-color={accent.color}
+  data-ink={accent.ink}
+  style={`--glow: ${accent.color}`}
+  class={`card-glow group relative flex overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] transition-colors duration-500 hover:bg-white/[0.07] ${ARTICLE_CLASS}`}
+>
+  <a
+    href={demoHref}
+    data-cursor={t('cursor.view')}
+    aria-label={`${title} — ${t('project.demo')}`}
+    class={`relative block overflow-hidden bg-ink-2 ${IMAGE_CLASS}`}
+  >
+    <img
+      src={`/demo/${p.slug}/screenshot.webp`}
+      alt=""
+      width="1280"
+      height="720"
+      loading="lazy"
+      decoding="async"
+      transition:name={`shot-${p.slug}`}
+      class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
+    />
+    <div
+      class="from-ink/80 via-ink/10 pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-90"
+    >
+    </div>
+    <span
+      class="bg-ink/70 absolute top-4 left-4 rounded-full px-2.5 py-1 font-mono text-[11px] tracking-wider text-white/90 ring-1 ring-white/10"
+    >
+      #{num}
+    </span>
+    <span
+      class={`absolute top-4 right-4 rounded-full border px-2.5 py-1 font-mono text-[10px] tracking-wider uppercase ${DIFFICULTY_CLASS[p.difficulty]}`}
+    >
+      {DIFFICULTY_LABEL[p.difficulty]}
+    </span>
+    <span
+      aria-hidden="true"
+      class="text-ink absolute right-4 bottom-4 grid h-11 w-11 translate-y-3 place-items-center rounded-full bg-white opacity-0 transition-[transform,opacity] duration-500 ease-[var(--ease-out-expo)] group-hover:translate-y-0 group-hover:opacity-100"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        class="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M7 17 17 7M8 7h9v9"></path>
+      </svg>
+    </span>
+  </a>
+
+  <div class="flex flex-1 flex-col gap-4 p-5 md:p-6">
+    <div>
+      <h3
+        class="font-display text-[1.35rem] leading-tight font-semibold tracking-tight md:text-2xl"
+      >
+        <a
+          href={demoHref}
+          class="group-hover:text-brand-cyan transition-colors"
+          transition:name={`title-${p.slug}`}>{title}</a
+        >
+      </h3>
+      <p
+        class={`mt-2 text-sm leading-relaxed text-white/60 ${size === 'sm' ? 'line-clamp-2' : 'line-clamp-3'}`}
+      >
+        {description}
+      </p>
+    </div>
+
+    {
+      visibleTags.length > 0 && (
+        <ul class="flex flex-wrap gap-1.5 font-mono text-[10px] tracking-wider text-white/50 uppercase">
+          {visibleTags.map((tag) => (
+            <li class="rounded-full border border-white/10 px-2 py-0.5">{tag}</li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="mt-auto flex flex-wrap items-center gap-2 pt-1">
+      <Button href={demoHref} label={t('project.demo')} variant="demo" />
+      <Button href={codeHref} label={t('project.code')} variant="code" />
+      {
+        p.links.youtube && (
+          <Button href={p.links.youtube} label={t('project.video')} variant="video" />
+        )
+      }
+    </div>
+  </div>
+</article>

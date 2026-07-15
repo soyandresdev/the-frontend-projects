@@ -1,0 +1,126 @@
+---
+/*
+  Featured.astro
+  ==============
+  "Latest": el último proyecto añadido, en grande, antes del grid.
+  Cambia solo cada vez que se suma un proyecto nuevo.
+*/
+import type { Difficulty } from '../consts'
+import { PROJECTS } from '../consts'
+import { getLang, getLocalized, useTranslatedPath, useTranslations } from '../i18n/utils'
+import { getAccent } from '../utils/color'
+import Button from './Button.astro'
+
+const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+
+const visible = PROJECTS.filter((p) => !p.hidden)
+const idx = visible.length - 1
+const p = visible[idx]
+const num = String(idx + 1).padStart(2, '0')
+const title = getLocalized(p.title, lang)
+const description = getLocalized(p.description, lang)
+const demoHref = p.links.homepage || translatePath(`/projects/${p.slug}`)
+const codeHref = `https://github.com/soyandresdev/the-frontend-projects/tree/main/workspace/${p.slug}`
+const accent = await getAccent(p.slug)
+
+const DIFFICULTY_LABEL: Record<Difficulty, string> = {
+  beginner: t('difficulty.beginner'),
+  intermediate: t('difficulty.intermediate'),
+  advanced: t('difficulty.advanced')
+}
+const tags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includes(tag)).slice(0, 5)
+---
+
+<section class="relative mx-auto w-full max-w-7xl px-6 pb-24 md:px-10">
+  <article
+    data-reveal
+    data-color={accent.color}
+    data-ink={accent.ink}
+    style={`--glow: ${accent.color}`}
+    class="card-glow group relative grid overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.04] transition-colors duration-500 hover:bg-white/[0.06] lg:grid-cols-[1fr_1.25fr]"
+  >
+    <!-- texto -->
+    <div class="flex flex-col justify-between gap-8 p-7 md:p-10">
+      <div>
+        <p
+          class="flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] text-white/60 uppercase"
+        >
+          <span class="inline-flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full" style={`background:${accent.color}`}></span>
+            {t('featured.eyebrow')}
+          </span>
+          <span class="text-white/25">/</span>
+          <span>#{num}</span>
+          <span class="text-white/25">/</span>
+          <span>{DIFFICULTY_LABEL[p.difficulty]}</span>
+        </p>
+        <h2
+          class="font-display mt-5 text-4xl leading-[1.02] font-bold tracking-tight md:text-5xl lg:text-6xl"
+        >
+          <a href={demoHref} class="transition-colors group-hover:text-[var(--glow)]">{title}</a>
+        </h2>
+        <p class="mt-5 max-w-lg text-base leading-relaxed text-white/65 md:text-lg">
+          {description}
+        </p>
+        {
+          tags.length > 0 && (
+            <ul class="mt-6 flex flex-wrap gap-1.5 font-mono text-[10px] tracking-wider text-white/55 uppercase">
+              {tags.map((tag) => (
+                <li class="rounded-full border border-white/10 px-2.5 py-1">{tag}</li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <Button href={demoHref} label={t('project.demo')} variant="demo" size="md" />
+        <Button href={codeHref} label={t('project.code')} variant="code" size="md" />
+        {
+          p.links.youtube && (
+            <Button href={p.links.youtube} label={t('project.video')} variant="video" size="md" />
+          )
+        }
+      </div>
+    </div>
+
+    <!-- imagen -->
+    <a
+      href={demoHref}
+      data-cursor={t('cursor.view')}
+      aria-label={`${title} — ${t('project.demo')}`}
+      class="bg-ink-2 relative block aspect-video overflow-hidden lg:aspect-auto lg:min-h-[420px]"
+    >
+      <img
+        src={`/demo/${p.slug}/screenshot.webp`}
+        alt=""
+        width="1280"
+        height="720"
+        decoding="async"
+        class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
+      />
+      <div
+        class="from-ink/40 pointer-events-none absolute inset-0 bg-gradient-to-r via-transparent to-transparent opacity-0 transition-opacity duration-500 lg:opacity-100"
+      >
+      </div>
+      <span
+        aria-hidden="true"
+        class="text-ink absolute right-5 bottom-5 grid h-12 w-12 translate-y-3 place-items-center rounded-full opacity-0 transition-[transform,opacity] duration-500 ease-[var(--ease-out-expo)] group-hover:translate-y-0 group-hover:opacity-100"
+        style={`background:${accent.color}; color:${accent.ink}`}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          class="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M7 17 17 7M8 7h9v9"></path>
+        </svg>
+      </span>
+    </a>
+  </article>
+</section>

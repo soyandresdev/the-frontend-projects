@@ -1,0 +1,154 @@
+---
+/*
+  ProjectPanel.astro
+  ==================
+  Panel flotante de la página de detalle: número, título, dificultad, tags,
+  acciones y navegación anterior/siguiente. Se puede plegar para ver el demo entero.
+*/
+import type { Difficulty, Project } from '../consts'
+import { getLang, getLocalized, useTranslatedPath, useTranslations } from '../i18n/utils'
+import Button from './Button.astro'
+
+interface Props {
+  project: Project
+  number: string
+  prev?: { slug: string; title: string } | null
+  next?: { slug: string; title: string } | null
+}
+const { project: p, number, prev = null, next = null } = Astro.props
+
+const lang = getLang(Astro.currentLocale)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+const title = getLocalized(p.title, lang)
+const description = getLocalized(p.description, lang)
+
+const DIFFICULTY_LABEL: Record<Difficulty, string> = {
+  beginner: t('difficulty.beginner'),
+  intermediate: t('difficulty.intermediate'),
+  advanced: t('difficulty.advanced')
+}
+const DIFFICULTY_CLASS: Record<Difficulty, string> = {
+  beginner: 'border-emerald-400/40 bg-ink/75 text-emerald-300',
+  intermediate: 'border-amber-400/40 bg-ink/75 text-amber-300',
+  advanced: 'border-rose-400/40 bg-ink/75 text-rose-300'
+}
+const tags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includes(tag)).slice(0, 5)
+---
+
+<div class="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-start p-3 md:p-6">
+  <aside
+    data-panel
+    class="glass pointer-events-auto w-full max-w-md rounded-[28px] p-5 shadow-2xl transition-transform duration-500 ease-[var(--ease-out-expo)] [&.is-collapsed]:translate-y-[calc(100%-4.25rem)]"
+  >
+    <!-- cabecera (siempre visible) -->
+    <div class="flex h-7 items-center justify-between gap-3">
+      <a
+        href={translatePath('/') + '#projects'}
+        class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] text-white/60 uppercase transition-colors hover:text-white"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          class="h-3.5 w-3.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M19 12H5m7 7-7-7 7-7"></path>
+        </svg>
+        {t('project.back')}
+      </a>
+      <div class="flex items-center gap-2">
+        <span class="font-mono text-[11px] tracking-wider text-white/50">#{number}</span>
+        <button
+          type="button"
+          data-panel-toggle
+          data-label-show={t('project.show')}
+          data-label-hide={t('project.hide')}
+          aria-expanded="true"
+          class="rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] tracking-[0.18em] text-white/70 uppercase transition-colors hover:border-white/40 hover:text-white"
+        >
+          <span>{t('project.hide')}</span>
+        </button>
+      </div>
+    </div>
+
+    <h1
+      class="font-display mt-3 text-2xl leading-tight font-semibold tracking-tight"
+      transition:name={`title-${p.slug}`}
+    >
+      {title}
+    </h1>
+    <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-white/60">{description}</p>
+
+    <div
+      class="mt-3 flex flex-wrap items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase"
+    >
+      <span class={`rounded-full border px-2.5 py-1 ${DIFFICULTY_CLASS[p.difficulty]}`}>
+        {DIFFICULTY_LABEL[p.difficulty]}
+      </span>
+      {
+        tags.map((tag) => (
+          <span class="rounded-full border border-white/10 px-2 py-1 text-white/55">{tag}</span>
+        ))
+      }
+    </div>
+
+    <div class="mt-4 flex flex-wrap gap-2">
+      <Button
+        href={p.links.homepage || `/demo/${p.slug}/index.html`}
+        label={t('project.open')}
+        variant="demo"
+      />
+      <Button
+        href={`https://github.com/soyandresdev/the-frontend-projects/tree/main/workspace/${p.slug}`}
+        label={t('project.code')}
+        variant="code"
+      />
+      {
+        p.links.youtube && (
+          <Button href={p.links.youtube} label={t('project.video')} variant="video" />
+        )
+      }
+    </div>
+
+    <nav
+      class="mt-4 flex items-center justify-between gap-3 border-t border-white/10 pt-3 font-mono text-[11px] tracking-wider uppercase"
+      aria-label="Project navigation"
+    >
+      {
+        prev ? (
+          <a
+            href={translatePath(`/projects/${prev.slug}`)}
+            class="group/nav flex min-w-0 items-center gap-2 text-white/60 transition-colors hover:text-white"
+          >
+            <span class="transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover/nav:-translate-x-0.5">
+              ←
+            </span>
+            <span class="truncate">{t('project.prev')}</span>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        next ? (
+          <a
+            href={translatePath(`/projects/${next.slug}`)}
+            class="group/nav flex min-w-0 items-center gap-2 text-white/60 transition-colors hover:text-white"
+          >
+            <span class="truncate">{t('project.next')}</span>
+            <span class="transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover/nav:translate-x-0.5">
+              →
+            </span>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+    </nav>
+  </aside>
+</div>

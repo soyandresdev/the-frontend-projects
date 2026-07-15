@@ -1,20 +1,30 @@
 @import 'tailwindcss';
 
 @theme inline {
-  --font-sans: var(--font-poppins);
+  --font-display: var(--font-bricolage), 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-sans: var(--font-geist), 'Geist', system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace;
 }
 
 /* Design tokens + animaciones */
 @theme {
   /* superficies */
-  --bg-dark: 17 35 54;
-  --bg-light: 63 79 101;
+  --bg-dark: 10 18 30;
+  --bg-light: 27 40 60;
 
-  /* primarios */
+  /* primarios (legado rgb triplets, se siguen usando en rgb(var(--clr-*))) */
   --clr-cyan: 0 243 255; /* cyan eléctrico */
   --clr-cyan-comp: 255 12 0; /* rojo de alto contraste */
   --clr-lime: 126 211 33; /* verde lima */
   --clr-lime-comp: 118 33 211; /* violeta */
+
+  /* colores utilitarios para Tailwind (text-brand-cyan, bg-brand-lime, ...) */
+  --color-brand-cyan: #00f3ff;
+  --color-brand-lime: #7ed321;
+  --color-brand-violet: #7621d3;
+  --color-brand-red: #ff0c00;
+  --color-ink: #0a121e;
+  --color-ink-2: #101b2c;
 
   --circle-size: 80vw;
   --blending: hard-light;
@@ -24,9 +34,15 @@
   --animate-circle-40: moveInCircle 40s linear infinite;
   --animate-vert-30: moveVertical 30s ease infinite;
   --animate-horz-40: moveHorizontal 40s ease infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-pulse-dot: pulseDot 2s ease-in-out infinite;
+  --animate-scroll-line: scrollLine 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
 }
 
-/* Keyframes originales */
+/* Keyframes */
 @keyframes moveInCircle {
   0% {
     transform: rotate(0);
@@ -56,11 +72,91 @@
     transform: translateX(50%) translateY(10%);
   }
 }
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes pulseDot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(126 211 33 / 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgb(126 211 33 / 0);
+  }
+}
+@keyframes scrollLine {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
 
-/* Sustituye el bloque @plugin por @layer */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    color: white;
+    background: var(--color-ink);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-brand-lime);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-cyan);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  /* Con JS activo, los elementos con data-reveal arrancan ocultos y GSAP los revela.
+     Sin JS (o con reduced motion) se ven desde el principio. */
+  html.js [data-reveal],
+  html.js [data-split],
+  html.js [data-line] {
+    visibility: hidden;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js [data-reveal],
+    html.js [data-split],
+    html.js [data-line] {
+      visibility: visible;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
 @layer utilities {
-  /* Solo blur: el filtro SVG url(#goo) obligaba a re-rasterizar todo el
-     viewport en cada frame y era la principal causa de frames descartados. */
+  /* Fondo ambiente: solo blur, sin filtro SVG (ver commit perf) */
   .goo-blur {
     contain: layout style paint;
     filter: blur(40px);
@@ -79,7 +175,163 @@
     background-image: url('/nnnoise.svg');
     background-repeat: repeat;
     mix-blend-mode: soft-light;
-    opacity: 0.6;
+    opacity: 0.5;
     pointer-events: none;
+  }
+
+  /* Texto con degradado de marca */
+  .text-gradient {
+    background-image: linear-gradient(90deg, var(--color-brand-cyan), var(--color-brand-lime));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Texto hueco (outline) */
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgb(255 255 255 / 0.4);
+  }
+
+  /* Superficie de vidrio, solo para elementos únicos (nav, panel). No usar en listas. */
+  .glass {
+    background: rgb(10 18 30 / 0.55);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+
+  /* Marquee */
+  .marquee {
+    mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  }
+  .marquee-track {
+    animation: var(--animate-marquee);
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Split text: cada línea/char va enmascarado */
+  .split-mask .line,
+  .split-mask .char {
+    overflow: clip;
+  }
+
+  /* Cursor personalizado: solo con puntero fino */
+  #cursor {
+    display: none;
+  }
+  @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    #cursor {
+      display: grid;
+    }
+  }
+  #cursor [data-cursor-dot] {
+    background: var(--cursor, #fff);
+    transition:
+      transform 0.5s var(--ease-out-expo),
+      background-color 0.35s ease;
+  }
+  #cursor [data-cursor-label] {
+    color: var(--cursor-ink, var(--color-ink));
+  }
+
+  /* Tarjeta: borde iluminado que sigue al ratón */
+  .card-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: radial-gradient(
+      320px circle at var(--mx, 50%) var(--my, 50%),
+      var(--glow, rgb(0 243 255)),
+      color-mix(in srgb, var(--glow, rgb(0 243 255)) 35%, transparent) 40%,
+      transparent 70%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out-expo);
+    pointer-events: none;
+  }
+  .card-glow:hover::before {
+    opacity: 1;
+  }
+
+  /* Barra de progreso de scroll: scrubbed por CSS, sin JS */
+  .scroll-progress {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      animation: scrollProgress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+  @keyframes scrollProgress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Estado oculto de tarjetas al filtrar (Flip lo anima) */
+  [data-card].is-hidden {
+    display: none;
+  }
+  /* Sin scroll anchoring: al ocultar cards por encima del viewport Chrome
+     recolocaría el scroll de golpe en mitad de la animación. */
+  #projects,
+  [data-grid] {
+    overflow-anchor: none;
+  }
+
+  /* Filtros activos */
+  [data-filter][aria-pressed='true'],
+  [data-tag][aria-pressed='true'] {
+    background: white;
+    color: var(--color-ink);
+    border-color: white;
+  }
+}
+
+/* View Transitions: crossfade corto y con leve desplazamiento */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: var(--ease-in-out-expo);
+}
+::view-transition-old(root) {
+  animation-name: vt-out;
+}
+::view-transition-new(root) {
+  animation-name: vt-in;
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
   }
 }
