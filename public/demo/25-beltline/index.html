@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/25-beltline/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beltline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-head">
+        <div>
+          <p class="page-eyebrow">Checkout lane</p>
+          <h1 class="page-title">Beltline</h1>
+        </div>
+        <span class="item-count" id="item-count">0 items</span>
+      </header>
+
+      <div class="hazard-strip" aria-hidden="true"></div>
+
+      <section class="belt">
+        <ul class="items" id="items"></ul>
+        <div class="empty" id="empty">
+          <p>Your belt is empty.</p>
+          <button type="button" class="restock-btn" id="restock-btn">Restock cart</button>
+        </div>
+      </section>
+
+      <section class="receipt" id="receipt">
+        <div class="receipt-row">
+          <span>Subtotal</span>
+          <span id="subtotal">$0.00</span>
+        </div>
+        <div class="receipt-row">
+          <span>Shipping</span>
+          <span id="shipping">$10.00</span>
+        </div>
+        <div class="receipt-perf" aria-hidden="true"></div>
+        <div class="receipt-row receipt-total">
+          <span>Total</span>
+          <span id="total">$0.00</span>
+        </div>
+        <button type="button" class="checkout-btn" id="checkout-btn">Complete purchase</button>
+      </section>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
