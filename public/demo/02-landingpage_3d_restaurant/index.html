@@ -1,87 +1,397 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <base href="/demo/02-landingpage_3d_restaurant/" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CyberNoodles</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Font -->
+    <meta name="color-scheme" content="dark" />
+    <title>CyberNoodles — Slurp the Future</title>
+    <meta
+      name="description"
+      content="A cyberpunk noodle kiosk under the monorail. 18-hour broth, neon signs, open 24/7 in Sector 7."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0809'/%3E%3Crect x='6' y='6' width='52' height='52' rx='8' fill='none' stroke='%23ff3b2f' stroke-width='3'/%3E%3Ctext x='32' y='45' font-size='34' font-weight='900' text-anchor='middle' fill='%23ff3b2f' font-family='sans-serif'%3E麺%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+JP:wght@700;900&display=swap"
       rel="stylesheet"
     />
-
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" crossorigin src="/demo/02-landingpage_3d_restaurant/assets/index-2BAOBbi9.js"></script>
+    <link rel="stylesheet" crossorigin href="/demo/02-landingpage_3d_restaurant/assets/index-BnwtxJN_.css">
   </head>
 
-  <body class="m-0 overflow-hidden bg-white text-white">
-    <!-- CANVAS -->
-    <div id="three-canvas" class="absolute top-0 left-0 z-0 h-full w-full"></div>
-    <!-- NAVBAR -->
-    <nav
-      class="fixed top-0 z-50 flex h-24 w-full items-center justify-between bg-black/80 px-6 shadow-md backdrop-blur-sm"
-    >
-      <div class="animate-pulseSlow relative z-10">
-        <div class="flex items-center justify-center">
-          <figure>
-            <img
-              src="./assets/logo.png"
-              alt="CyberNoodles Logo"
-              class="h-auto w-[280px] md:h-auto md:w-3xs"
-            />
-            <figcaption class="sr-only">CyberNoodles</figcaption>
-          </figure>
+  <body>
+    <!-- Preloader: driven by the glTF download progress -->
+    <div class="loader" id="loader" aria-live="polite">
+      <div class="loader__inner">
+        <span class="loader__kanji" aria-hidden="true">麺</span>
+        <div class="loader__count">
+          <span id="loader-count">00</span><span class="loader__pct">%</span>
         </div>
+        <p class="loader__label">Heating the broth</p>
+        <div class="loader__bar" aria-hidden="true"><span id="loader-bar"></span></div>
       </div>
-      <ul class="hidden gap-8 text-lg font-medium md:flex">
-        <li><a href="#" class="menu-link">Inicio</a></li>
-        <li><a href="#" class="menu-link">Menú</a></li>
-        <li><a href="#" class="menu-link">Reservar</a></li>
-        <li><a href="#" class="menu-link">Contacto</a></li>
-      </ul>
-      <button id="menu-btn" class="flex items-center focus:outline-none md:hidden">
-        <svg
-          class="h-8 w-8 text-white"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div
-      id="mobile-menu"
-      class="fixed top-16 left-0 z-40 flex hidden w-full flex-col items-center gap-6 bg-black/90 py-6 text-lg font-medium text-white shadow-lg transition-all duration-300 md:hidden"
-    >
-      <a href="#" class="hover:text-cyan-400">Inicio</a>
-      <a href="#" class="hover:text-cyan-400">Menú</a>
-      <a href="#" class="hover:text-cyan-400">Reservar</a>
-      <a href="#" class="hover:text-cyan-400">Contacto</a>
+      <p class="loader__foot">CyberNoodles · Sector 7 · est. 2087</p>
     </div>
 
-    <!-- Three.js + módulos -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <!-- Fixed WebGL stage. The camera is scrubbed by scroll from main.js -->
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="veil" id="veil" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="progress" id="progress" aria-hidden="true"></div>
 
-    <!-- Código principal -->
-    <script src="./main.js"></script>
+    <header class="nav" id="nav">
+      <a class="nav__logo" href="#top" aria-label="CyberNoodles home">
+        <span class="nav__logo-kanji" aria-hidden="true">麺</span>
+        <span>Cyber<em>Noodles</em></span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#story" data-nav>Story</a>
+        <a href="#menu" data-nav>Menu</a>
+        <a href="#order" data-nav>Reserve</a>
+      </nav>
+      <div class="nav__right">
+        <span class="nav__status"><i></i>Open now</span>
+        <a class="btn btn--solid btn--sm" href="#order" data-magnetic>Reserve a stool</a>
+        <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="overlay">
+          <span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile overlay menu -->
+    <div class="overlay" id="overlay" aria-hidden="true">
+      <nav class="overlay__links" aria-label="Mobile">
+        <a href="#story" data-overlay-link><small>01</small>Story</a>
+        <a href="#menu" data-overlay-link><small>02</small>Menu</a>
+        <a href="#order" data-overlay-link><small>03</small>Reserve</a>
+      </nav>
+      <p class="overlay__foot">Under the monorail · Sector 7 · Open 24/7</p>
+    </div>
+
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <main id="content">
+          <!-- HERO -->
+          <section class="hero" id="top" data-station="hero">
+            <p class="hero__kicker">
+              <span class="hero__kicker-line"></span>
+              Neo-Tokyo · Sector 7 · Open 24/7
+            </p>
+            <h1 class="hero__title">
+              <span class="hero__line hero__line--outline">Slurp</span>
+              <span class="hero__line">the</span>
+              <span class="hero__line hero__line--hot">Future</span>
+            </h1>
+            <p class="hero__sub">
+              An 18-hour broth simmered under a flickering sign. One pot, one counter,
+              seven stools. The line wraps around the block for a reason.
+            </p>
+            <div class="hero__ctas">
+              <a class="btn btn--solid" href="#menu" data-magnetic>See the menu</a>
+              <a class="btn btn--ghost" href="#story" data-magnetic>Our story</a>
+            </div>
+
+            <span class="hero__kanji" aria-hidden="true">未来の麺</span>
+
+            <div class="hero__cue" aria-hidden="true">
+              <span class="hero__cue-line"></span>
+              <span>Scroll</span>
+            </div>
+            <div class="hero__ticket" aria-hidden="true">
+              <span class="hero__ticket-dot"></span>
+              Now serving <b id="ticket">#0427</b>
+            </div>
+          </section>
+
+          <!-- MARQUEE -->
+          <div class="marquee" aria-hidden="true">
+            <div class="marquee__track">
+              <span class="marquee__group">
+                <i>Tonkotsu</i><b>•</b><i class="jp">豚骨</i><b>•</b><i>Miso</i><b>•</b><i class="jp">味噌</i><b>•</b>
+                <i>Shoyu</i><b>•</b><i class="jp">醤油</i><b>•</b><i>Open 24/7</i><b>•</b><i class="jp">営業中</i><b>•</b>
+              </span>
+              <span class="marquee__group">
+                <i>Tonkotsu</i><b>•</b><i class="jp">豚骨</i><b>•</b><i>Miso</i><b>•</b><i class="jp">味噌</i><b>•</b>
+                <i>Shoyu</i><b>•</b><i class="jp">醤油</i><b>•</b><i>Open 24/7</i><b>•</b><i class="jp">営業中</i><b>•</b>
+              </span>
+            </div>
+          </div>
+
+          <!-- STORY -->
+          <section class="story" id="story" data-station="story">
+            <div class="section__head">
+              <span class="section__index">01 — Story</span>
+              <span class="section__kanji" aria-hidden="true">物語</span>
+            </div>
+            <p class="story__text" id="story-text">
+              We opened under the monorail in 2087 with one pot, a broken neon sign and a
+              recipe smuggled out of the old world. Tonight the pot still simmers, the sign
+              still flickers, and the line still wraps around Sector 7.
+            </p>
+            <ul class="story__facts">
+              <li class="fact">
+                <span class="fact__index">01</span>
+                <h3 class="fact__title">18-hour broth</h3>
+                <p class="fact__text">Pork bone, kombu and a patience most kitchens can't afford.</p>
+              </li>
+              <li class="fact">
+                <span class="fact__index">02</span>
+                <h3 class="fact__title">Seven stools</h3>
+                <p class="fact__text">Counter only. You watch every bowl get built in front of you.</p>
+              </li>
+              <li class="fact">
+                <span class="fact__index">03</span>
+                <h3 class="fact__title">Never closed</h3>
+                <p class="fact__text">The sign says 24/7 and the sign has never lied.</p>
+              </li>
+            </ul>
+          </section>
+
+          <!-- MENU -->
+          <section class="menu" id="menu" data-station="menu">
+            <div class="menu__pin">
+              <div class="section__head section__head--menu">
+                <span class="section__index">02 — Menu</span>
+                <h2 class="menu__title">Five bowls. <span>No substitutions.</span></h2>
+                <span class="menu__hint" aria-hidden="true">Scroll to browse →</span>
+              </div>
+
+              <div class="menu__track" id="menu-track">
+                <article class="dish" style="--hue: 12">
+                  <span class="dish__bg" aria-hidden="true">豚骨</span>
+                  <header class="dish__top">
+                    <span class="dish__index">01</span>
+                    <span class="dish__tag">Signature</span>
+                  </header>
+                  <svg class="dish__bowl" viewBox="0 0 120 80" aria-hidden="true">
+                    <path d="M8 30 H112 C112 60 92 74 60 74 C28 74 8 60 8 30 Z" />
+                    <path d="M18 30 C30 22 46 18 60 18 C74 18 90 22 102 30" />
+                    <path d="M36 12 L58 30 M44 8 L62 30" />
+                    <circle cx="78" cy="30" r="6" />
+                    <path class="dish__steam" d="M45 6 C42 0 48 -4 45 -10 M60 4 C57 -2 63 -6 60 -12 M75 6 C72 0 78 -4 75 -10" />
+                  </svg>
+                  <h3 class="dish__name">Neon Tonkotsu</h3>
+                  <p class="dish__desc">18-hour pork bone broth, chashu, ajitama, black garlic oil.</p>
+                  <footer class="dish__foot">
+                    <span class="dish__price">¥1,400</span>
+                    <span class="dish__spice" data-spice="2" title="Spice 2/5"><i></i><i></i><i></i><i></i><i></i></span>
+                  </footer>
+                </article>
+
+                <article class="dish" style="--hue: 38">
+                  <span class="dish__bg" aria-hidden="true">味噌</span>
+                  <header class="dish__top">
+                    <span class="dish__index">02</span>
+                    <span class="dish__tag">Rich</span>
+                  </header>
+                  <svg class="dish__bowl" viewBox="0 0 120 80" aria-hidden="true">
+                    <path d="M8 30 H112 C112 60 92 74 60 74 C28 74 8 60 8 30 Z" />
+                    <path d="M18 30 C30 22 46 18 60 18 C74 18 90 22 102 30" />
+                    <path d="M36 12 L58 30 M44 8 L62 30" />
+                    <circle cx="78" cy="30" r="6" />
+                    <path class="dish__steam" d="M45 6 C42 0 48 -4 45 -10 M60 4 C57 -2 63 -6 60 -12 M75 6 C72 0 78 -4 75 -10" />
+                  </svg>
+                  <h3 class="dish__name">Miso Overdrive</h3>
+                  <p class="dish__desc">Red miso, charred corn, cold butter, sector-grown scallion.</p>
+                  <footer class="dish__foot">
+                    <span class="dish__price">¥1,300</span>
+                    <span class="dish__spice" data-spice="1" title="Spice 1/5"><i></i><i></i><i></i><i></i><i></i></span>
+                  </footer>
+                </article>
+
+                <article class="dish" style="--hue: 200">
+                  <span class="dish__bg" aria-hidden="true">醤油</span>
+                  <header class="dish__top">
+                    <span class="dish__index">03</span>
+                    <span class="dish__tag">Clean</span>
+                  </header>
+                  <svg class="dish__bowl" viewBox="0 0 120 80" aria-hidden="true">
+                    <path d="M8 30 H112 C112 60 92 74 60 74 C28 74 8 60 8 30 Z" />
+                    <path d="M18 30 C30 22 46 18 60 18 C74 18 90 22 102 30" />
+                    <path d="M36 12 L58 30 M44 8 L62 30" />
+                    <circle cx="78" cy="30" r="6" />
+                    <path class="dish__steam" d="M45 6 C42 0 48 -4 45 -10 M60 4 C57 -2 63 -6 60 -12 M75 6 C72 0 78 -4 75 -10" />
+                  </svg>
+                  <h3 class="dish__name">Shoyu Static</h3>
+                  <p class="dish__desc">Clear soy broth, smoked bamboo, nori, a yolk that runs on cue.</p>
+                  <footer class="dish__foot">
+                    <span class="dish__price">¥1,200</span>
+                    <span class="dish__spice" data-spice="0" title="Spice 0/5"><i></i><i></i><i></i><i></i><i></i></span>
+                  </footer>
+                </article>
+
+                <article class="dish" style="--hue: 350">
+                  <span class="dish__bg" aria-hidden="true">担々</span>
+                  <header class="dish__top">
+                    <span class="dish__index">04</span>
+                    <span class="dish__tag dish__tag--hot">Waiver required</span>
+                  </header>
+                  <svg class="dish__bowl" viewBox="0 0 120 80" aria-hidden="true">
+                    <path d="M8 30 H112 C112 60 92 74 60 74 C28 74 8 60 8 30 Z" />
+                    <path d="M18 30 C30 22 46 18 60 18 C74 18 90 22 102 30" />
+                    <path d="M36 12 L58 30 M44 8 L62 30" />
+                    <circle cx="78" cy="30" r="6" />
+                    <path class="dish__steam" d="M45 6 C42 0 48 -4 45 -10 M60 4 C57 -2 63 -6 60 -12 M75 6 C72 0 78 -4 75 -10" />
+                  </svg>
+                  <h3 class="dish__name">Ghost Pepper Tantan</h3>
+                  <p class="dish__desc">Sesame chili broth, minced pork, bok choy, regret sold separately.</p>
+                  <footer class="dish__foot">
+                    <span class="dish__price">¥1,500</span>
+                    <span class="dish__spice" data-spice="5" title="Spice 5/5"><i></i><i></i><i></i><i></i><i></i></span>
+                  </footer>
+                </article>
+
+                <article class="dish" style="--hue: 80">
+                  <span class="dish__bg" aria-hidden="true">つけ麺</span>
+                  <header class="dish__top">
+                    <span class="dish__index">05</span>
+                    <span class="dish__tag">Cold</span>
+                  </header>
+                  <svg class="dish__bowl" viewBox="0 0 120 80" aria-hidden="true">
+                    <path d="M8 30 H112 C112 60 92 74 60 74 C28 74 8 60 8 30 Z" />
+                    <path d="M18 30 C30 22 46 18 60 18 C74 18 90 22 102 30" />
+                    <path d="M36 12 L58 30 M44 8 L62 30" />
+                    <circle cx="78" cy="30" r="6" />
+                    <path class="dish__steam" d="M45 6 C42 0 48 -4 45 -10 M60 4 C57 -2 63 -6 60 -12 M75 6 C72 0 78 -4 75 -10" />
+                  </svg>
+                  <h3 class="dish__name">Tsukemen Zero</h3>
+                  <p class="dish__desc">Cold dipping noodles, ultra-thick broth, yuzu zest, ice on the side.</p>
+                  <footer class="dish__foot">
+                    <span class="dish__price">¥1,450</span>
+                    <span class="dish__spice" data-spice="3" title="Spice 3/5"><i></i><i></i><i></i><i></i><i></i></span>
+                  </footer>
+                </article>
+
+                <div class="dish dish--end" aria-hidden="true">
+                  <span class="dish__end-kanji">完</span>
+                  <p>That's the menu.<br />Pick one.</p>
+                  <a class="btn btn--ghost" href="#order">Reserve a stool</a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- NUMBERS -->
+          <section class="stats" id="stats" data-station="stats">
+            <div class="section__head">
+              <span class="section__index">03 — Numbers</span>
+              <span class="section__kanji" aria-hidden="true">数字</span>
+            </div>
+            <ul class="stats__grid">
+              <li class="stat">
+                <span class="stat__num"><b data-count="2412903" data-format="m">0</b></span>
+                <span class="stat__label">Bowls slurped since 2087</span>
+              </li>
+              <li class="stat">
+                <span class="stat__num"><b data-count="18">0</b><small>h</small></span>
+                <span class="stat__label">Broth on the flame, every day</span>
+              </li>
+              <li class="stat">
+                <span class="stat__num"><b data-count="7">0</b></span>
+                <span class="stat__label">Stools. That's it. That's the room.</span>
+              </li>
+              <li class="stat">
+                <span class="stat__num"><b data-count="4" data-decimals="1">0</b><small>min</small></span>
+                <span class="stat__label">Average wait once you're seated</span>
+              </li>
+            </ul>
+          </section>
+
+          <!-- ORDER / RESERVE -->
+          <section class="order" id="order" data-station="order">
+            <div class="order__copy">
+              <div class="section__head">
+                <span class="section__index">04 — Reserve</span>
+                <span class="section__kanji" aria-hidden="true">予約</span>
+              </div>
+              <h2 class="order__title">Skip the line.<br /><span>Reserve a stool.</span></h2>
+              <p class="order__text">
+                Seven seats, first come first served, unless you booked. Booked seats are held
+                for ten minutes past your slot. After that the line takes them back.
+              </p>
+              <address class="order__address">
+                <span>Pillar 12, under the monorail</span>
+                <span>Sector 7, Neo-Tokyo</span>
+                <span class="mono">35.6762° N · 139.6503° E</span>
+              </address>
+            </div>
+
+            <form class="order__form" id="order-form" novalidate>
+              <div class="order__fields">
+                <label class="field">
+                  <span class="field__label">Name</span>
+                  <input class="field__input" type="text" name="name" placeholder="Kaneda" autocomplete="off" required />
+                </label>
+                <label class="field field--half">
+                  <span class="field__label">Guests</span>
+                  <select class="field__input" name="guests">
+                    <option>1</option><option>2</option><option>3</option><option>4</option>
+                  </select>
+                </label>
+                <label class="field field--half">
+                  <span class="field__label">Slot</span>
+                  <select class="field__input" name="slot">
+                    <option>Tonight · 19:00</option>
+                    <option>Tonight · 21:30</option>
+                    <option>Tonight · 23:45</option>
+                    <option>Tomorrow · 02:00</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span class="field__label">Bowl</span>
+                  <select class="field__input" name="bowl">
+                    <option>Neon Tonkotsu</option>
+                    <option>Miso Overdrive</option>
+                    <option>Shoyu Static</option>
+                    <option>Ghost Pepper Tantan</option>
+                    <option>Tsukemen Zero</option>
+                  </select>
+                </label>
+              </div>
+              <button class="btn btn--solid btn--wide" type="submit" data-magnetic>
+                <span>Hold my stool</span>
+              </button>
+              <p class="order__fine">No card needed. Cancel by not showing up. We'll get over it.</p>
+
+              <div class="order__done" id="order-done" aria-live="polite">
+                <span class="order__done-kanji" aria-hidden="true">完了</span>
+                <p class="order__done-title">Stool <b id="stool-num">#04</b> is yours.</p>
+                <p class="order__done-text">Show this screen at the counter. Bring an appetite and a towel.</p>
+                <button class="btn btn--ghost btn--sm" type="button" id="order-reset">Book another</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- FOOTER -->
+          <footer class="footer" data-station="footer">
+            <div class="footer__logo" aria-hidden="true">CyberNoodles</div>
+            <div class="footer__grid">
+              <div class="footer__col">
+                <span class="footer__label">Find us</span>
+                <p>Pillar 12, under the monorail<br />Sector 7, Neo-Tokyo</p>
+              </div>
+              <div class="footer__col">
+                <span class="footer__label">Hours</span>
+                <p>Every hour of every day.<br />Broth changes at 04:00.</p>
+              </div>
+              <div class="footer__col">
+                <span class="footer__label">Follow</span>
+                <p><a href="#top">Neon</a> · <a href="#top">Signal</a> · <a href="#top">Grid</a></p>
+              </div>
+            </div>
+            <div class="footer__bar">
+              <span>© 2087 CyberNoodles. All rights, and noodles, reserved.</span>
+              <span class="footer__credit">
+                3D model
+                <a href="https://sketchfab.com/3d-models/cyberpunk-noodle-kiosk-environment-prop-443d2448daf441ffa7cfdcce8169610e" target="_blank" rel="noopener">Cyberpunk Noodle Kiosk</a>
+                by <a href="https://sketchfab.com/marinabelova" target="_blank" rel="noopener">Marina Belov</a>
+                · <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC-BY-4.0</a>
+              </span>
+            </div>
+          </footer>
+        </main>
+      </div>
+    </div>
   </body>
 </html>

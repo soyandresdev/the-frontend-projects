@@ -1,21 +1,24 @@
 ---
 title:
-  en: '3D Restaurant Landing Page'
-  es: '3D Restaurant Landing Page'
+  en: 'CyberNoodles — 3D Restaurant Landing'
+  es: 'CyberNoodles — Landing 3D de restaurante'
 description:
-  en: 'Interactive landing page with an animated 3D model built with Three.js.'
-  es: 'Landing page interactiva con modelo 3D animado usando Three.js.'
+  en: 'Cyberpunk noodle kiosk landing with a scroll-driven Three.js camera, GSAP ScrollTrigger sections and a pinned menu gallery.'
+  es: 'Landing de un kiosco de fideos cyberpunk con cámara Three.js controlada por scroll, secciones GSAP ScrollTrigger y galería de menú fijada.'
 difficulty: 'advanced'
 keywords:
   - HTML
   - CSS
   - JavaScript
   - ThreeJs
+  - GSAP
+  - ScrollTrigger
   - landing page
   - 3d
   - webgl
+  - vite
 links:
-  code: 'https://github.com/soyandresdev/the-frontend-projects/tree/main/02-landingpage_3d_restaurant'
+  code: 'https://github.com/soyandresdev/the-frontend-projects/tree/main/workspace/02-landingpage_3d_restaurant'
   demo: '/demo/02-landingpage_3d_restaurant/index.html'
   youtube: null
 ---
