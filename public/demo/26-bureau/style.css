@@ -1,0 +1,226 @@
+:root {
+  --page-bg: 226 227 231;
+  --navy: 18 28 48;
+  --navy-deep: 11 18 33;
+  --gold: 199 158 88;
+  --gold-bright: 227 193 130;
+  --cream: 240 236 226;
+  --muted: 152 158 174;
+
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+  background: rgb(var(--page-bg));
+  color: rgb(var(--navy));
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.page {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.page-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(var(--gold) / 0.9);
+  -webkit-text-stroke: 0.2px rgb(var(--navy) / 0.4);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.page-title {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.45rem;
+}
+
+.page-lede {
+  font-size: 0.85rem;
+  color: rgb(var(--navy) / 0.6);
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Counter ---------- */
+.counter {
+  position: relative;
+  background: linear-gradient(160deg, rgb(var(--navy)), rgb(var(--navy-deep)));
+  border: 1px solid rgb(var(--gold) / 0.25);
+  border-radius: 18px;
+  padding: 1.75rem 1.5rem 1.25rem;
+  box-shadow: 0 34px 60px -30px rgb(10 14 24 / 0.6);
+}
+
+.slot {
+  text-align: left;
+}
+
+.slot-label {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(var(--gold-bright) / 0.75);
+  margin-bottom: 0.5rem;
+}
+
+.slot-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgb(var(--gold) / 0.22);
+}
+
+.amount-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: 'Fraunces', serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: rgb(var(--cream));
+}
+
+.amount-input::-webkit-outer-spin-button,
+.amount-input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.result-value {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Fraunces', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: rgb(var(--gold-bright));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.currency-select {
+  flex-shrink: 0;
+  appearance: none;
+  padding: 0.4rem 1.6rem 0.4rem 0.65rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgb(var(--cream));
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(var(--gold) / 0.3);
+  border-radius: 999px;
+  background-image: linear-gradient(45deg, transparent 50%, rgb(var(--gold-bright)) 50%),
+    linear-gradient(135deg, rgb(var(--gold-bright)) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) center,
+    calc(100% - 9px) center;
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.currency-select option {
+  color: rgb(var(--navy));
+  background: rgb(var(--cream));
+}
+
+.slot-result {
+  margin-top: 1.1rem;
+}
+
+.swap-btn {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 1rem auto;
+  border-radius: 50%;
+  background: rgb(var(--gold));
+  color: rgb(var(--navy-deep));
+  border: 3px solid rgb(var(--navy));
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.swap-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.swap-btn:hover {
+  background: rgb(var(--gold-bright));
+}
+
+.swap-btn.is-swapping svg {
+  animation: swap-spin 420ms var(--ease-out-expo);
+}
+
+@keyframes swap-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap-btn.is-swapping svg {
+    animation: none;
+  }
+}
+
+.rate-line {
+  margin-top: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  color: rgb(var(--muted));
+  text-align: center;
+}
+
+.disclaimer {
+  margin-top: 1.1rem;
+  font-size: 0.7rem;
+  color: rgb(var(--navy) / 0.5);
+  line-height: 1.5;
+}
+
+@media (max-width: 380px) {
+  .amount-input,
+  .result-value {
+    font-size: 1.4rem;
+  }
+}

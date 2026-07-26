@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/26-bureau/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bureau</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">Bureau de change</p>
+      <h1 class="page-title">Bureau</h1>
+      <p class="page-lede">Live-updating conversion, at a fixed table of rates.</p>
+
+      <section class="counter">
+        <div class="slot">
+          <label for="amount-input" class="slot-label">You send</label>
+          <div class="slot-row">
+            <input
+              type="number"
+              id="amount-input"
+              class="amount-input"
+              value="100"
+              min="0"
+              step="0.01"
+              inputmode="decimal"
+            />
+            <select id="from-select" class="currency-select" aria-label="From currency"></select>
+          </div>
+        </div>
+
+        <button type="button" class="swap-btn" id="swap-btn" aria-label="Swap currencies">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 3v12M17 3l4 4M17 3l-4 4" />
+            <path d="M7 21V9M7 21l4-4M7 21l-4-4" />
+          </svg>
+        </button>
+
+        <div class="slot slot-result">
+          <span class="slot-label">They receive</span>
+          <div class="slot-row">
+            <span class="result-value" id="result-value">0.00</span>
+            <select id="to-select" class="currency-select" aria-label="To currency"></select>
+          </div>
+        </div>
+
+        <p class="rate-line" id="rate-line"></p>
+      </section>
+
+      <p class="disclaimer">
+        Rates are a fixed illustrative table, not a live feed &mdash; for demo purposes only.
+      </p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
