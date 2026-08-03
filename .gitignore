@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Fotos originales (el sitio usa las copias webp de public/photos)
+src/assets/photos/
