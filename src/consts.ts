@@ -696,5 +696,24 @@ export const PROJECTS: Project[] = [
       "repository": null,
       "youtube": null
     }
+  },
+  {
+    "slug": "27-pinboard",
+    "title": {
+      "en": "27-pinboard",
+      "es": "27-pinboard"
+    },
+    "hidden": false,
+    "description": {
+      "en": "",
+      "es": ""
+    },
+    "difficulty": "beginner",
+    "tags": [],
+    "links": {
+      "homepage": null,
+      "repository": null,
+      "youtube": null
+    }
   }
 ] as Project[];

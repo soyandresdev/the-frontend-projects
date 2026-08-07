@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pinboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Inter:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">Task board</p>
+      <h1 class="page-title">Pinboard</h1>
+      <p class="page-lede">Pin a note, drag it between columns, or reorder it within one.</p>
+
+      <div class="board" id="board">
+        <section class="column" data-status="ideas">
+          <header class="column-head">
+            <h2>Ideas</h2>
+            <span class="column-count" data-count="ideas">0</span>
+          </header>
+          <div class="column-body" data-body="ideas"></div>
+          <button type="button" class="add-note-btn" data-add="ideas">+ Add a note</button>
+        </section>
+
+        <section class="column" data-status="building">
+          <header class="column-head">
+            <h2>Building</h2>
+            <span class="column-count" data-count="building">0</span>
+          </header>
+          <div class="column-body" data-body="building"></div>
+          <button type="button" class="add-note-btn" data-add="building">+ Add a note</button>
+        </section>
+
+        <section class="column" data-status="shipped">
+          <header class="column-head">
+            <h2>Shipped</h2>
+            <span class="column-count" data-count="shipped">0</span>
+          </header>
+          <div class="column-body" data-body="shipped"></div>
+          <button type="button" class="add-note-btn" data-add="shipped">+ Add a note</button>
+        </section>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
