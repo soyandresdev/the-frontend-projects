@@ -252,7 +252,12 @@ function endDrag() {
   const finalRect = placeholder.getBoundingClientRect()
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  el.classList.remove('is-dragging')
+  // Keep `is-dragging` (position: fixed) active through the settle transition —
+  // removing it here would flip the element to its base `position: relative`
+  // one frame before `finish()` cleans it up via a fresh render(), and the
+  // inline left/top pixel values (meant as viewport coordinates) would then
+  // be reinterpreted as an offset from its normal flow position, flinging it
+  // off to whichever side that offset happens to point.
   if (!prefersReducedMotion) el.classList.add('is-settling')
   el.style.left = `${finalRect.left}px`
   el.style.top = `${finalRect.top}px`
