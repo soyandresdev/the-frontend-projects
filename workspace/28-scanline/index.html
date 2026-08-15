@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scanline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">QR studio</p>
+      <h1 class="page-title">Scanline</h1>
+      <p class="page-lede">A real, scannable QR code &mdash; encoded in the browser, no image API.</p>
+
+      <div class="studio">
+        <section class="preview-panel">
+          <div class="qr-card" id="qr-card">
+            <canvas id="qr-canvas" width="280" height="280"></canvas>
+            <div class="scan-sweep" aria-hidden="true"></div>
+          </div>
+          <p class="qr-hint" id="qr-hint"></p>
+          <div class="export-row">
+            <button type="button" class="export-btn" id="download-png">Download PNG</button>
+            <button type="button" class="export-btn" id="download-svg">Download SVG</button>
+          </div>
+        </section>
+
+        <section class="controls-panel">
+          <div class="control-group">
+            <h2>Content</h2>
+            <div class="type-tabs" role="tablist">
+              <button type="button" class="type-tab is-active" data-type="url" role="tab">URL</button>
+              <button type="button" class="type-tab" data-type="text" role="tab">Text</button>
+              <button type="button" class="type-tab" data-type="wifi" role="tab">Wi-Fi</button>
+              <button type="button" class="type-tab" data-type="contact" role="tab">Contact</button>
+            </div>
+
+            <div class="type-fields" data-fields="url">
+              <label class="field"
+                >Link
+                <input type="text" id="url-input" placeholder="https://example.com" value="https://the-frontend-projects.dev" />
+              </label>
+            </div>
+
+            <div class="type-fields is-hidden" data-fields="text">
+              <label class="field"
+                >Text
+                <textarea id="text-input" placeholder="Anything you want to encode" rows="3"></textarea>
+              </label>
+            </div>
+
+            <div class="type-fields is-hidden" data-fields="wifi">
+              <label class="field">Network name (SSID)<input type="text" id="wifi-ssid" placeholder="Studio Wi-Fi" /></label>
+              <label class="field">Password<input type="text" id="wifi-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" /></label>
+              <label class="field"
+                >Encryption
+                <select id="wifi-encryption">
+                  <option value="WPA">WPA / WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="nopass">None</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="type-fields is-hidden" data-fields="contact">
+              <label class="field">Name<input type="text" id="contact-name" placeholder="Ada Lovelace" /></label>
+              <label class="field">Phone<input type="text" id="contact-phone" placeholder="+1 234 567 890" /></label>
+              <label class="field">Email<input type="email" id="contact-email" placeholder="ada@example.com" /></label>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <h2>Style</h2>
+            <div class="style-row">
+              <label class="color-field"
+                >Foreground
+                <input type="color" id="fg-color" value="#0f172a" />
+              </label>
+              <label class="color-field"
+                >Background
+                <input type="color" id="bg-color" value="#ffffff" />
+              </label>
+            </div>
+
+            <label class="field"
+              >Error correction
+              <select id="ec-level">
+                <option value="L">L &mdash; 7% (max data)</option>
+                <option value="M" selected>M &mdash; 15%</option>
+                <option value="Q">Q &mdash; 25%</option>
+                <option value="H">H &mdash; 30% (best with a logo)</option>
+              </select>
+            </label>
+
+            <div class="logo-row">
+              <span>Center logo</span>
+              <div class="logo-controls">
+                <input type="file" id="logo-input" accept="image/*" />
+                <button type="button" class="logo-clear is-hidden" id="logo-clear">Remove</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="qrcode-lib.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
