@@ -216,7 +216,7 @@ function initTilt() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Mazo de fotos del hero: rota sola cada 3.5 s, o al hacer clic         */
+/* Mazo de fotos del hero: rota sola cada 2.8 s, o al hacer clic         */
 /* ------------------------------------------------------------------ */
 function initPhotoStack() {
   const stack = $<HTMLElement>('[data-stack]')
@@ -244,7 +244,7 @@ function initPhotoStack() {
   const schedule = () => {
     timer?.kill()
     if (reduced) return
-    timer = gsap.delayedCall(3.5, next)
+    timer = gsap.delayedCall(2.8, next)
   }
 
   function next() {
@@ -373,6 +373,7 @@ function initCursor() {
 function initFilters() {
   const grid = $<HTMLElement>('[data-grid]')
   if (!grid) return
+  const wrap = grid.parentElement as HTMLElement
   const cards = $$('[data-card]', grid)
   const diffButtons = $$('[data-filter]')
   const tagButtons = $$('[data-tag]')
@@ -400,12 +401,17 @@ function initFilters() {
     cardRevealTriggers.forEach((t) => t.kill())
     cardRevealTriggers = []
     gsap.set(cards, { autoAlpha: 1, y: 0, overwrite: true })
+    // Las imágenes lazy de cards fuera de pantalla aún no han cargado: al entrar por
+    // filtro aparecerían en blanco. Las pedimos ya.
+    $$<HTMLImageElement>('img[loading="lazy"]', grid).forEach((img) => {
+      img.loading = 'eager'
+    })
   }
 
   const apply = () => {
     const animate = !reducedMotion()
     revealAll()
-    const prevHeight = grid.offsetHeight
+    const prevHeight = wrap.offsetHeight
     const flipState = animate ? Flip.getState(cards) : null
     let visible = 0
     cards.forEach((card) => {
@@ -414,8 +420,9 @@ function initFilters() {
       if (ok) visible++
     })
     // Con absolute:true las cards salen del flujo y el grid colapsaría a 0 (el footer
-    // subiría de golpe). Fijamos la altura previa y la llevamos suavemente a la nueva.
-    const nextHeight = grid.offsetHeight
+    // subiría de golpe). Fijamos la altura previa en el wrapper (no en el grid, cuyas
+    // filas se encogerían) y la llevamos suavemente a la nueva.
+    const nextHeight = wrap.offsetHeight
     if (count) count.textContent = String(visible)
     if (empty) empty.classList.toggle('hidden', visible > 0)
     const active = state.difficulty !== 'all' || state.tags.size > 0 || !!state.q
@@ -429,8 +436,8 @@ function initFilters() {
     }
 
     if (flipState) {
-      gsap.set(grid, { height: prevHeight })
-      gsap.to(grid, { height: nextHeight, duration: 0.7, ease: 'power3.inOut' })
+      gsap.set(wrap, { height: prevHeight })
+      gsap.to(wrap, { height: nextHeight, duration: 0.7, ease: 'power3.inOut' })
       Flip.from(flipState, {
         duration: 0.7,
         ease: 'power3.inOut',
@@ -446,7 +453,7 @@ function initFilters() {
         onLeave: (els) =>
           gsap.to(els, { autoAlpha: 0, scale: 0.92, duration: 0.35, ease: 'power2.in' }),
         onComplete: () => {
-          gsap.set(grid, { clearProps: 'height' })
+          gsap.set(wrap, { clearProps: 'height' })
           ScrollTrigger.refresh()
         }
       })

@@ -64,7 +64,7 @@ const visibleTags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includ
     href={demoHref}
     data-cursor={t('cursor.view')}
     aria-label={`${title} — ${t('project.demo')}`}
-    class={`relative block overflow-hidden bg-ink-2 ${IMAGE_CLASS}`}
+    class={`relative block shrink-0 overflow-hidden bg-ink-2 ${IMAGE_CLASS}`}
   >
     <img
       src={`/demo/${p.slug}/screenshot.webp`}
@@ -108,7 +108,7 @@ const visibleTags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includ
     </span>
   </a>
 
-  <div class="flex flex-1 flex-col gap-4 p-5 md:p-6">
+  <div class="flex shrink-0 grow basis-auto flex-col gap-4 p-5 md:p-6">
     <div>
       <h3
         class="font-display text-[1.35rem] leading-tight font-semibold tracking-tight md:text-2xl"
