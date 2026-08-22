@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swatchbook</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">Color lab</p>
+      <h1 class="page-title">Swatchbook</h1>
+      <p class="page-lede">Real color harmonies, not random noise. Lock a chip, press space to reshuffle.</p>
+
+      <div class="toolbar">
+        <div class="format-tabs" role="tablist">
+          <button type="button" class="format-tab is-active" data-format="hex">HEX</button>
+          <button type="button" class="format-tab" data-format="rgb">RGB</button>
+          <button type="button" class="format-tab" data-format="hsl">HSL</button>
+        </div>
+        <div class="toolbar-actions">
+          <button type="button" class="ghost-btn" id="copy-css-btn">Copy as CSS</button>
+          <button type="button" class="generate-btn" id="generate-btn">
+            Generate <kbd>space</kbd>
+          </button>
+        </div>
+      </div>
+
+      <div class="palette" id="palette"></div>
+      <p class="scheme-hint" id="scheme-hint"></p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
