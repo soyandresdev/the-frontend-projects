@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="hero-eyebrow">Recipe finder</p>
+        <h1 class="hero-title">Mise <em>en place</em></h1>
+        <p class="hero-lede">
+          Search TheMealDB, filter by category, or let chance pick tonight's dinner.
+        </p>
+
+        <form class="search-form" id="search-form" autocomplete="off">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search a dish or ingredient&hellip;"
+          />
+          <button type="submit">Search</button>
+        </form>
+
+        <div class="quick-actions">
+          <button type="button" class="quick-btn" id="random-btn">
+            <span aria-hidden="true">&#127922;</span> Feeling lucky
+          </button>
+          <button type="button" class="quick-btn" id="favorites-btn">
+            <span aria-hidden="true">&#9825;</span> Favorites
+          </button>
+        </div>
+
+        <div class="category-row" id="category-row"></div>
+      </header>
+
+      <section class="results" id="results-section">
+        <p class="results-heading" id="results-heading"></p>
+        <div class="cards-grid" id="cards-grid"></div>
+        <p class="empty-state is-hidden" id="empty-state"></p>
+      </section>
+
+      <section class="detail-view is-hidden" id="detail-view">
+        <button type="button" class="back-btn" id="back-btn">&larr; Back to recipes</button>
+        <div class="detail-content" id="detail-content"></div>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
