@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <base href="/demo/31-pokedex/" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dex Unit 01</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@500;600;700&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <p class="page-eyebrow">Field research unit</p>
+      <h1 class="page-title">Dex Unit 01</h1>
+      <p class="page-lede">Pop the lid, let it boot, then scan any creature in the index.</p>
+
+      <div class="dex-stage">
+        <div class="dex" id="dex">
+          <!-- ---------- Base: screen + controls ---------- -->
+          <div class="dex-base">
+            <div class="base-top">
+              <div class="screen-frame">
+                <div class="screen" id="screen">
+                  <div class="screen-glow" aria-hidden="true"></div>
+                  <div class="screen-scan" aria-hidden="true"></div>
+
+                  <p class="boot-line" id="boot-line"></p>
+
+                  <div class="entry" id="entry">
+                    <img class="entry-art" id="entry-art" alt="" />
+                    <p class="entry-id" id="entry-id"></p>
+                    <h2 class="entry-name" id="entry-name"></h2>
+                    <div class="entry-types" id="entry-types"></div>
+                  </div>
+
+                  <p class="screen-error" id="screen-error"></p>
+                </div>
+              </div>
+
+              <div class="data-panel">
+                <p class="panel-label">Base stats</p>
+                <div class="stats" id="stats"></div>
+                <p class="panel-label">Profile</p>
+                <dl class="meta" id="meta"></dl>
+              </div>
+            </div>
+
+            <div class="control-deck">
+              <form class="dex-search" id="dex-search" autocomplete="off">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="name or #"
+                  aria-label="Search by name or number"
+                />
+                <button type="submit" aria-label="Scan">Scan</button>
+              </form>
+
+              <div class="dpad" role="group" aria-label="Browse entries">
+                <button type="button" id="prev-btn" aria-label="Previous entry">&#9664;</button>
+                <span class="dpad-center" aria-hidden="true"></span>
+                <button type="button" id="next-btn" aria-label="Next entry">&#9654;</button>
+              </div>
+
+              <div class="deck-right">
+                <button type="button" class="round-btn" id="random-btn">RND</button>
+                <label class="shiny-switch">
+                  <input type="checkbox" id="shiny-toggle" />
+                  <span class="shiny-track" aria-hidden="true"></span>
+                  Shiny
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------- Lid: flips open ---------- -->
+          <div class="dex-lid" id="dex-lid">
+            <div class="lid-hinge" aria-hidden="true"></div>
+            <div class="lid-lens" aria-hidden="true"><span></span></div>
+            <div class="lid-leds" aria-hidden="true">
+              <span class="led led-red"></span>
+              <span class="led led-amber"></span>
+              <span class="led led-green"></span>
+            </div>
+            <p class="lid-wordmark" aria-hidden="true">DEX&middot;01</p>
+            <div class="lid-vents" aria-hidden="true"></div>
+            <button type="button" class="open-btn" id="open-btn">Open unit</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="replay-btn" id="replay-btn">&#8635; Replay open sequence</button>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

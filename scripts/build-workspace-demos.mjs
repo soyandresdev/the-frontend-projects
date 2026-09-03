@@ -80,7 +80,9 @@ async function buildAllWorkspaceDemos() {
             timeout: 60000
           })
           // Deja asentar animaciones de entrada (GSAP, CSS) antes de capturar.
-          await new Promise((r) => setTimeout(r, 900))
+          // 2.2s cubre secuencias de intro largas (p. ej. la apertura + boot de
+          // 31-pokedex, que con 900ms se capturaba a mitad de la animación).
+          await new Promise((r) => setTimeout(r, 2200))
 
           const pngTemp = path.join(demoPath, 'screenshot.png')
           await page.screenshot({ path: pngTemp })
