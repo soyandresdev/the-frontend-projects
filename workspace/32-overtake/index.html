@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overtake</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="board-head">
+        <div class="head-left">
+          <p class="eyebrow">Season 4 &middot; Sprint standings</p>
+          <h1 class="title">Overtake</h1>
+        </div>
+        <div class="live-badge" id="live-badge">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span id="live-label">LIVE</span>
+        </div>
+      </header>
+
+      <div class="board" id="board">
+        <div class="board-cols" aria-hidden="true">
+          <span>Pos</span>
+          <span>Racer</span>
+          <span class="col-right">Points</span>
+        </div>
+        <ol class="rows" id="rows"></ol>
+      </div>
+
+      <div class="controls">
+        <button type="button" class="ctrl ctrl-primary" id="toggle-btn">Pause feed</button>
+        <button type="button" class="ctrl" id="round-btn">Run a round</button>
+        <button type="button" class="ctrl" id="reset-btn">Reset</button>
+      </div>
+
+      <p class="footnote">
+        Scores come from a simulated feed &mdash; no live sports API to rate-limit or go stale.
+      </p>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
