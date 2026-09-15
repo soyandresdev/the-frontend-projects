@@ -16,13 +16,17 @@ export function App() {
         <div className="app-shell">
           <Sidebar />
           <main className="app-main">
-            <Routes>
-              <Route path="/" element={<Overview />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/budgets" element={<Budgets />} />
-              <Route path="/pots" element={<Pots />} />
-              <Route path="/bills" element={<RecurringBills />} />
-            </Routes>
+            {/* Named for the View Transitions API: the browser snapshots this
+                subtree and crossfades it when the route changes. */}
+            <div className="page">
+              <Routes>
+                <Route path="/" element={<Overview />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/budgets" element={<Budgets />} />
+                <Route path="/pots" element={<Pots />} />
+                <Route path="/bills" element={<RecurringBills />} />
+              </Routes>
+            </div>
           </main>
         </div>
       </HashRouter>

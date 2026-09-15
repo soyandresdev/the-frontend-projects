@@ -57,9 +57,14 @@ export function Transactions() {
 
   return (
     <>
-      <h1 className="page-title">Transactions</h1>
+      <header className="page-head">
+        <div>
+          <p className="page-kicker">All activity</p>
+          <h1 className="page-title">Transactions</h1>
+        </div>
+      </header>
 
-      <Card>
+      <Card className="rise">
         <div className="toolbar">
           <label className="search-field">
             <span className="sr-only">Search transactions</span>

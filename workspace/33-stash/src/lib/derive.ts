@@ -86,3 +86,58 @@ export function billTotals(bills: Bill[]) {
     all: bills.reduce((total, b) => total + Math.abs(b.transaction.amount), 0)
   }
 }
+
+export type FlowPoint = {
+  label: string
+  income: number
+  expenses: number
+  balance: number
+}
+
+/**
+ * Daily money in/out for the last `days` days, plus the running balance that
+ * produced today's figure (walked backwards from the current balance so the
+ * line ends exactly where the headline number sits).
+ */
+export function dailyFlow(
+  transactions: Transaction[],
+  currentBalance: number,
+  days = 30
+): FlowPoint[] {
+  const buckets = new Map<string, { income: number; expenses: number }>()
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(today)
+    d.setDate(d.getDate() - i)
+    buckets.set(d.toDateString(), { income: 0, expenses: 0 })
+  }
+
+  for (const t of transactions) {
+    const key = new Date(t.date)
+    key.setHours(0, 0, 0, 0)
+    const bucket = buckets.get(key.toDateString())
+    if (!bucket) continue
+    if (t.amount >= 0) bucket.income += t.amount
+    else bucket.expenses += Math.abs(t.amount)
+  }
+
+  const entries = [...buckets.entries()]
+
+  // Walk backwards from today's balance to recover each day's closing figure.
+  const balances: number[] = new Array(entries.length)
+  let running = currentBalance
+  for (let i = entries.length - 1; i >= 0; i--) {
+    balances[i] = running
+    const [, { income, expenses }] = entries[i]
+    running = running - income + expenses
+  }
+
+  return entries.map(([key, { income, expenses }], i) => ({
+    label: new Date(key).toLocaleDateString('en-US', { day: 'numeric', month: 'short' }),
+    income,
+    expenses,
+    balance: balances[i]
+  }))
+}

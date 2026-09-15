@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import clsx from 'clsx'
 import { initials, money, percent } from '../lib/format'
 import type { BillStatus } from '../types'
@@ -13,7 +13,7 @@ export function Avatar({ name, color }: { name: string; color?: string }) {
 
 /** Deterministic tint so a given payee always looks the same. */
 function tintFor(name: string): string {
-  const palette = ['#277c78', '#82c9d7', '#626070', '#934f6f', '#3f82b2', '#7f9161', '#be6c49', '#826cb0']
+  const palette = ['#3ecf9a', '#56cfe1', '#7c8cff', '#f06fa0', '#5aa9f0', '#a8c06a', '#ff8a5b', '#b08cf0']
   let hash = 0
   for (let i = 0; i < name.length; i++) hash = (hash << 5) - hash + name.charCodeAt(i)
   return palette[Math.abs(hash) % palette.length]
@@ -31,9 +31,12 @@ export function ProgressBar({
   height?: number
 }) {
   const pct = percent(value, of)
+  // percent() clamps, so an over-spent budget would otherwise look
+  // identical to one spent exactly to the limit.
+  const over = of > 0 && value > of
   return (
     <div
-      className="progress"
+      className={clsx('progress', over && 'is-over')}
       style={{ height }}
       role="progressbar"
       aria-valuenow={Math.round(pct)}
@@ -48,13 +51,19 @@ export function ProgressBar({
 export function Card({
   children,
   className,
+  style,
   tone = 'light'
 }: {
   children: ReactNode
   className?: string
+  style?: CSSProperties
   tone?: 'light' | 'dark' | 'muted'
 }) {
-  return <section className={clsx('card', `card-${tone}`, className)}>{children}</section>
+  return (
+    <section className={clsx('card', `card-${tone}`, className)} style={style}>
+      {children}
+    </section>
+  )
 }
 
 export function SectionHeader({

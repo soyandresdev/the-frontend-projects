@@ -151,7 +151,7 @@ function TransferForm({
           <span>New amount</span>
           <strong>{money(preview)}</strong>
         </div>
-        <ProgressBar value={preview} of={pot.target} color={adding ? pot.theme : '#c94736'} height={10} />
+        <ProgressBar value={preview} of={pot.target} color={adding ? pot.theme : '#ff6b5e'} height={10} />
         <p className="transfer-target">
           {percent(preview, pot.target).toFixed(2)}% of {money(pot.target)} target
         </p>
@@ -209,7 +209,10 @@ export function Pots() {
   return (
     <>
       <header className="page-head">
-        <h1 className="page-title">Pots</h1>
+        <div>
+          <p className="page-kicker">Saving towards</p>
+          <h1 className="page-title">Pots</h1>
+        </div>
         <button type="button" className="btn btn-primary" onClick={() => setForm({ kind: 'add' })}>
           + Add New Pot
         </button>
@@ -221,8 +224,8 @@ export function Pots() {
         </Card>
       ) : (
         <div className="pot-cards">
-          {state.pots.map((pot) => (
-            <Card key={pot.id}>
+          {state.pots.map((pot, i) => (
+            <Card key={pot.id} className="rise" style={{ ['--i' as string]: i }}>
               <header className="budget-card-head">
                 <h2>
                   <span className="dot" style={{ backgroundColor: pot.theme }} aria-hidden="true" />

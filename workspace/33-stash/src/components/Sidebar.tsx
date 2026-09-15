@@ -28,19 +28,39 @@ export function Sidebar() {
       <ul className="nav-list">
         {NAV.map((item) => (
           <li key={item.to}>
+            {/* viewTransition lets the browser cross-fade the page body and
+                slide the shared active indicator between items. */}
             <NavLink
               to={item.to}
               end={item.to === '/'}
+              viewTransition
               className={({ isActive }) => clsx('nav-link', isActive && 'is-active')}
             >
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d={item.icon} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>{item.label}</span>
+              {({ isActive }) => (
+                <>
+                  {isActive && <span className="nav-indicator" aria-hidden="true" />}
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d={item.icon}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="nav-label">{item.label}</span>
+                </>
+              )}
             </NavLink>
           </li>
         ))}
       </ul>
+
+      <p className="sidebar-foot">
+        <span className="sidebar-foot-dot" aria-hidden="true" />
+        Demo data &middot; local
+      </p>
     </nav>
   )
 }

@@ -85,16 +85,16 @@ export function createSeedState(): FinanceState {
     balance: { current: 4836 },
     transactions,
     budgets: [
-      { id: uid(), category: 'Entertainment', maximum: 50, theme: '#277c78' },
-      { id: uid(), category: 'Bills', maximum: 750, theme: '#82c9d7' },
-      { id: uid(), category: 'Dining Out', maximum: 75, theme: '#f2cdac' },
-      { id: uid(), category: 'Personal Care', maximum: 100, theme: '#626070' }
+      { id: uid(), category: 'Entertainment', maximum: 50, theme: '#3ecf9a' },
+      { id: uid(), category: 'Bills', maximum: 750, theme: '#56cfe1' },
+      { id: uid(), category: 'Dining Out', maximum: 75, theme: '#f5c26b' },
+      { id: uid(), category: 'Personal Care', maximum: 100, theme: '#7c8cff' }
     ],
     pots: [
-      { id: uid(), name: 'Savings', target: 2000, total: 159, theme: '#277c78' },
-      { id: uid(), name: 'Concert Ticket', target: 150, total: 110, theme: '#626070' },
-      { id: uid(), name: 'Gift', target: 150, total: 110, theme: '#82c9d7' },
-      { id: uid(), name: 'New Laptop', target: 1000, total: 10, theme: '#f2cdac' }
+      { id: uid(), name: 'Savings', target: 2000, total: 159, theme: '#3ecf9a' },
+      { id: uid(), name: 'Concert Ticket', target: 150, total: 110, theme: '#7c8cff' },
+      { id: uid(), name: 'Gift', target: 150, total: 110, theme: '#56cfe1' },
+      { id: uid(), name: 'New Laptop', target: 1000, total: 10, theme: '#f5c26b' }
     ]
   }
 }

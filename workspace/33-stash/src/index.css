@@ -1,20 +1,47 @@
 :root {
-  --beige: #f8f4f0;
-  --white: #ffffff;
-  --grey-900: #201f24;
-  --grey-700: #2f2d33;
-  --grey-500: #696868;
-  --grey-300: #b3b3b3;
-  --grey-100: #f2f2f2;
-  --green: #277c78;
-  --green-dark: #1e6360;
-  --red: #c94736;
-  --yellow: #f2cdac;
-  --cyan: #82c9d7;
+  /* Surfaces — a near-black cockpit so the data colours carry the page. */
+  --bg: #0b0c10;
+  --surface: #14161d;
+  --surface-2: #1a1d26;
+  --surface-3: #22262f;
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.16);
 
-  --radius: 12px;
-  --shadow: 0 12px 28px -18px rgb(32 31 36 / 0.35);
-  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Ink */
+  --ink: #f1f2f5;
+  --ink-2: #9ba1b0;
+  --ink-3: #6b7180;
+
+  /* Accents */
+  --accent: #3ecf9a;
+  --accent-soft: rgb(62 207 154 / 0.14);
+  --red: #ff6b5e;
+  --red-soft: rgb(255 107 94 / 0.14);
+  --yellow: #f5c26b;
+  --cyan: #56cfe1;
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 18px 40px -28px rgb(0 0 0 / 0.9);
+
+  /* A steep ease-out: fast start, long settle. Feels alive where the
+     built-in curves feel flat. */
+  --ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Fluid type — the whole scale grows on large displays instead of
+     pinning the dashboard to a mid-size layout. */
+  --text-xs: clamp(0.7rem, 0.66rem + 0.12vw, 0.8rem);
+  --text-sm: clamp(0.8rem, 0.76rem + 0.14vw, 0.92rem);
+  --text-base: clamp(0.875rem, 0.83rem + 0.16vw, 1rem);
+  --text-lg: clamp(1.02rem, 0.95rem + 0.24vw, 1.25rem);
+  --text-xl: clamp(1.4rem, 1.2rem + 0.7vw, 2rem);
+  --text-2xl: clamp(1.75rem, 1.35rem + 1.6vw, 3rem);
+  --text-hero: clamp(2.1rem, 1.3rem + 2.2vw, 3.9rem);
+
+  --gutter: clamp(1.25rem, 0.6rem + 2.4vw, 3.5rem);
+  --gap: clamp(1rem, 0.7rem + 0.9vw, 1.75rem);
+  --sidebar-w: clamp(198px, 6vw + 126px, 282px);
 }
 
 * {
@@ -23,13 +50,30 @@
   box-sizing: border-box;
 }
 
+html {
+  color-scheme: dark;
+}
+
 body {
-  background: var(--beige);
-  color: var(--grey-900);
+  background: var(--bg);
+  color: var(--ink);
   font-family: 'Public Sans', system-ui, sans-serif;
-  font-size: 14px;
+  font-size: var(--text-base);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Ambient glow. Fixed and pointer-transparent so it costs one composited
+   layer and never interferes with the layout. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(60vw 40vw at 18% -8%, rgb(62 207 154 / 0.12), transparent 62%),
+    radial-gradient(52vw 38vw at 92% 4%, rgb(86 207 225 / 0.09), transparent 64%);
 }
 
 button,
@@ -40,32 +84,47 @@ select {
 }
 
 :focus-visible {
-  outline: 2px solid var(--green);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .sr-only {
   position: absolute;
   width: 1px;
-  height: 1px
+  height: 1px;
   overflow: hidden;
-  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/* Money and any figure that animates uses tabular digits so a counting
+   number never changes width mid-count. */
+.tabular,
+.hero-value,
+.balance-value,
+.pots-total-value,
+.stat-tile-value,
+.donut-center strong {
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- Shell ---------- */
 .app-shell {
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 .sidebar {
-  flex-shrink: 0;
-  width: 240px;
-  background: var(--grey-900);
-  color: var(--grey-300);
-  border-radius: 0 16px 16px 0;
-  padding: 2rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--surface) 0%, #101218 100%);
+  border-right: 1px solid var(--line);
+  color: var(--ink-2);
+  padding: clamp(1.25rem, 2vw, 2rem) 0 1.25rem;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -74,108 +133,197 @@ select {
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0 2rem 2.5rem;
-  color: var(--white);
-  font-size: 1.35rem;
+  gap: 0.65rem;
+  padding: 0 1.25rem clamp(1.5rem, 3vw, 2.75rem);
+  color: var(--ink);
+  font-size: var(--text-lg);
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .brand-mark {
-  width: 18px;
-  height: 18px;
-  border-radius: 5px 5px 5px 12px;
-  background: linear-gradient(140deg, var(--green), var(--cyan));
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 7px 7px 7px 14px;
+  background: linear-gradient(140deg, var(--accent), var(--cyan));
+  box-shadow: 0 0 22px -4px var(--accent);
 }
 
 .nav-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  padding-right: 1.25rem;
+  gap: 0.2rem;
+  padding: 0 0.75rem;
 }
 
 .nav-link {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.85rem 2rem;
-  border-radius: 0 10px 10px 0;
-  color: var(--grey-300);
+  gap: 0.8rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: var(--radius-sm);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
   font-weight: 600;
   text-decoration: none;
-  border-left: 4px solid transparent;
-  transition: background-color 150ms var(--ease), color 150ms var(--ease);
+  transition: color 160ms var(--ease-quad);
 }
 
 .nav-link svg {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: transform 260ms var(--ease);
+}
+
+.nav-label {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav-link:hover {
-  color: var(--white);
-  background: rgb(255 255 255 / 0.06);
+  color: var(--ink);
+}
+
+.nav-link:hover svg {
+  transform: translateX(2px);
 }
 
 .nav-link.is-active {
-  background: var(--beige);
-  color: var(--grey-900);
-  border-left-color: var(--green);
+  color: var(--ink);
+}
+
+/* The pill sits behind the label and carries a view-transition name, so
+   navigating slides it from the old item to the new one. */
+.nav-indicator {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px rgb(62 207 154 / 0.28);
+  view-transition-name: nav-indicator;
+}
+
+.nav-indicator::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--accent);
+}
+
+.sidebar-foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.4rem 0;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar-foot-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgb(62 207 154 / 0.5);
+  animation: pulse 2.8s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgb(62 207 154 / 0.5); }
+  70%, 100% { box-shadow: 0 0 0 7px rgb(62 207 154 / 0); }
 }
 
 .app-main {
-  flex: 1;
   min-width: 0;
-  padding: 2rem 2.5rem 3rem;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 2100px;
+  margin-inline: auto;
+  padding: clamp(1.5rem, 2.4vw, 3rem) var(--gutter) 4rem;
+}
+
+/* Route content owns a view-transition name so the browser crossfades
+   pages instead of swapping them instantly. */
+.page {
+  view-transition-name: page;
 }
 
 /* ---------- Typography ---------- */
-.page-title {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-}
-
 .page-head {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(1.25rem, 2vw, 2rem);
 }
 
-.page-head .page-title {
-  margin-bottom: 0;
+.page-kicker {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.page-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
 }
 
 .mini-heading {
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-weight: 700;
   margin-bottom: 0.9rem;
 }
 
 /* ---------- Cards ---------- */
 .card {
-  background: var(--white);
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.5rem;
+  padding: clamp(1.15rem, 1.4vw, 1.9rem);
   box-shadow: var(--shadow);
+  min-width: 0;
+  transition: border-color 220ms var(--ease-quad), box-shadow 220ms var(--ease-quad);
+}
+
+/* No lift on hover: the card is the hover target, and translating it
+   would slide it out from under the cursor at the edges. */
+.card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow), 0 0 0 1px rgb(255 255 255 / 0.02);
 }
 
 .card-dark {
-  background: var(--grey-900);
-  color: var(--white);
+  background: linear-gradient(150deg, #1b1f28, #101218);
 }
 
 .card-muted {
-  background: var(--beige);
+  background: var(--surface-2);
   box-shadow: none;
 }
 
@@ -188,97 +336,275 @@ select {
 }
 
 .section-header h2 {
-  font-size: 1.15rem;
-  font-weight: 700;
-}
-
-.link-btn {
-  background: none;
-  border: none;
-  color: var(--grey-500);
-  font-weight: 600;
-  font-size: 0.86rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.link-btn:hover {
-  color: var(--grey-900);
-}
-
-/* ---------- Balance row ---------- */
-.balance-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.balance-label {
-  font-size: 0.86rem;
-  color: var(--grey-500);
-  margin-bottom: 0.7rem;
-}
-
-.card-dark .balance-label {
-  color: rgb(255 255 255 / 0.75);
-}
-
-.balance-value {
-  display: block;
-  font-size: 1.9rem;
+  font-size: var(--text-lg);
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.balance-note {
-  margin-top: 0.35rem;
-  font-size: 0.78rem;
-  color: var(--grey-300);
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  color: var(--ink-3);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 150ms var(--ease-quad);
+}
+
+.link-btn::after {
+  content: '→';
+  transition: transform 260ms var(--ease);
+}
+
+.link-btn:hover {
+  color: var(--accent);
+}
+
+.link-btn:hover::after {
+  transform: translateX(3px);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  display: grid;
+  gap: clamp(1.25rem, 2vw, 2.5rem);
+  align-items: center;
+  background:
+    radial-gradient(90% 140% at 0% 0%, rgb(62 207 154 / 0.14), transparent 58%),
+    linear-gradient(150deg, #1b1f28, #0f1117);
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 6px);
+  padding: clamp(1.4rem, 2.2vw, 2.75rem);
+  margin-bottom: var(--gap);
+  overflow: hidden;
+}
+
+.hero-figures {
+  min-width: 0;
+  /* Sized against its own column, not the viewport: the balance is the
+     widest string on the page and a vw-based size overflowed here. */
+  container-type: inline-size;
+}
+
+.hero-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.hero-value {
+  display: block;
+  margin: 0.35rem 0 clamp(1.25rem, 2vw, 2rem);
+  font-size: var(--text-hero);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  line-height: 1;
+  background: linear-gradient(180deg, #ffffff 30%, #8fa39c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@container (min-width: 0px) {
+  .hero-value {
+    font-size: min(var(--text-hero), 17cqi);
+  }
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.9rem 1.5rem;
+}
+
+.hero-stats strong {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.hero-stat-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  margin-bottom: 0.25rem;
+}
+
+.tick {
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.tick-in { background: var(--accent); }
+.tick-out { background: var(--red); }
+.tick-pot { background: var(--cyan); }
+
+.hero-chart {
+  min-width: 0;
+}
+
+.range-switch {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  margin-bottom: 0.4rem;
+}
+
+.range-switch button {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  background: none;
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 150ms var(--ease-quad), background-color 150ms var(--ease-quad),
+    transform 140ms var(--ease-quad);
+}
+
+.range-switch button:hover {
+  color: var(--ink);
+}
+
+.range-switch button:active {
+  transform: scale(0.94);
+}
+
+.range-switch button.is-current {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: rgb(62 207 154 / 0.28);
+}
+
+/* ---------- Charts ---------- */
+.flow-chart {
+  width: 100%;
+}
+
+.flow-chart .recharts-cartesian-axis-tick text {
+  fill: var(--ink-3);
+}
+
+.chart-tooltip {
+  background: rgb(12 13 18 / 0.94);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.75rem;
+  box-shadow: 0 14px 34px -18px rgb(0 0 0 / 0.9);
+  backdrop-filter: blur(6px);
+  min-width: 140px;
+}
+
+.chart-tooltip-date {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  margin-bottom: 0.35rem;
+}
+
+.chart-tooltip-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+}
+
+.chart-tooltip-row strong {
+  font-size: var(--text-sm);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- Overview grid ---------- */
+/* auto-fit means the column count grows with the viewport instead of
+   being frozen at two. */
+/* Explicit column counts (not auto-fit) so the card spans below always
+   tile exactly — auto-fit's column count drifts with the gap and leaves
+   holes a dashboard can't hide. */
 .overview-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap);
   align-items: start;
+}
+
+@media (min-width: 720px) {
+  .overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .overview-grid .span-2,
+  .overview-grid .span-2-md {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 1180px) {
+  .overview-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .overview-grid .span-3 {
+    grid-column: span 3;
+  }
+}
+
+@media (min-width: 1660px) {
+  .overview-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  /* At four columns the bills card no longer needs to fill a row. */
+  .overview-grid .span-2-md {
+    grid-column: span 1;
+  }
 }
 
 .overview-col {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--gap);
   min-width: 0;
-}
-
-.pots-summary {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  align-items: center;
 }
 
 .pots-total {
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  background: var(--beige);
-  border-radius: var(--radius);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
   padding: 1.1rem;
+  margin-bottom: 1.1rem;
 }
 
 .pots-total-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px 8px 8px 18px;
-  background: linear-gradient(140deg, var(--green), var(--cyan));
+  width: 36px;
+  height: 36px;
+  border-radius: 9px 9px 9px 18px;
+  background: linear-gradient(140deg, var(--accent), var(--cyan));
   flex-shrink: 0;
+  box-shadow: 0 0 24px -6px var(--accent);
 }
 
 .pots-total-value {
-  font-size: 1.6rem;
+  font-size: var(--text-xl);
   font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .pots-legend,
@@ -289,7 +615,13 @@ select {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.55rem;
+}
+
+.budget-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  margin-top: 1.1rem;
 }
 
 .pots-legend li,
@@ -300,15 +632,22 @@ select {
   flex-direction: column;
   gap: 0.15rem;
   padding-left: 0.85rem;
-  border-left: 4px solid var(--grey-100);
+  border-left: 3px solid var(--line-strong);
 }
 
 .pots-legend span,
 .budget-legend span,
 .bills-summary span,
 .spending-summary span {
-  font-size: 0.78rem;
-  color: var(--grey-500);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.pots-legend strong,
+.budget-legend strong,
+.bills-summary strong,
+.spending-summary strong {
+  font-variant-numeric: tabular-nums;
 }
 
 .bills-summary li,
@@ -317,17 +656,17 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  padding: 0.5rem 0 0.5rem 0.85rem;
+  padding: 0.55rem 0 0.55rem 0.85rem;
 }
 
 .spending-figures {
-  font-size: 0.78rem;
-  color: var(--grey-500);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
 }
 
 .spending-figures strong {
-  font-size: 0.95rem;
-  color: var(--grey-900);
+  font-size: var(--text-sm);
+  color: var(--ink);
 }
 
 /* ---------- Transaction lists ---------- */
@@ -340,9 +679,9 @@ select {
 .tx-list li {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid var(--grey-100);
+  gap: 0.8rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--line);
 }
 
 .tx-list li:last-child {
@@ -355,7 +694,7 @@ select {
 }
 
 .tx-name {
-  font-weight: 700;
+  font-weight: 600;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -371,17 +710,21 @@ select {
   flex-shrink: 0;
 }
 
+.tx-right strong {
+  font-variant-numeric: tabular-nums;
+}
+
 .tx-date {
-  font-size: 0.75rem;
-  color: var(--grey-500);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
 }
 
 .amount-in {
-  color: var(--green);
+  color: var(--accent);
 }
 
 .amount-out {
-  color: var(--grey-900);
+  color: var(--ink);
 }
 
 .amount-due {
@@ -389,14 +732,14 @@ select {
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: 11px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--white);
+  color: #0b0c10;
   font-size: 0.7rem;
   font-weight: 700;
 }
@@ -404,21 +747,35 @@ select {
 /* ---------- Progress ---------- */
 .progress {
   width: 100%;
-  background: var(--beige);
+  background: var(--surface-3);
   border-radius: 999px;
   overflow: hidden;
+}
+
+.progress.is-over {
+  outline: 1px solid var(--red);
+  outline-offset: 2px;
 }
 
 .progress-fill {
   display: block;
   height: 100%;
   border-radius: 999px;
-  transition: width 400ms var(--ease);
+  transform-origin: left center;
+  /* Grows from zero on mount; width keeps transitioning afterwards so
+     edits animate too. */
+  animation: grow-bar 820ms var(--ease) both;
+  transition: width 420ms var(--ease);
+}
+
+@keyframes grow-bar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   display: inline-block;
   margin-right: 0.5rem;
@@ -426,18 +783,11 @@ select {
 
 .empty-state {
   padding: 1.25rem 0;
-  color: var(--grey-500);
-  font-size: 0.9rem;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
 }
 
 /* ---------- Donut ---------- */
-.budget-overview {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.25rem;
-  align-items: center;
-}
-
 .donut {
   position: relative;
   width: 100%;
@@ -456,25 +806,22 @@ select {
 }
 
 .donut-center strong {
-  font-size: 1.6rem;
+  font-size: var(--text-xl);
   font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .donut-center span {
-  font-size: 0.75rem;
-  color: var(--grey-500);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
 }
 
 /* ---------- Budget progress ---------- */
-.budget-progress-card {
-  margin-top: 1.5rem;
-}
-
 .budget-progress-list {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.1rem clamp(1.25rem, 2vw, 2.5rem);
 }
 
 .budget-progress-head {
@@ -482,18 +829,21 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 0.45rem;
-  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: var(--text-sm);
 }
 
 .budget-progress-figures {
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .budget-progress-figures span {
   font-weight: 400;
-  color: var(--grey-500);
-  font-size: 0.8rem;
+  color: var(--ink-3);
+  font-size: var(--text-xs);
 }
 
 /* ---------- Toolbar ---------- */
@@ -507,12 +857,22 @@ select {
 }
 
 .search-field input {
-  width: 260px;
+  width: clamp(220px, 22vw, 360px);
   max-width: 100%;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid var(--grey-300);
-  border-radius: 8px;
-  background: var(--white);
+  padding: 0.7rem 0.95rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--ink);
+  transition: border-color 160ms var(--ease-quad), background-color 160ms var(--ease-quad);
+}
+
+.search-field input::placeholder {
+  color: var(--ink-3);
+}
+
+.search-field input:hover {
+  border-color: rgb(255 255 255 / 0.24);
 }
 
 .toolbar-selects {
@@ -525,17 +885,17 @@ select {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.82rem;
-  color: var(--grey-500);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
 }
 
 .inline-field select {
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--grey-300);
-  border-radius: 8px;
-  background: var(--white);
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
   font-weight: 600;
-  color: var(--grey-900);
+  color: var(--ink);
 }
 
 /* ---------- Tables ---------- */
@@ -546,21 +906,35 @@ select {
 
 .tx-table th {
   text-align: left;
-  font-size: 0.78rem;
-  font-weight: 400;
-  color: var(--grey-500);
-  padding: 0 0 0.75rem;
-  border-bottom: 1px solid var(--grey-100);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 0 0 0.8rem;
+  border-bottom: 1px solid var(--line);
 }
 
 .tx-table td {
-  padding: 0.9rem 0;
-  border-bottom: 1px solid var(--grey-100);
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
   vertical-align: middle;
+}
+
+.tx-table tbody tr {
+  transition: background-color 150ms var(--ease-quad);
+}
+
+.tx-table tbody tr:hover {
+  background: rgb(255 255 255 / 0.025);
 }
 
 .tx-table tr:last-child td {
   border-bottom: none;
+}
+
+.tx-table td.align-right {
+  font-variant-numeric: tabular-nums;
 }
 
 .tx-cell {
@@ -571,18 +945,18 @@ select {
 }
 
 .recurring-tag {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 700;
-  color: var(--grey-500);
-  background: var(--beige);
+  color: var(--ink-3);
+  background: var(--surface-3);
   border-radius: 999px;
   padding: 0.1rem 0.45rem;
   flex-shrink: 0;
 }
 
 .muted-cell {
-  color: var(--grey-500);
-  font-size: 0.82rem;
+  color: var(--ink-3);
+  font-size: var(--text-xs);
 }
 
 .align-right {
@@ -593,31 +967,32 @@ select {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.82rem;
-  color: var(--grey-500);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
   flex-wrap: wrap;
 }
 
 .pill {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 700;
   border-radius: 999px;
-  padding: 0.12rem 0.5rem;
+  padding: 0.14rem 0.5rem;
+  white-space: nowrap;
 }
 
 .pill-paid {
-  color: var(--green);
-  background: rgb(39 124 120 / 0.12);
+  color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .pill-due-soon {
   color: var(--red);
-  background: rgb(201 71 54 / 0.12);
+  background: var(--red-soft);
 }
 
 .pill-upcoming {
-  color: var(--grey-500);
-  background: var(--grey-100);
+  color: var(--ink-2);
+  background: var(--surface-3);
 }
 
 .table-foot {
@@ -630,8 +1005,8 @@ select {
 }
 
 .result-count {
-  font-size: 0.82rem;
-  color: var(--grey-500);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
 }
 
 /* ---------- Pagination ---------- */
@@ -648,52 +1023,54 @@ select {
 }
 
 .page-btn {
-  min-width: 34px;
-  height: 34px;
-  padding: 0 0.6rem;
-  border: 1px solid var(--grey-300);
-  border-radius: 8px;
-  background: var(--white);
-  font-size: 0.82rem;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 0.65rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: var(--text-xs);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 150ms var(--ease), color 150ms var(--ease);
+  transition: background-color 150ms var(--ease-quad), color 150ms var(--ease-quad),
+    transform 140ms var(--ease-quad);
 }
 
 .page-btn:hover:not(:disabled) {
-  background: var(--beige);
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.page-btn:active:not(:disabled) {
+  transform: scale(0.96);
 }
 
 .page-btn.is-current {
-  background: var(--grey-900);
-  border-color: var(--grey-900);
-  color: var(--white);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #08120d;
 }
 
 .page-btn:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 /* ---------- Budgets page ---------- */
 .budgets-layout {
   display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 1.5rem;
+  grid-template-columns: clamp(320px, 26vw, 460px) minmax(0, 1fr);
+  gap: var(--gap);
   align-items: start;
 }
 
 .budget-cards,
 .pot-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  min-width: 0;
-}
-
-.pot-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: var(--gap);
+  min-width: 0;
 }
 
 .budget-card-head {
@@ -707,8 +1084,9 @@ select {
 .budget-card-head h2 {
   display: flex;
   align-items: center;
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .row-actions {
@@ -718,8 +1096,8 @@ select {
 }
 
 .budget-maximum {
-  color: var(--grey-500);
-  font-size: 0.86rem;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
   margin-bottom: 0.7rem;
 }
 
@@ -735,18 +1113,23 @@ select {
   flex-direction: column;
   gap: 0.2rem;
   padding-left: 0.85rem;
-  border-left: 4px solid var(--grey-100);
+  border-left: 3px solid var(--line-strong);
 }
 
 .budget-split span {
-  font-size: 0.75rem;
-  color: var(--grey-500);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.budget-split strong {
+  font-variant-numeric: tabular-nums;
 }
 
 .budget-latest {
   margin-top: 1.25rem;
-  background: var(--beige);
-  border-radius: var(--radius);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
   padding: 1rem 1.25rem;
 }
 
@@ -755,11 +1138,7 @@ select {
 }
 
 .budget-latest .section-header h2 {
-  font-size: 0.95rem;
-}
-
-.budget-latest .tx-list li {
-  border-color: rgb(105 104 104 / 0.15);
+  font-size: var(--text-base);
 }
 
 /* ---------- Pots page ---------- */
@@ -772,26 +1151,29 @@ select {
 }
 
 .pot-total-row span {
-  color: var(--grey-500);
-  font-size: 0.86rem;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
 }
 
 .pot-total-row strong {
-  font-size: 1.6rem;
+  font-size: var(--text-xl);
   font-weight: 700;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
 
 .pot-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  color: var(--grey-500);
+  margin-top: 0.55rem;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
 }
 
 .pot-meta span:first-child {
   font-weight: 700;
+  color: var(--ink-2);
 }
 
 .pot-actions {
@@ -808,35 +1190,37 @@ select {
 }
 
 .transfer-preview span {
-  color: var(--grey-500);
-  font-size: 0.86rem;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
 }
 
 .transfer-preview strong {
-  font-size: 1.6rem;
+  font-size: var(--text-xl);
   font-weight: 700;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
 
 .transfer-target {
   display: flex;
   justify-content: flex-end;
-  font-size: 0.75rem;
-  color: var(--grey-500);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
   margin: 0.4rem 0 1rem;
 }
 
 /* ---------- Bills page ---------- */
 .bills-layout {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 1.5rem;
+  grid-template-columns: clamp(280px, 22vw, 400px) minmax(0, 1fr);
+  gap: var(--gap);
   align-items: start;
 }
 
 .bills-aside {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--gap);
 }
 
 .bills-breakdown li {
@@ -845,9 +1229,9 @@ select {
   justify-content: space-between;
   gap: 1rem;
   padding: 0.65rem 0;
-  border-bottom: 1px solid var(--grey-100);
-  font-size: 0.82rem;
-  color: var(--grey-500);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
 }
 
 .bills-breakdown li:last-child {
@@ -855,71 +1239,106 @@ select {
 }
 
 .bills-breakdown strong {
-  color: var(--grey-900);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
 }
 
 .bills-breakdown .is-warning strong {
   color: var(--red);
 }
 
-/* ---------- Buttons ---------- */
-.btn {
-  border: none;
-  border-radius: 8px;
-  padding: 0.8rem 1.1rem;
-  font-weight: 700;
-  font-size: 0.86rem;
-  cursor: pointer;
-  transition: background-color 150ms var(--ease), color 150ms var(--ease),
-    transform 120ms var(--ease);
+/* ---------- Balance tiles ---------- */
+.balance-label {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  margin-bottom: 0.4rem;
 }
 
+.balance-value {
+  display: block;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--line-strong);
+}
+
+.stat-tile-label {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.stat-tile-value {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1.15rem;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: background-color 150ms var(--ease-quad), color 150ms var(--ease-quad),
+    border-color 150ms var(--ease-quad), transform 140ms var(--ease-quad);
+}
+
+/* Press feedback is felt more than seen — 3% is enough. */
 .btn:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: scale(0.97);
 }
 
 .btn:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .btn-primary {
-  background: var(--grey-900);
-  color: var(--white);
+  background: var(--accent);
+  color: #08120d;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--grey-700);
+  background: #57e0ad;
 }
 
 .btn-soft {
-  background: var(--beige);
-  color: var(--grey-900);
+  background: var(--surface-2);
+  border-color: var(--line-strong);
+  color: var(--ink);
   flex: 1;
 }
 
 .btn-soft:hover:not(:disabled) {
-  background: var(--grey-100);
-  box-shadow: inset 0 0 0 1px var(--grey-300);
+  background: var(--surface-3);
+  border-color: rgb(255 255 255 / 0.26);
 }
 
 .btn-ghost {
   background: none;
-  color: var(--grey-500);
+  color: var(--ink-3);
 }
 
 .btn-ghost:hover:not(:disabled) {
-  color: var(--grey-900);
-  background: var(--beige);
+  color: var(--ink);
+  background: var(--surface-3);
 }
 
 .btn-danger {
   background: var(--red);
-  color: var(--white);
+  color: #1a0705;
 }
 
 .btn-danger:hover:not(:disabled) {
-  background: #a83a2c;
+  background: #ff8377;
 }
 
 .btn-danger-text {
@@ -927,12 +1346,13 @@ select {
 }
 
 .btn-danger-text:hover:not(:disabled) {
-  color: #a83a2c;
+  color: #ff8377;
+  background: var(--red-soft);
 }
 
 .btn-sm {
   padding: 0.4rem 0.6rem;
-  font-size: 0.78rem;
+  font-size: var(--text-xs);
 }
 
 .btn-block {
@@ -948,37 +1368,45 @@ select {
 
 .field label {
   display: block;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   font-weight: 700;
-  color: var(--grey-500);
-  margin-bottom: 0.3rem;
+  color: var(--ink-3);
+  margin-bottom: 0.35rem;
 }
 
 .field input,
 .field select {
   width: 100%;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid var(--grey-300);
-  border-radius: 8px;
-  background: var(--white);
+  padding: 0.72rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--ink);
+  transition: border-color 160ms var(--ease-quad);
+}
+
+.field input:hover,
+.field select:hover {
+  border-color: rgb(255 255 255 / 0.26);
 }
 
 .field-invalid input,
-.field-invalid select {
+.field-invalid select,
+.field-invalid .money-input {
   border-color: var(--red);
 }
 
 .field-error {
-  margin-top: 0.3rem;
-  font-size: 0.75rem;
+  margin-top: 0.35rem;
+  font-size: var(--text-xs);
   color: var(--red);
   font-weight: 600;
 }
 
 .field-hint {
-  margin-top: 0.3rem;
-  font-size: 0.72rem;
-  color: var(--grey-500);
+  margin-top: 0.35rem;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
   text-align: right;
 }
 
@@ -986,14 +1414,14 @@ select {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  border: 1px solid var(--grey-300);
-  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
   padding-left: 0.9rem;
-  background: var(--white);
+  background: var(--surface-2);
 }
 
 .money-input span {
-  color: var(--grey-300);
+  color: var(--ink-3);
   font-weight: 600;
 }
 
@@ -1005,10 +1433,6 @@ select {
 
 .money-input input:focus-visible {
   outline: none;
-}
-
-.field-invalid .money-input {
-  border-color: var(--red);
 }
 
 .select-wrap {
@@ -1034,23 +1458,36 @@ select {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgb(32 31 36 / 0.5);
+  background: rgb(6 7 10 / 0.68);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.25rem;
   z-index: 50;
+  animation: fade-in 220ms var(--ease-quad) both;
 }
 
 .modal {
   width: 100%;
-  max-width: 420px;
+  max-width: 460px;
   max-height: 90vh;
   overflow-y: auto;
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 1.75rem;
-  box-shadow: 0 24px 48px -16px rgb(0 0 0 / 0.4);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: calc(var(--radius) + 2px);
+  padding: clamp(1.4rem, 2vw, 2rem);
+  box-shadow: 0 36px 70px -24px rgb(0 0 0 / 0.85);
+  /* Starts near full size — nothing appears from nothing. */
+  animation: modal-in 280ms var(--ease) both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
 }
 
 .modal-head {
@@ -1062,46 +1499,92 @@ select {
 }
 
 .modal-head h2 {
-  font-size: 1.35rem;
+  font-size: var(--text-xl);
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.03em;
 }
 
 .icon-btn {
   border: none;
   background: none;
-  color: var(--grey-500);
-  font-size: 1.6rem;
+  color: var(--ink-3);
+  font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
   padding: 0 0.25rem;
+  transition: color 150ms var(--ease-quad);
 }
 
 .icon-btn:hover {
-  color: var(--grey-900);
+  color: var(--ink);
 }
 
 .modal-description {
-  color: var(--grey-500);
-  font-size: 0.86rem;
+  color: var(--ink-3);
+  font-size: var(--text-sm);
   margin-bottom: 1.25rem;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 1100px) {
-  .budgets-layout,
-  .bills-layout {
-    grid-template-columns: 1fr;
-  }
+/* ---------- Entrance choreography ---------- */
+/* Staggered, short and shallow: a dashboard is seen often, so the
+   entrance hints at structure without making the user wait. */
+.rise {
+  animation: rise 480ms var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
 
-  .overview-grid {
-    grid-template-columns: 1fr;
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+/* ---------- View transitions ---------- */
+::view-transition-old(page) {
+  animation: vt-page-out 180ms var(--ease-quad) both;
+}
+
+::view-transition-new(page) {
+  animation: vt-page-in 300ms var(--ease) both;
+}
+
+@keyframes vt-page-out {
+  to { opacity: 0; transform: translateY(-8px); filter: blur(2px); }
+}
+
+@keyframes vt-page-in {
+  from { opacity: 0; transform: translateY(12px); filter: blur(2px); }
+}
+
+/* The active pill morphs from the old nav item to the new one. */
+::view-transition-group(nav-indicator) {
+  animation-duration: 340ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+::view-transition-old(nav-indicator),
+::view-transition-new(nav-indicator) {
+  animation: none;
+  mix-blend-mode: normal;
+  height: 100%;
+}
+
+/* ---------- Responsive ---------- */
+@media (min-width: 1100px) {
+  .hero {
+    grid-template-columns: minmax(280px, 1fr) minmax(0, 1.55fr);
   }
 }
 
+@media (max-width: 1100px) {
+  .budgets-layout,
+  .bills-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Below this the sidebar becomes a bottom bar. */
 @media (max-width: 900px) {
   .app-shell {
-    flex-direction: column;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .sidebar {
@@ -1111,69 +1594,64 @@ select {
     order: 2;
     width: 100%;
     height: auto;
-    border-radius: 16px 16px 0 0;
-    padding: 0.5rem 0 0.35rem;
+    border-right: none;
+    border-top: 1px solid var(--line);
+    border-radius: 18px 18px 0 0;
+    padding: 0.4rem 0 0.3rem;
     z-index: 20;
   }
 
-  .brand {
+  .brand,
+  .sidebar-foot {
     display: none;
   }
 
   .nav-list {
     flex-direction: row;
     justify-content: space-around;
-    padding: 0 0.5rem;
+    padding: 0 0.4rem;
     gap: 0;
   }
 
   .nav-link {
     flex-direction: column;
     gap: 0.2rem;
-    padding: 0.6rem 0.5rem 0.5rem;
-    border-left: none;
-    border-bottom: 4px solid transparent;
-    border-radius: 10px 10px 0 0;
+    padding: 0.55rem 0.5rem 0.45rem;
     font-size: 0.68rem;
     text-align: center;
   }
 
-  .nav-link.is-active {
-    border-left-color: transparent;
-    border-bottom-color: var(--green);
+  .nav-indicator::after {
+    left: 22%;
+    right: 22%;
+    top: auto;
+    bottom: 0;
+    width: auto;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
   }
 
   .app-main {
     order: 1;
-    padding: 1.5rem 1.25rem 2rem;
+    padding-bottom: 2rem;
   }
 
-  .balance-row {
-    grid-template-columns: 1fr;
-  }
-
-  .pots-summary,
-  .budget-overview,
   .budget-split {
     grid-template-columns: 1fr;
-  }
-
-  .page-title {
-    font-size: 1.6rem;
   }
 }
 
 @media (max-width: 640px) {
-  .nav-link span {
+  .nav-label {
     display: none;
-  }
-
-  .search-field input {
-    width: 100%;
   }
 
   .search-field {
     flex: 1;
+  }
+
+  .search-field input {
+    width: 100%;
   }
 
   .tx-table thead {
@@ -1185,7 +1663,7 @@ select {
     grid-template-columns: 1fr auto;
     gap: 0.3rem 1rem;
     padding: 0.85rem 0;
-    border-bottom: 1px solid var(--grey-100);
+    border-bottom: 1px solid var(--line);
   }
 
   .tx-table td {
@@ -1200,5 +1678,52 @@ select {
   .tx-table td.align-right {
     grid-column: 2;
     grid-row: 1;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+/* Gentler, not zero: comprehension-carrying fades stay, movement goes. */
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: fade-in 200ms ease both;
+    animation-delay: 0ms;
+  }
+
+  .progress.is-over {
+  outline: 1px solid var(--red);
+  outline-offset: 2px;
+}
+
+.progress-fill {
+    animation: none;
+  }
+
+  .modal {
+    animation: fade-in 180ms ease both;
+  }
+
+  .sidebar-foot-dot {
+    animation: none;
+  }
+
+  .nav-link svg,
+  .link-btn::after {
+    transition: none;
+  }
+
+  ::view-transition-old(page) {
+    animation: fade-out 120ms ease both;
+  }
+
+  ::view-transition-new(page) {
+    animation: fade-in 160ms ease both;
+  }
+
+  ::view-transition-group(nav-indicator) {
+    animation-duration: 1ms;
+  }
+
+  @keyframes fade-out {
+    to { opacity: 0; }
   }
 }

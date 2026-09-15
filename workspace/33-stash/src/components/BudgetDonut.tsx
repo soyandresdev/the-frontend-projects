@@ -1,4 +1,4 @@
-import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { money, moneyWhole } from '../lib/format'
 import type { Budget } from '../types'
 
@@ -20,6 +20,17 @@ export function BudgetDonut({ data, size = 240 }: { data: Slice[]; size?: number
     <div className="donut" style={{ height: size }}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
+          <Tooltip
+            formatter={(value: number, name: string) => [money(value), name]}
+            contentStyle={{
+              background: '#15161c',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: 10,
+              color: '#f4f4f6',
+              fontSize: 12
+            }}
+            itemStyle={{ color: '#f4f4f6' }}
+          />
           <Pie
             data={chartData}
             dataKey="value"
@@ -28,7 +39,10 @@ export function BudgetDonut({ data, size = 240 }: { data: Slice[]; size?: number
             startAngle={90}
             endAngle={-270}
             stroke="none"
-            isAnimationActive={false}
+            paddingAngle={1.5}
+            cornerRadius={6}
+            animationDuration={900}
+            animationEasing="ease-out"
           >
             {chartData.map((slice) => (
               <Cell key={slice.name} fill={slice.fill} />

@@ -143,7 +143,10 @@ export function Budgets() {
   return (
     <>
       <header className="page-head">
-        <h1 className="page-title">Budgets</h1>
+        <div>
+          <p className="page-kicker">Spending limits</p>
+          <h1 className="page-title">Budgets</h1>
+        </div>
         <button type="button" className="btn btn-primary" onClick={() => setForm({ kind: 'add' })}>
           + Add New Budget
         </button>
@@ -155,7 +158,7 @@ export function Budgets() {
         </Card>
       ) : (
         <div className="budgets-layout">
-          <Card className="budgets-chart-card">
+          <Card className="budgets-chart-card rise">
             <BudgetDonut data={rows} size={260} />
             <SectionHeader title="Spending Summary" />
             <ul className="spending-summary">
@@ -171,10 +174,10 @@ export function Budgets() {
           </Card>
 
           <div className="budget-cards">
-            {rows.map(({ budget, spent, remaining }) => {
+            {rows.map(({ budget, spent, remaining }, i) => {
               const latest = latestInCategory(state.transactions, budget.category)
               return (
-                <Card key={budget.id}>
+                <Card key={budget.id} className="rise" style={{ ['--i' as string]: i + 1 }}>
                   <header className="budget-card-head">
                     <h2>
                       <span className="dot" style={{ backgroundColor: budget.theme }} aria-hidden="true" />
@@ -206,7 +209,7 @@ export function Budgets() {
                       <span>Spent</span>
                       <strong>{money(spent)}</strong>
                     </div>
-                    <div style={{ borderLeftColor: '#f8f4f0' }}>
+                    <div>
                       <span>Remaining</span>
                       <strong>{money(remaining)}</strong>
                     </div>

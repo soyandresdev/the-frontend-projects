@@ -45,16 +45,21 @@ export function RecurringBills() {
 
   return (
     <>
-      <h1 className="page-title">Recurring Bills</h1>
+      <header className="page-head">
+        <div>
+          <p className="page-kicker">This month</p>
+          <h1 className="page-title">Recurring Bills</h1>
+        </div>
+      </header>
 
       <div className="bills-layout">
         <div className="bills-aside">
-          <Card tone="dark">
+          <Card tone="dark" className="rise">
             <p className="balance-label">Total bills</p>
             <strong className="balance-value">{money(totals.all)}</strong>
           </Card>
 
-          <Card>
+          <Card className="rise" style={{ ['--i' as string]: 1 }}>
             <h2 className="mini-heading">Summary</h2>
             <ul className="bills-breakdown">
               <li>
@@ -79,7 +84,7 @@ export function RecurringBills() {
           </Card>
         </div>
 
-        <Card className="bills-main">
+        <Card className="bills-main rise" style={{ ['--i' as string]: 2 }}>
           <div className="toolbar">
             <label className="search-field">
               <span className="sr-only">Search bills</span>
