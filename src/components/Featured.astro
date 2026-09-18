@@ -9,7 +9,9 @@ import type { Difficulty } from '../consts'
 import { PROJECTS } from '../consts'
 import { getLang, getLocalized, useTranslatedPath, useTranslations } from '../i18n/utils'
 import { getAccent } from '../utils/color'
+import { splitTags } from '../utils/tech'
 import Button from './Button.astro'
+import TechIcons from './TechIcons.astro'
 
 const lang = getLang(Astro.currentLocale)
 const t = useTranslations(lang)
@@ -30,7 +32,7 @@ const DIFFICULTY_LABEL: Record<Difficulty, string> = {
   intermediate: t('difficulty.intermediate'),
   advanced: t('difficulty.advanced')
 }
-const tags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includes(tag)).slice(0, 5)
+const tags = splitTags(p.tags).topics.slice(0, 5)
 ---
 
 <section class="relative mx-auto w-full max-w-7xl px-6 pb-24 md:px-10">
@@ -61,12 +63,15 @@ const tags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includes(tag)
         >
           <a href={demoHref} class="transition-colors group-hover:text-[var(--glow)]">{title}</a>
         </h2>
-        <p class="mt-5 max-w-lg text-base leading-relaxed text-white/65 md:text-lg">
+        <p
+          class="mt-5 line-clamp-4 max-w-lg text-base leading-relaxed text-white/65 md:line-clamp-5 md:text-lg"
+        >
           {description}
         </p>
+        <TechIcons tags={p.tags} size="md" class="mt-6" />
         {
           tags.length > 0 && (
-            <ul class="mt-6 flex flex-wrap gap-1.5 font-mono text-[10px] tracking-wider text-white/55 uppercase">
+            <ul class="mt-4 flex flex-wrap gap-1.5 font-mono text-[10px] tracking-wider text-white/55 uppercase">
               {tags.map((tag) => (
                 <li class="rounded-full border border-white/10 px-2.5 py-1">{tag}</li>
               ))}

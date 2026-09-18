@@ -2,7 +2,7 @@
 interface Props {
   href: string
   label: string
-  variant?: 'code' | 'demo' | 'video' | 'ghost'
+  variant?: 'code' | 'demo' | 'accent' | 'video' | 'ghost'
   size?: 'sm' | 'md'
   class?: string
 }
@@ -15,6 +15,8 @@ const base =
 const sizes = { sm: 'px-3.5 py-2 text-[13px]', md: 'px-5 py-3 text-sm' }
 const variants = {
   demo: 'bg-white text-ink hover:bg-brand-lime',
+  // color de acento del proyecto: el contenedor define --glow y --glow-ink
+  accent: 'bg-[var(--glow)] text-[var(--glow-ink,var(--color-ink))] hover:brightness-110',
   code: 'border border-white/15 text-white/80 hover:border-white/40 hover:bg-white/5 hover:text-white',
   video:
     'border border-white/15 text-white/80 hover:border-red-400/60 hover:bg-red-500/10 hover:text-white',
@@ -46,7 +48,7 @@ const variants = {
   }
   <span>{label}</span>
   {
-    variant === 'demo' && (
+    (variant === 'demo' || variant === 'accent') && (
       <svg
         viewBox="0 0 24 24"
         class="h-3.5 w-3.5 shrink-0 transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"

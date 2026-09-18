@@ -2,7 +2,9 @@
 import type { Difficulty, Project } from '../consts'
 import { getLang, getLocalized, useTranslatedPath, useTranslations } from '../i18n/utils'
 import { getAccent } from '../utils/color'
+import { splitTags } from '../utils/tech'
 import Button from './Button.astro'
+import TechIcons from './TechIcons.astro'
 
 interface Props {
   project: Project
@@ -45,7 +47,7 @@ const DIFFICULTY_CLASS: Record<Difficulty, string> = {
 
 const accent = await getAccent(p.slug)
 const searchIndex = [title, description, ...p.tags, num].join(' ').toLowerCase()
-const visibleTags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includes(tag)).slice(0, 4)
+const visibleTags = splitTags(p.tags).topics.slice(0, 4)
 ---
 
 <article
@@ -126,15 +128,18 @@ const visibleTags = p.tags.filter((tag) => !['HTML', 'CSS', 'JavaScript'].includ
       </p>
     </div>
 
-    {
-      visibleTags.length > 0 && (
-        <ul class="flex flex-wrap gap-1.5 font-mono text-[10px] tracking-wider text-white/50 uppercase">
-          {visibleTags.map((tag) => (
-            <li class="rounded-full border border-white/10 px-2 py-0.5">{tag}</li>
-          ))}
-        </ul>
-      )
-    }
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+      <TechIcons tags={p.tags} size="sm" />
+      {
+        visibleTags.length > 0 && (
+          <ul class="flex flex-wrap gap-1.5 font-mono text-[10px] tracking-wider text-white/50 uppercase">
+            {visibleTags.map((tag) => (
+              <li class="rounded-full border border-white/10 px-2 py-0.5">{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
 
     <div class="mt-auto flex flex-wrap items-center gap-2 pt-1">
       <Button href={demoHref} label={t('project.demo')} variant="demo" />
