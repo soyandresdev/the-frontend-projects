@@ -1,6 +1,6 @@
 # The Frontend Projects
 
-[![Live site](https://img.shields.io/badge/Live-thefrontendprojects.dev-22c55e?style=flat-square)](https://thefrontendprojects.dev)
+[![Live site](https://img.shields.io/badge/Live-thefrontendprojects.soyandres.dev-22c55e?style=flat-square)](https://thefrontendprojects.soyandres.dev)
 [![Last commit](https://img.shields.io/github/last-commit/soyandresdev/the-frontend-projects?style=flat-square&color=8b5cf6)](https://github.com/soyandresdev/the-frontend-projects/commits/main)
 [![Built with Astro](https://img.shields.io/badge/Astro-5-ff5d01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
 [![GSAP](https://img.shields.io/badge/GSAP-3-88ce02?style=flat-square)](https://gsap.com)
@@ -14,7 +14,7 @@
 
 The collection deliberately spans the whole difficulty ladder. Early entries are focused vanilla HTML, CSS and JavaScript pieces. Later entries take on Frontend Mentor's Advanced and Guru tiers and move to React, TypeScript and Vite, with the same bar for motion and craft. Throughout, GSAP handles timelines, Flip shared-element transitions and scroll-driven sequences, and the standing rule is to design for large displays first: fluid type scales, explicit grid columns and layouts verified at 1440, 1920 and 2560 pixels.
 
-Browse everything at **[thefrontendprojects.dev](https://thefrontendprojects.dev)** (English and Spanish).
+Browse everything at **[thefrontendprojects.soyandres.dev](https://thefrontendprojects.soyandres.dev)** (English and Spanish).
 
 ---
 
@@ -36,39 +36,40 @@ Difficulty follows the site's three tiers. Stack is the main runtime of each dem
 
 | # | Project | Difficulty | Stack | Tech | Links |
 | --- | --- | --- | --- | --- | --- |
-| 01 | **CSS Cards Hover Effects** | beginner | Vanilla | `hover` `cards` | [demo](https://thefrontendprojects.dev/demo/01-css_cards_hover_effects/) · [details](https://thefrontendprojects.dev/projects/01-css_cards_hover_effects/) |
-| 02 | **CyberNoodles — 3D Restaurant Landing** | advanced | Three.js | `ThreeJs` `GSAP` `ScrollTrigger` | [demo](https://thefrontendprojects.dev/demo/02-landingpage_3d_restaurant/) · [details](https://thefrontendprojects.dev/projects/02-landingpage_3d_restaurant/) |
-| 03 | **Scroll-Animated Landing Page** | intermediate | Vanilla | `scroll animation` `GSAP` `vite` | [demo](https://thefrontendprojects.dev/demo/03-scroll-animation/) · [details](https://thefrontendprojects.dev/projects/03-scroll-animation/) |
-| 04 | **Pulse Quiz** | beginner | Vanilla | `GSAP` `quiz` `animation` | [demo](https://thefrontendprojects.dev/demo/04-quiz-game/) · [details](https://thefrontendprojects.dev/projects/04-quiz-game/) |
-| 05 | **Inkline** | beginner | Vanilla | `scroll` `progress` `animation-timeline` | [demo](https://thefrontendprojects.dev/demo/05-inkline/) · [details](https://thefrontendprojects.dev/projects/05-inkline/) |
-| 06 | **Strongbox** | intermediate | Vanilla | `password` `forms` `validation` | [demo](https://thefrontendprojects.dev/demo/06-strongbox/) · [details](https://thefrontendprojects.dev/projects/06-strongbox/) |
-| 07 | **Masthead** | beginner | Vanilla | `team` `editorial` `grid` | [demo](https://thefrontendprojects.dev/demo/07-masthead/) · [details](https://thefrontendprojects.dev/projects/07-masthead/) |
-| 08 | **Stray** | intermediate | Vanilla | `404` `drag` `spring physics` | [demo](https://thefrontendprojects.dev/demo/08-stray/) · [details](https://thefrontendprojects.dev/projects/08-stray/) |
-| 09 | **Flapboard** | intermediate | Vanilla | `countdown` `split-flap` `Web Animations API` | [demo](https://thefrontendprojects.dev/demo/09-flapboard/) · [details](https://thefrontendprojects.dev/projects/09-flapboard/) |
-| 10 | **Noughts** | beginner | Vanilla | `game` `tic-tac-toe` `neubrutalism` | [demo](https://thefrontendprojects.dev/demo/10-noughts/) · [details](https://thefrontendprojects.dev/projects/10-noughts/) |
-| 11 | **Presence** | beginner | Vanilla | `avatars` `tooltip` `presence` | [demo](https://thefrontendprojects.dev/demo/11-presence/) · [details](https://thefrontendprojects.dev/projects/11-presence/) |
-| 12 | **Tally** | beginner | Vanilla | `dashboard` `stats` `count-up` | [demo](https://thefrontendprojects.dev/demo/12-tally/) · [details](https://thefrontendprojects.dev/projects/12-tally/) |
-| 13 | **Eclipse** | intermediate | Vanilla | `dark mode` `view transitions` `theming` | [demo](https://thefrontendprojects.dev/demo/13-eclipse/) · [details](https://thefrontendprojects.dev/projects/13-eclipse/) |
-| 14 | **Ticker** | intermediate | Vanilla | `dashboard` `crypto` `sparkline` | [demo](https://thefrontendprojects.dev/demo/14-ticker/) · [details](https://thefrontendprojects.dev/projects/14-ticker/) |
-| 15 | **Popper** | intermediate | Vanilla | `canvas` `confetti` `particles` | [demo](https://thefrontendprojects.dev/demo/15-popper/) · [details](https://thefrontendprojects.dev/projects/15-popper/) |
-| 16 | **Cardface** | intermediate | Vanilla | `forms` `validation` `3d` | [demo](https://thefrontendprojects.dev/demo/16-cardface/) · [details](https://thefrontendprojects.dev/projects/16-cardface/) |
-| 17 | **Crumb** | beginner | Vanilla | `cookies` `consent` `localStorage` | [demo](https://thefrontendprojects.dev/demo/17-crumb/) · [details](https://thefrontendprojects.dev/projects/17-crumb/) |
-| 18 | **Stopover** | intermediate | Vanilla | `search` `autocomplete` `countries` | [demo](https://thefrontendprojects.dev/demo/18-stopover/) · [details](https://thefrontendprojects.dev/projects/18-stopover/) |
-| 19 | **Nametag** | intermediate | Vanilla | `search` `autocomplete` `animation` | [demo](https://thefrontendprojects.dev/demo/19-nametag/) · [details](https://thefrontendprojects.dev/projects/19-nametag/) |
-| 20 | **Boothstrip** | intermediate | Vanilla | `avatar` `canvas` `animation` | [demo](https://thefrontendprojects.dev/demo/20-boothstrip/) · [details](https://thefrontendprojects.dev/projects/20-boothstrip/) |
-| 21 | **Umbra** | beginner | Vanilla | `css-generator` `range-input` `clipboard` | [demo](https://thefrontendprojects.dev/demo/21-umbra/) · [details](https://thefrontendprojects.dev/projects/21-umbra/) |
-| 22 | **Sealed** | beginner | Vanilla | `forms` `validation` `animation` | [demo](https://thefrontendprojects.dev/demo/22-sealed/) · [details](https://thefrontendprojects.dev/projects/22-sealed/) |
-| 23 | **Wavelength** | intermediate | Vanilla | `forms` `layout` `animation` | [demo](https://thefrontendprojects.dev/demo/23-wavelength/) · [details](https://thefrontendprojects.dev/projects/23-wavelength/) |
-| 24 | **Ledger** | intermediate | Vanilla | `localStorage` `forms` `animation` | [demo](https://thefrontendprojects.dev/demo/24-ledger/) · [details](https://thefrontendprojects.dev/projects/24-ledger/) |
-| 25 | **Beltline** | intermediate | Vanilla | `cart` `state` `animation` | [demo](https://thefrontendprojects.dev/demo/25-beltline/) · [details](https://thefrontendprojects.dev/projects/25-beltline/) |
-| 26 | **Bureau** | intermediate | Vanilla | `currency` `conversion` `animation` | [demo](https://thefrontendprojects.dev/demo/26-bureau/) · [details](https://thefrontendprojects.dev/projects/26-bureau/) |
-| 27 | **Pinboard** | advanced | Vanilla | `drag-and-drop` `localStorage` `animation` | [demo](https://thefrontendprojects.dev/demo/27-pinboard/) · [details](https://thefrontendprojects.dev/projects/27-pinboard/) |
-| 28 | **Scanline** | advanced | Vanilla | `canvas` `QR code` `export` | [demo](https://thefrontendprojects.dev/demo/28-scanline/) · [details](https://thefrontendprojects.dev/projects/28-scanline/) |
-| 29 | **Swatchbook** | advanced | Vanilla | `color-theory` `accessibility` `clipboard` | [demo](https://thefrontendprojects.dev/demo/29-swatchbook/) · [details](https://thefrontendprojects.dev/projects/29-swatchbook/) |
-| 30 | **Mise** | advanced | Vanilla | `GSAP` `API` `localStorage` | [demo](https://thefrontendprojects.dev/demo/30-mise/) · [details](https://thefrontendprojects.dev/projects/30-mise/) |
-| 31 | **Dex Unit 01** | advanced | Vanilla | `GSAP` `API` `3d-transforms` | [demo](https://thefrontendprojects.dev/demo/31-pokedex/) · [details](https://thefrontendprojects.dev/projects/31-pokedex/) |
-| 32 | **Overtake** | advanced | Vanilla | `GSAP` `FLIP` `animation` | [demo](https://thefrontendprojects.dev/demo/32-overtake/) · [details](https://thefrontendprojects.dev/projects/32-overtake/) |
-| 33 | **Stash** | advanced | React + TS | `React` `TypeScript` `Vite` | [demo](https://thefrontendprojects.dev/demo/33-stash/) · [details](https://thefrontendprojects.dev/projects/33-stash/) |
+| 01 | **CSS Cards Hover Effects** | beginner | Vanilla | `hover` `cards` | [demo](https://thefrontendprojects.soyandres.dev/demo/01-css_cards_hover_effects/) · [details](https://thefrontendprojects.soyandres.dev/projects/01-css_cards_hover_effects/) |
+| 02 | **CyberNoodles — 3D Restaurant Landing** | advanced | Three.js | `ThreeJs` `GSAP` `ScrollTrigger` | [demo](https://thefrontendprojects.soyandres.dev/demo/02-landingpage_3d_restaurant/) · [details](https://thefrontendprojects.soyandres.dev/projects/02-landingpage_3d_restaurant/) |
+| 03 | **Scroll-Animated Landing Page** | intermediate | Vanilla | `scroll animation` `GSAP` `vite` | [demo](https://thefrontendprojects.soyandres.dev/demo/03-scroll-animation/) · [details](https://thefrontendprojects.soyandres.dev/projects/03-scroll-animation/) |
+| 04 | **Pulse Quiz** | beginner | Vanilla | `GSAP` `quiz` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/04-quiz-game/) · [details](https://thefrontendprojects.soyandres.dev/projects/04-quiz-game/) |
+| 05 | **Inkline** | beginner | Vanilla | `scroll` `progress` `animation-timeline` | [demo](https://thefrontendprojects.soyandres.dev/demo/05-inkline/) · [details](https://thefrontendprojects.soyandres.dev/projects/05-inkline/) |
+| 06 | **Strongbox** | intermediate | Vanilla | `password` `forms` `validation` | [demo](https://thefrontendprojects.soyandres.dev/demo/06-strongbox/) · [details](https://thefrontendprojects.soyandres.dev/projects/06-strongbox/) |
+| 07 | **Masthead** | beginner | Vanilla | `team` `editorial` `grid` | [demo](https://thefrontendprojects.soyandres.dev/demo/07-masthead/) · [details](https://thefrontendprojects.soyandres.dev/projects/07-masthead/) |
+| 08 | **Stray** | intermediate | Vanilla | `404` `drag` `spring physics` | [demo](https://thefrontendprojects.soyandres.dev/demo/08-stray/) · [details](https://thefrontendprojects.soyandres.dev/projects/08-stray/) |
+| 09 | **Flapboard** | intermediate | Vanilla | `countdown` `split-flap` `Web Animations API` | [demo](https://thefrontendprojects.soyandres.dev/demo/09-flapboard/) · [details](https://thefrontendprojects.soyandres.dev/projects/09-flapboard/) |
+| 10 | **Noughts** | beginner | Vanilla | `game` `tic-tac-toe` `neubrutalism` | [demo](https://thefrontendprojects.soyandres.dev/demo/10-noughts/) · [details](https://thefrontendprojects.soyandres.dev/projects/10-noughts/) |
+| 11 | **Presence** | beginner | Vanilla | `avatars` `tooltip` `presence` | [demo](https://thefrontendprojects.soyandres.dev/demo/11-presence/) · [details](https://thefrontendprojects.soyandres.dev/projects/11-presence/) |
+| 12 | **Tally** | beginner | Vanilla | `dashboard` `stats` `count-up` | [demo](https://thefrontendprojects.soyandres.dev/demo/12-tally/) · [details](https://thefrontendprojects.soyandres.dev/projects/12-tally/) |
+| 13 | **Eclipse** | intermediate | Vanilla | `dark mode` `view transitions` `theming` | [demo](https://thefrontendprojects.soyandres.dev/demo/13-eclipse/) · [details](https://thefrontendprojects.soyandres.dev/projects/13-eclipse/) |
+| 14 | **Ticker** | intermediate | Vanilla | `dashboard` `crypto` `sparkline` | [demo](https://thefrontendprojects.soyandres.dev/demo/14-ticker/) · [details](https://thefrontendprojects.soyandres.dev/projects/14-ticker/) |
+| 15 | **Popper** | intermediate | Vanilla | `canvas` `confetti` `particles` | [demo](https://thefrontendprojects.soyandres.dev/demo/15-popper/) · [details](https://thefrontendprojects.soyandres.dev/projects/15-popper/) |
+| 16 | **Cardface** | intermediate | Vanilla | `forms` `validation` `3d` | [demo](https://thefrontendprojects.soyandres.dev/demo/16-cardface/) · [details](https://thefrontendprojects.soyandres.dev/projects/16-cardface/) |
+| 17 | **Crumb** | beginner | Vanilla | `cookies` `consent` `localStorage` | [demo](https://thefrontendprojects.soyandres.dev/demo/17-crumb/) · [details](https://thefrontendprojects.soyandres.dev/projects/17-crumb/) |
+| 18 | **Stopover** | intermediate | Vanilla | `search` `autocomplete` `countries` | [demo](https://thefrontendprojects.soyandres.dev/demo/18-stopover/) · [details](https://thefrontendprojects.soyandres.dev/projects/18-stopover/) |
+| 19 | **Nametag** | intermediate | Vanilla | `search` `autocomplete` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/19-nametag/) · [details](https://thefrontendprojects.soyandres.dev/projects/19-nametag/) |
+| 20 | **Boothstrip** | intermediate | Vanilla | `avatar` `canvas` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/20-boothstrip/) · [details](https://thefrontendprojects.soyandres.dev/projects/20-boothstrip/) |
+| 21 | **Umbra** | beginner | Vanilla | `css-generator` `range-input` `clipboard` | [demo](https://thefrontendprojects.soyandres.dev/demo/21-umbra/) · [details](https://thefrontendprojects.soyandres.dev/projects/21-umbra/) |
+| 22 | **Sealed** | beginner | Vanilla | `forms` `validation` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/22-sealed/) · [details](https://thefrontendprojects.soyandres.dev/projects/22-sealed/) |
+| 23 | **Wavelength** | intermediate | Vanilla | `forms` `layout` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/23-wavelength/) · [details](https://thefrontendprojects.soyandres.dev/projects/23-wavelength/) |
+| 24 | **Ledger** | intermediate | Vanilla | `localStorage` `forms` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/24-ledger/) · [details](https://thefrontendprojects.soyandres.dev/projects/24-ledger/) |
+| 25 | **Beltline** | intermediate | Vanilla | `cart` `state` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/25-beltline/) · [details](https://thefrontendprojects.soyandres.dev/projects/25-beltline/) |
+| 26 | **Bureau** | intermediate | Vanilla | `currency` `conversion` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/26-bureau/) · [details](https://thefrontendprojects.soyandres.dev/projects/26-bureau/) |
+| 27 | **Pinboard** | advanced | Vanilla | `drag-and-drop` `localStorage` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/27-pinboard/) · [details](https://thefrontendprojects.soyandres.dev/projects/27-pinboard/) |
+| 28 | **Scanline** | advanced | Vanilla | `canvas` `QR code` `export` | [demo](https://thefrontendprojects.soyandres.dev/demo/28-scanline/) · [details](https://thefrontendprojects.soyandres.dev/projects/28-scanline/) |
+| 29 | **Swatchbook** | advanced | Vanilla | `color-theory` `accessibility` `clipboard` | [demo](https://thefrontendprojects.soyandres.dev/demo/29-swatchbook/) · [details](https://thefrontendprojects.soyandres.dev/projects/29-swatchbook/) |
+| 30 | **Mise** | advanced | Vanilla | `GSAP` `API` `localStorage` | [demo](https://thefrontendprojects.soyandres.dev/demo/30-mise/) · [details](https://thefrontendprojects.soyandres.dev/projects/30-mise/) |
+| 31 | **Dex Unit 01** | advanced | Vanilla | `GSAP` `API` `3d-transforms` | [demo](https://thefrontendprojects.soyandres.dev/demo/31-pokedex/) · [details](https://thefrontendprojects.soyandres.dev/projects/31-pokedex/) |
+| 32 | **Overtake** | advanced | Vanilla | `GSAP` `FLIP` `animation` | [demo](https://thefrontendprojects.soyandres.dev/demo/32-overtake/) · [details](https://thefrontendprojects.soyandres.dev/projects/32-overtake/) |
+| 33 | **Stash** | advanced | React + TS | `React` `TypeScript` `Vite` | [demo](https://thefrontendprojects.soyandres.dev/demo/33-stash/) · [details](https://thefrontendprojects.soyandres.dev/projects/33-stash/) |
+| 34 | **Cielo Negro — Rap Album Site** | advanced | Three.js | `GSAP` `WebGL` `i18n` | [demo](https://thefrontendprojects.soyandres.dev/demo/34-black-sky/) · [details](https://thefrontendprojects.soyandres.dev/projects/34-black-sky/) |
 
 Newer projects sit at the bottom. The latest one is always featured on the homepage.
 
@@ -160,6 +161,6 @@ npm run dev
 **Andres Hernandez Lozano**
 Frontend developer based in Melbourne, VIC.
 
-[thefrontendprojects.dev](https://thefrontendprojects.dev) · [@soyandresdev](https://github.com/soyandresdev) · soyandresdev@gmail.com
+[thefrontendprojects.soyandres.dev](https://thefrontendprojects.soyandres.dev) · [@soyandresdev](https://github.com/soyandresdev) · soyandresdev@gmail.com
 
 Made with care and lots of coffee.

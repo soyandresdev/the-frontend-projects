@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://thefrontendprojects.dev',
+  site: 'https://thefrontendprojects.soyandres.dev',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es'],
@@ -52,7 +52,7 @@ export default defineConfig({
     preview: {
       allowedHosts: [
         'thefrontendprojects-sitioweb-ms262o-e92d27-138-201-188-139.traefik.me',
-        'thefrontendprojects.dev',
+        'thefrontendprojects.soyandres.dev',
         'localhost'
       ]
     }
