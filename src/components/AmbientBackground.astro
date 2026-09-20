@@ -2,9 +2,20 @@
 
 ---
 
-<!-- g5 (opcional interactive): cyan soft -->
+<!-- base: el degradado del sitio, anclado al viewport. Antes vivía en el
+     contenedor de la página, que mide todo el scroll: el degradado se estiraba
+     y se veía azul durante pantallas enteras antes de llegar al tono oscuro. -->
 <div
-  class="absolute -top-1/2 left-0 block h-full w-full bg-[radial-gradient(circle,rgba(var(--clr-cyan)_/_0.6)_0%,rgba(var(--clr-cyan)_/_0)_50%)] opacity-70 md:hidden"
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(40deg,rgb(var(--bg-dark)),rgb(var(--bg-light)))]"
+>
+</div>
+
+<!-- g5 (opcional interactive): cyan soft. Fijo y a una pantalla de alto, para
+     que el halo se quede arriba en vez de crecer con la página. -->
+<div
+  aria-hidden="true"
+  class="pointer-events-none fixed top-[-50svh] left-0 z-0 block h-[100svh] w-full bg-[radial-gradient(circle,rgba(var(--clr-cyan)_/_0.6)_0%,rgba(var(--clr-cyan)_/_0)_50%)] opacity-70 md:hidden"
 >
 </div>
 
