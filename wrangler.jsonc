@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "the-frontend-projects",
+  "compatibility_date": "2026-09-20",
+  // static site: Astro builds to dist/ and Workers serves it as assets,
+  // so there is no worker script (no "main")
+  "assets": {
+    "directory": "./dist",
+    // /projects/x/ -> /projects/x/index.html, and the demos under /demo/<slug>/
+    "html_handling": "auto-trailing-slash",
+    // unknown paths render the Astro 404 page
+    "not_found_handling": "404-page"
+  }
+}
