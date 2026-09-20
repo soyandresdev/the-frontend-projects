@@ -1,0 +1,515 @@
+@font-face {
+  font-family: "De Fonte Plus";
+  src: url("/fonts/de-fonte-plus.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DM Mono";
+  src: url("/fonts/dm-mono.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/space-grotesk.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: normal;
+}
+
+:root {
+  /* cielo negro — blue-black night + electric blue */
+  --bg: #07090c;
+  --fg: #3d7dff;
+  --type-1: "De Fonte Plus", sans-serif;
+  --type-2: "Space Grotesk", sans-serif;
+  --type-3: "DM Mono", monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* film grain over everything */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 99999;
+  animation: grain 1s steps(4) infinite;
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+}
+
+::selection {
+  background-color: var(--fg);
+  color: var(--bg);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
+}
+
+/* type — fluid scale, tuned for 1440 → 2560 screens */
+h1,
+h1.type-var-1,
+h2,
+h2.type-var-1,
+h3,
+h3.type-var-1 {
+  text-transform: uppercase;
+  font-family: var(--type-1);
+  font-weight: 500;
+  line-height: 0.82;
+  margin-top: 0.5rem;
+}
+
+h1,
+h1.type-var-1 {
+  font-size: clamp(3rem, 8vw, 13rem);
+  letter-spacing: -0.045em;
+}
+
+h2,
+h2.type-var-1 {
+  font-size: clamp(2.25rem, 4.6vw, 7.5rem);
+  letter-spacing: -0.04em;
+}
+
+h3,
+h3.type-var-1 {
+  font-size: clamp(1.6rem, 2.4vw, 4rem);
+  letter-spacing: -0.02em;
+}
+
+h1.type-var-2,
+h2.type-var-2,
+h3.type-var-2 {
+  text-transform: none;
+  font-family: var(--type-2);
+  font-weight: 400;
+  line-height: 0.95;
+}
+
+h1.type-var-2 {
+  font-size: clamp(3.25rem, 7vw, 11rem);
+  letter-spacing: -0.06em;
+}
+
+h2.type-var-2 {
+  font-size: clamp(2.5rem, 4.4vw, 7rem);
+  letter-spacing: -0.05em;
+}
+
+h3.type-var-2 {
+  font-size: clamp(2rem, 3vw, 4.75rem);
+  letter-spacing: -0.04em;
+}
+
+/* type — body copy + mono labels */
+p {
+  font-family: var(--type-2);
+  font-size: clamp(1rem, 0.45vw + 0.8rem, 1.45rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+p.md {
+  font-size: clamp(1.25rem, 1.1vw + 0.6rem, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+p.lg {
+  font-size: clamp(1.4rem, 1.5vw + 0.6rem, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+a,
+button.type-mono,
+p.type-mono,
+span.type-mono {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: var(--type-3);
+  font-size: clamp(0.72rem, 0.2vw + 0.62rem, 0.95rem);
+  letter-spacing: 0.02em;
+  padding: 0;
+  color: var(--fg);
+}
+
+.container {
+  width: 100%;
+  padding: 2rem clamp(1.25rem, 2vw, 3rem);
+  max-width: 2560px;
+  margin: 0 auto;
+}
+
+/* preloader lock */
+html.is-loading,
+html.is-loading body {
+  overflow: hidden;
+}
+
+/* section label — "(01) — Manifiesto" */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0.7;
+}
+
+.section-label::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--fg);
+  border-radius: 50%;
+}
+
+/* pill button — solid and ghost */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 1.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--fg);
+  background-color: var(--fg);
+  color: var(--bg);
+  font-family: var(--type-3);
+  font-size: clamp(0.78rem, 0.2vw + 0.68rem, 1rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--bg);
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: -1;
+}
+
+.btn.ghost {
+  background-color: transparent;
+  color: var(--fg);
+}
+
+.btn.ghost::before {
+  background-color: var(--fg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    color: var(--fg);
+  }
+
+  .btn.ghost:hover {
+    color: var(--bg);
+  }
+
+  .btn:hover::before {
+    transform: translateY(0);
+  }
+}
+
+.btn:active {
+  scale: 0.97;
+}
+
+.btn:focus-visible,
+.sound-toggle:focus-visible {
+  outline: 1px solid var(--fg);
+  outline-offset: 4px;
+}
+
+/* sound toggle — lives in the nav, left of the language switch */
+.sound-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.sound-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 0.8rem;
+}
+
+.sound-bars i {
+  width: 2px;
+  height: 100%;
+  background-color: var(--fg);
+  transform: scaleY(0.2);
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+}
+
+.sound-toggle .sound-label {
+  opacity: 0.4;
+  transition: opacity 0.2s ease-out;
+}
+
+.sound-toggle.is-on .sound-label {
+  opacity: 1;
+}
+
+.sound-toggle.is-on .sound-bars i {
+  animation: sound-bar 0.9s ease-in-out infinite alternate;
+}
+
+.sound-toggle.is-on .sound-bars i:nth-child(2) {
+  animation-duration: 0.6s;
+  animation-delay: -0.3s;
+}
+
+.sound-toggle.is-on .sound-bars i:nth-child(3) {
+  animation-duration: 0.75s;
+  animation-delay: -0.5s;
+}
+
+.sound-toggle.is-on .sound-bars i:nth-child(4) {
+  animation-duration: 0.5s;
+  animation-delay: -0.1s;
+}
+
+@keyframes sound-bar {
+  from {
+    transform: scaleY(0.2);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound-toggle.is-on .sound-bars i {
+    animation: none;
+    transform: scaleY(0.7);
+  }
+}
+
+@media (max-width: 1000px) {
+  .sound-toggle {
+    margin-right: 1rem;
+  }
+
+  .sound-toggle .sound-label {
+    display: none;
+  }
+}
+
+/* custom cursor — only added on fine pointers (js/cursor.js) */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+html.has-cursor input,
+html.has-cursor textarea {
+  cursor: text !important;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100001;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+html.cursor-visible .cursor-dot,
+html.cursor-visible .cursor-ring {
+  opacity: 1;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background-color: var(--fg);
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: -1.25rem 0 0 -1.25rem;
+  display: grid;
+  place-items: center;
+}
+
+.cursor-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--fg);
+  border-radius: 50%;
+  opacity: 0.5;
+  transition:
+    transform 0.45s cubic-bezier(0.19, 1, 0.22, 1),
+    background-color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.cursor-ring.is-hover::before {
+  transform: scale(1.5);
+  opacity: 1;
+}
+
+.cursor-ring.is-label::before {
+  transform: scale(2.4);
+  background-color: var(--fg);
+  opacity: 1;
+}
+
+.cursor-ring.is-down::before {
+  transform: scale(0.85);
+}
+
+.cursor-ring.is-label.is-down::before {
+  transform: scale(2.2);
+}
+
+.cursor-label {
+  position: relative;
+  white-space: nowrap;
+  color: var(--bg);
+  font-size: 0.7rem;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 0.2s ease,
+    transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cursor-ring.is-label .cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* diffuse text-animation */
+[data-animate-variant="diffuse"] {
+  filter: url(#blur-matrix) blur(0.25px);
+  -webkit-filter: url(#blur-matrix) blur(0.25px);
+}
+
+[data-animate-variant="diffuse"] .word {
+  filter: blur(75px);
+  -webkit-filter: blur(75px);
+  will-change: filter, opacity;
+  opacity: 0;
+}
+
+/* split-reveal text-animation.
+   Las máscaras de SplitText recortan a la caja de línea, y con line-height
+   por debajo de 1 la tinta de las mayúsculas sobresale por arriba: sin este
+   relleno, los títulos salen con los remates rebanados. Medido en De Fonte
+   Plus, la tinta sube 0.222em sobre la caja con line-height 0.82, y 0.242em
+   con 0.78: 0.35em deja margen de sobra. El margen negativo deja la
+   maquetación igual. */
+.line,
+.word,
+.char {
+  position: relative;
+  will-change: transform;
+  padding-top: 0.35em;
+  margin-top: -0.35em;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+
+/* page transition grid */
+.transition-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  overflow: hidden;
+  z-index: 100000;
+}
+
+.transition-block {
+  background-color: var(--fg);
+  will-change: opacity;
+  opacity: 0;
+}

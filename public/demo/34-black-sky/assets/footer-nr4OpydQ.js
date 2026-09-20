@@ -1,0 +1,1 @@
+import{g as o,S as t}from"./animated-copy-RwOj4JyF.js";o.registerPlugin(t);document.addEventListener("DOMContentLoaded",()=>{setTimeout(()=>{a(),t.refresh()},150)});function a(){const e=document.querySelector(".footer-container");e&&t.create({trigger:"footer",start:"top bottom",end:"bottom bottom",scrub:!0,onUpdate:r=>{const n=-35*(1-r.progress);o.set(e,{y:`${n}%`})}})}

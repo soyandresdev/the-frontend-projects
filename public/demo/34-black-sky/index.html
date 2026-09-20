@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="meta.title.home">Santo Vøid — Cielo Negro</title>
+    <meta name="author" content="Santo Vøid" />
+    <meta
+      name="description"
+      content="Cielo Negro — el nuevo álbum de Santo Vøid. 8 canciones. Estática Records, 2026."
+      data-i18n-attr="content:meta.description"
+    />
+    <meta name="theme-color" content="#07090c" />
+    <meta property="og:title" content="Santo Vøid — Cielo Negro" />
+    <meta property="og:image" content="art/cover.jpg" />
+    <link rel="icon" type="image/png" href="/demo/34-black-sky/brand/favicon.png" />
+
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script type="module" crossorigin src="/demo/34-black-sky/assets/main-BCWIQM7j.js"></script>
+    <link rel="modulepreload" crossorigin href="/demo/34-black-sky/assets/animated-copy-RwOj4JyF.js">
+    <link rel="modulepreload" crossorigin href="/demo/34-black-sky/assets/footer-nr4OpydQ.js">
+    <link rel="stylesheet" crossorigin href="/demo/34-black-sky/assets/animated-copy-A0Z_zvEX.css">
+    <link rel="stylesheet" crossorigin href="/demo/34-black-sky/assets/footer-DONJRn5C.css">
+    <link rel="stylesheet" crossorigin href="/demo/34-black-sky/assets/main-DSnLCZUs.css">
+  </head>
+  <body>
+    <div class="preloader">
+      <div class="preloader-grid">
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      <div class="preloader-block"></div>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-bar-indicator"></div>
+
+        <div class="progress-bar-copy">
+          <p class="type-mono">
+            &#9654; <span data-i18n="preloader.loading">Cargando</span> —
+            <span class="progress-value">0%</span>
+          </p>
+          <p class="type-mono" data-i18n="preloader.boot">
+            Cielo Negro — Encendiendo
+          </p>
+        </div>
+      </div>
+
+      <div class="preloader-enter" hidden>
+        <button type="button" class="enter-btn" data-enter="sound">
+          <span class="enter-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span data-i18n="preloader.enter.sound">Entrar con sonido</span>
+        </button>
+        <button type="button" class="enter-btn ghost" data-enter="mute">
+          <span data-i18n="preloader.enter.mute">Sin sonido</span>
+        </button>
+        <p class="type-mono" data-i18n="preloader.enter.hint">Mejor con audífonos</p>
+      </div>
+    </div>
+
+    <div class="transition-grid">
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+      <div class="transition-block"></div>
+    </div>
+
+    <script>
+      if (sessionStorage.getItem("black-sky:pageTransition") === "true") {
+        const grid = document.querySelector(".transition-grid");
+        if (grid) {
+          grid.style.backgroundColor = "var(--bg)";
+          grid.style.zIndex = "1000";
+          grid.style.pointerEvents = "auto";
+        }
+        const blocks = grid.querySelectorAll(".transition-block");
+        blocks.forEach((block) => {
+          block.style.opacity = "1";
+        });
+      }
+    </script>
+
+    <nav>
+      <div class="container">
+        <div class="nav-clock">
+          <p class="type-mono">18 <span>:</span> 25 CST</p>
+        </div>
+
+        <div class="nav-logo">
+          <a href="index.html" aria-label="Santo Vøid">
+            <span class="logo-mark"></span>
+          </a>
+        </div>
+
+        <div class="nav-location">
+          <button
+            type="button"
+            class="type-mono lang-switch"
+            data-lang-switch
+            aria-label="Cambiar idioma"
+            data-i18n-attr="aria-label:nav.switch"
+          >
+            <ion-icon name="triangle-sharp"></ion-icon>
+            <span data-lang="es">ES</span> / <span data-lang="en">EN</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="menu-toggle-btn"
+      role="button"
+      tabindex="0"
+      aria-label="Abrir menú"
+      data-i18n-attr="aria-label:menu.open"
+    >
+      <div class="hamburger-bar"></div>
+      <div class="hamburger-bar"></div>
+    </div>
+
+    <div class="menu-overlay">
+      <div class="menu-bg">
+        <canvas id="menu-canvas"></canvas>
+      </div>
+
+      <div class="menu-overlay-nav">
+        <div class="close-btn">
+          <div class="close-btn-bar"></div>
+          <div class="close-btn-bar"></div>
+        </div>
+
+        <div class="menu-overlay-items">
+          <a class="type-mono" href="#" target="_blank" rel="noopener noreferrer"
+            >Spotify</a
+          >
+          <a class="type-mono" href="#" target="_blank" rel="noopener noreferrer"
+            >Instagram</a
+          >
+        </div>
+      </div>
+
+      <div class="menu-overlay-footer">
+        <a class="type-mono" href="studio.html" data-i18n="menu.footer.studio"
+          >Entrar al estudio</a
+        >
+        <a class="type-mono" href="contact.html" data-i18n="menu.footer.contact"
+          >Booking</a
+        >
+      </div>
+
+      <div class="circular-menu">
+        <div class="joystick">
+          <ion-icon name="grid-sharp" class="center-icon center-main"></ion-icon>
+          <ion-icon name="chevron-up-sharp" class="center-icon center-up"></ion-icon>
+          <ion-icon name="chevron-down-sharp" class="center-icon center-down"></ion-icon>
+          <ion-icon name="chevron-back-sharp" class="center-icon center-left"></ion-icon>
+          <ion-icon name="chevron-forward-sharp" class="center-icon center-right"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-bg" aria-hidden="true">
+      <canvas id="skyline"></canvas>
+      <div class="home-bg-fade"></div>
+    </div>
+
+    <main class="home">
+      <!-- hero -->
+      <section class="hero">
+        <div class="hero-top container">
+          <p
+            class="md"
+            data-i18n="home.subtitle"
+            data-animate-variant="slide"
+            data-animate-type="words"
+            data-animate-on-scroll="false"
+            data-animate-delay="0.6"
+          >
+            El nuevo álbum de Santo Vøid
+          </p>
+          <p
+            class="type-mono"
+            data-i18n="home.specs"
+            data-animate-variant="flicker"
+            data-animate-on-scroll="false"
+            data-animate-delay="0.9"
+          >
+            08 canciones / 27:48
+          </p>
+        </div>
+
+        <div class="hero-stage">
+          <a
+            href="tracklist.html"
+            class="hero-cover"
+            aria-label="Tracklist"
+            data-cursor="Tracklist"
+          >
+            <span class="hero-cover-inner">
+              <img src="/demo/34-black-sky/art/cover.jpg" alt="Cielo Negro — portada" />
+              <span class="hero-cover-shine"></span>
+            </span>
+          </a>
+        </div>
+
+        <h1 class="hero-title" aria-label="Cielo Negro">
+          <span class="hero-word" data-word="left"><span>Cielo</span></span>
+          <span class="hero-word" data-word="right"><span>Negro</span></span>
+        </h1>
+
+        <div class="hero-footer">
+          <div class="container">
+            <p
+              class="type-mono"
+              data-i18n="home.release"
+              data-animate-variant="flicker"
+              data-animate-on-scroll="false"
+              data-animate-delay="1"
+            >
+              Sale __ 13.11.26
+            </p>
+            <p
+              class="type-mono"
+              data-i18n="home.meta"
+              data-animate-variant="flicker"
+              data-animate-on-scroll="false"
+              data-animate-delay="1"
+            >
+              [ 8 canciones — Estática Records ]
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- manifesto -->
+      <section class="manifesto">
+        <div class="container">
+          <p class="type-mono section-label" data-i18n="home.manifesto.label">
+            (01) — Manifiesto
+          </p>
+          <h2 class="manifesto-copy type-var-2" data-i18n-html="home.manifesto">
+            Ocho canciones escritas entre las 2 y las 6 de la mañana, con la
+            ciudad dormida y las pantallas encendidas.
+          </h2>
+          <ul class="manifesto-meta">
+            <li class="type-mono"><span>A</span><span data-i18n="home.manifesto.meta.1">Trap oscuro</span></li>
+            <li class="type-mono"><span>B</span><span data-i18n="home.manifesto.meta.2">Grabado en CDMX</span></li>
+            <li class="type-mono"><span>C</span><span data-i18n="home.manifesto.meta.3">Once meses de noches</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- tracks rail -->
+      <section class="home-tracks">
+        <div class="home-tracks-pin">
+          <div class="home-tracks-head container">
+            <div>
+              <p class="type-mono section-label" data-i18n="home.tracks.label">
+                (02) — Tracklist
+              </p>
+              <h2
+                data-i18n="home.tracks.title"
+                data-animate-variant="slide"
+                data-animate-type="lines"
+              >
+                Ocho canciones, una sola noche
+              </h2>
+            </div>
+            <a href="tracklist.html" class="btn ghost" data-magnetic>
+              <span data-i18n="home.tracks.all">Ver el tracklist completo</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <div class="home-tracks-rail" data-lenis-prevent-touch></div>
+
+          <div class="home-tracks-progress container" aria-hidden="true">
+            <span class="type-mono home-tracks-count">01 / 08</span>
+            <span class="home-tracks-bar"><i></i></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- artist -->
+      <section class="home-artist">
+        <div class="container">
+          <p class="type-mono section-label" data-i18n="home.artist.label">
+            (03) — El artista
+          </p>
+
+          <div class="artist-grid">
+            <h2 class="artist-name">
+              <span class="artist-name-line">Santo</span>
+              <span class="artist-name-line">Vøid</span>
+            </h2>
+
+            <figure class="artist-photo artist-photo-main" data-speed="-6">
+              <img src="/demo/34-black-sky/shoot/wide-2.jpg" alt="" loading="lazy" />
+            </figure>
+            <figure class="artist-photo artist-photo-a" data-speed="10">
+              <img src="/demo/34-black-sky/shoot/wide-1.jpg" alt="" loading="lazy" />
+            </figure>
+            <figure class="artist-photo artist-photo-b" data-speed="4">
+              <img src="/demo/34-black-sky/shoot/wide-3.jpg" alt="" loading="lazy" />
+            </figure>
+
+            <div class="artist-copy">
+              <p
+                class="lg"
+                data-i18n="home.artist.bio"
+                data-animate-variant="slide"
+                data-animate-type="lines"
+                data-animate-stagger="0.06"
+              >
+                Santo Vøid creció en Iztapalapa y aprendió a producir en una
+                laptop prestada.
+              </p>
+              <a href="studio.html" class="btn" data-magnetic>
+                <span data-i18n="home.artist.cta">Entrar al estudio</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- release -->
+      <section class="home-release">
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee-track">
+            <span class="marquee-item" data-i18n="home.marquee">Cielo Negro ✦ 13.11.26 ✦ Estática Records ✦ Santo Vøid ✦</span>
+          </div>
+        </div>
+
+        <div class="container release-body">
+          <div class="release-head">
+            <p class="type-mono section-label" data-i18n="home.release.label">
+              (04) — Lanzamiento
+            </p>
+            <p class="md" data-i18n="home.release.title">Sale el 13.11.26</p>
+          </div>
+
+          <div class="countdown" role="timer" aria-live="off">
+            <div class="countdown-unit">
+              <span class="countdown-value" data-unit="days">00</span>
+              <span class="type-mono" data-i18n="home.release.days">Días</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-value" data-unit="hours">00</span>
+              <span class="type-mono" data-i18n="home.release.hours">Horas</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-value" data-unit="minutes">00</span>
+              <span class="type-mono" data-i18n="home.release.minutes">Min</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-value" data-unit="seconds">00</span>
+              <span class="type-mono" data-i18n="home.release.seconds">Seg</span>
+            </div>
+          </div>
+
+          <div class="release-cta">
+            <a href="#" class="btn release-presave" data-magnetic="0.4" target="_blank" rel="noopener noreferrer">
+              <span data-magnetic-inner data-i18n="home.release.presave">Pre-guardar</span>
+            </a>
+            <div class="release-links">
+              <a href="#" target="_blank" rel="noopener noreferrer">Spotify ↗</a>
+              <a href="#" target="_blank" rel="noopener noreferrer">Apple Music ↗</a>
+              <a href="#" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+            </div>
+            <p class="release-note" data-i18n="home.release.note">
+              En todas las plataformas.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-row">
+            <div class="footer-col">
+              <h2>Santo Vøid</h2>
+            </div>
+
+            <div class="footer-col">
+              <div class="footer-sub-col">
+                <a href="index.html"><h3 data-i18n="menu.home">Inicio</h3></a>
+                <a href="studio.html"><h3 data-i18n="menu.studio">Estudio</h3></a>
+                <a href="tracklist.html"><h3 data-i18n="menu.tracklist">Tracklist</h3></a>
+                <a href="track.html?t=smoke"><h3 data-i18n="menu.single">Single</h3></a>
+                <a href="contact.html"><h3 data-i18n="menu.contact">Contacto</h3></a>
+              </div>
+
+              <div class="footer-sub-col">
+                <a href="#" target="_blank" rel="noopener noreferrer">Spotify</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Apple Music</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-row">
+            <p class="type-mono" data-i18n="footer.edition">Cielo Negro __ 2026</p>
+            <p class="type-mono" data-i18n="footer.label">[ Estática Records ]</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <svg
+      viewBox="0 0 0 0"
+      aria-hidden="true"
+      style="position: absolute; width: 0; height: 0; pointer-events: none"
+    >
+      <defs>
+        <filter id="blur-matrix" x="-50%" y="-50%" width="200%" height="200%">
+          <feColorMatrix
+            in="SourceGraphic"
+            type="matrix"
+            values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 255 -140"
+          ></feColorMatrix>
+        </filter>
+      </defs>
+    </svg>
+
+  </body>
+</html>
