@@ -238,6 +238,24 @@ function initPhotoStack() {
   gsap.set(cards, { transformOrigin: '50% 60%' })
   cards.forEach((c, i) => gsap.set(c, slot(i)))
 
+  // Salida de la carta de delante. En pantallas estrechas el recorrido de 55%
+  // se sale del viewport y ensancha la página: el scroll horizontal que eso
+  // crea se nota en iOS como un salto lateral, así que se recorta al hueco real
+  // que queda a la derecha (contando el ancho extra que añade el giro).
+  const GAP = 8
+  const spreadFor = (r: DOMRect, rotation: number) => {
+    const rad = (Math.abs(rotation) * Math.PI) / 180
+    return (r.width * Math.cos(rad) + r.height * Math.sin(rad) - r.width) / 2
+  }
+  const exit = () => {
+    const r = stack.getBoundingClientRect()
+    if (r.right + r.width * 0.55 + spreadFor(r, 14) <= window.innerWidth - GAP) {
+      return { xPercent: 55, rotation: 14 }
+    }
+    const room = window.innerWidth - GAP - r.right - spreadFor(r, 8)
+    return { xPercent: Math.max(0, (room / r.width) * 100), rotation: 8 }
+  }
+
   let busy = false
   let pending = false // clic recibido durante la animación: se encadena al terminar
   let timer: gsap.core.Tween | null = null
@@ -273,7 +291,7 @@ function initPhotoStack() {
       }
     })
     // La de delante sale hacia la derecha girando y cae al fondo del mazo.
-    tl.to(front, { xPercent: 55, rotation: 14, y: -24, duration: 0.42, ease: 'power2.in' }, 0)
+    tl.to(front, { ...exit(), y: -24, duration: 0.42, ease: 'power2.in' }, 0)
       .set(front, { zIndex: 0 }, 0.42)
       .to(front, { xPercent: 0, ...slot(last), duration: 0.7, ease: 'power3.out' }, 0.42)
     // El resto avanza un puesto, con un pequeño rebote al llegar.
@@ -536,14 +554,22 @@ function initDetail() {
   const panel = $<HTMLElement>('[data-panel]')
   const toggle = $<HTMLButtonElement>('[data-panel-toggle]')
   if (panel && toggle) {
-    on(toggle, 'click', () => {
-      const collapsed = panel.classList.toggle('is-collapsed')
+    const span = $<HTMLElement>('span', toggle)
+    const apply = (collapsed: boolean) => {
+      panel.classList.toggle('is-collapsed', collapsed)
       toggle.setAttribute('aria-expanded', String(!collapsed))
-      const labelShow = toggle.dataset.labelShow || ''
-      const labelHide = toggle.dataset.labelHide || ''
-      const span = $<HTMLElement>('span', toggle)
-      if (span) span.textContent = collapsed ? labelShow : labelHide
-    })
+      if (span) span.textContent = collapsed ? toggle.dataset.labelShow || '' : toggle.dataset.labelHide || ''
+    }
+    // En móvil el panel abierto tapa media pantalla: empieza plegado para que
+    // se vea el demo, y el visitante lo abre si quiere los detalles.
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      const noAnim = panel.style.transition
+      panel.style.transition = 'none'
+      apply(true)
+      void panel.offsetHeight
+      panel.style.transition = noAnim
+    }
+    on(toggle, 'click', () => apply(!panel.classList.contains('is-collapsed')))
   }
 }
 
