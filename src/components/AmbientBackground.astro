@@ -7,7 +7,7 @@
      y se veía azul durante pantallas enteras antes de llegar al tono oscuro. -->
 <div
   aria-hidden="true"
-  class="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(40deg,rgb(var(--bg-dark)),rgb(var(--bg-light)))]"
+  class="pointer-events-none fixed inset-x-0 top-0 z-0 h-screen bg-[linear-gradient(40deg,rgb(var(--bg-dark)),rgb(var(--bg-light)))]"
 >
 </div>
 
@@ -15,13 +15,13 @@
      que el halo se quede arriba en vez de crecer con la página. -->
 <div
   aria-hidden="true"
-  class="pointer-events-none fixed top-[-50svh] left-0 z-0 block h-[100svh] w-full bg-[radial-gradient(circle,rgba(var(--clr-cyan)_/_0.6)_0%,rgba(var(--clr-cyan)_/_0)_50%)] opacity-70 md:hidden"
+  class="pointer-events-none fixed top-[-50lvh] left-0 z-0 block h-[100lvh] w-full bg-[radial-gradient(circle,rgba(var(--clr-cyan)_/_0.6)_0%,rgba(var(--clr-cyan)_/_0)_50%)] opacity-70 md:hidden"
 >
 </div>
 
 <div class="noise-overlay absolute inset-0 z-0 hidden md:block"></div>
 
-<div class="goo-blur pointer-events-none fixed inset-0 z-0 hidden h-screen opacity-80 md:block">
+<div class="goo-blur pointer-events-none fixed inset-x-0 top-0 z-0 hidden h-screen opacity-80 md:block">
   <!-- g1: cyan, sube-baja (moveVertical) -->
   <div
     class="mix-blend-[var(--blending)] absolute inset-1/2 hidden h-[var(--circle-size)] w-[var(--circle-size)] -translate-x-1/2 -translate-y-1/2 animate-[var(--animate-vert-30)] bg-[radial-gradient(circle,rgb(var(--clr-cyan))_0%,rgb(var(--clr-cyan))_19%,rgba(var(--clr-cyan)_/_0.45)_24%,rgba(var(--clr-cyan)_/_0)_50%)] md:block"
